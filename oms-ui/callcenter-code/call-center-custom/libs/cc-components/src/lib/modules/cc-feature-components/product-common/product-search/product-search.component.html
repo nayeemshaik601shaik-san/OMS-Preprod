@@ -1,0 +1,438 @@
+<!--
+* IBM Confidential
+* OCO Source Materials
+* 5737-D18, 5725-D10
+*
+* (C) Copyright International Business Machines Corp. 2019, 2025
+*
+* The source code for this program is not published or otherwise divested
+* of its trade secrets, irrespective of what has been deposited with the
+* U.S. Copyright Office.
+-->
+
+<ng-template bucExtension [componentName]="componentId" [placement]="'top'" [id]="EXTENSION.TOP" [parent]="this">
+</ng-template>
+<div class="search-bar-copy-order-container" [ngClass]="{'margin-right--neg1rem': !productBrowsingStandalone}">
+
+  <!-- Enterprise dropdown starts-->
+  <div *ngIf="isScreenInitialized && productBrowsingStandalone && enterpriseList && !isSingleEnterprise"
+    class="enterprise-dropdown-container">
+    <buc-combobox class="enterprise-dropdown" [placeholder]="''" [items]="enterpriseList"
+      (selectItemAction)="onSelectEnterprise($event)" [size]="'lg'" [theme]="'light'"
+      [attr.tid]="componentId + 'enterprise-dropdown'">
+    </buc-combobox>
+  </div>
+  <!-- Enterprise dropdown ends-->
+
+  <!-- Search bar starts -->
+  <div *ngIf="isScreenInitialized" class="cds--no-gutter display-flex" 
+    [ngClass]="{'width--90p': !productBrowsingStandalone, 'width--100p': productBrowsingStandalone}">
+    <ibm-search class="primary-search" [attr.tid]="componentId + 'SearchInput'" [placeholder]="searchPlaceholderText" theme="light"
+      autocomplete="off" [(value)]="inputSearchValue" (search)="performSearch($event); inputSearchValueforItem=''" (clear)="clearSearch()" >
+    </ibm-search>
+
+     <ibm-search class="search-by-ItemID" *ngIf="isSearchIndexConfigured && isProductSearchByIdAllowed && !isIndexError" [attr.tid]="componentId + '-search-by-itemID'" [placeholder]="searchByItemPlaceholderText" theme="light"
+      autocomplete="off" [(value)]="inputSearchValueforItem" (search)="fetchItemDetailsBasedOnItemID($event); inputSearchValue=''" (clear)="clearSearch()" >
+    </ibm-search>
+  </div>
+  <!-- Search bar ends -->
+</div>
+
+
+<div class="item-search-screen d--flex margin-top--2rem margin-bottom--5rem flex-wrap--no-wrap"
+  *ngIf="isScreenInitialized && isItemSearchPage && !isIndexError" [ngClass]="{'margin-right--neg1rem': !productBrowsingStandalone}">
+  <!-- Categories & filter panel starts -->
+  <section
+    class="cds--col-lg-4 cds--col-md-2 cds--col-sm-16 bg-white padding-right--0 height--fit-content padding-left--0">
+    <!-- Categories container starts -->
+    <div class="categories-container">
+      <div class="categories-container__header margin-left--0_5rem margin-top--1rem margin-bottom--1rem">
+        {{'PRODUCT_SEARCH.ITEM_SEARCH.LABEL_CATEGORIES' | translate}}</div>
+
+      <div class="categories-container__links margin-left--0_5rem margin-top--0_5rem">
+        <ul>
+          <li><a (click)="fetchAllCategories()">{{'PRODUCT_SEARCH.ITEM_SEARCH.ALL_CATEGORIES' |
+              translate}}</a>
+          </li>
+          <li
+            *ngFor="let category of (showAllCategories ? categoriesList : categoriesList.slice(0,5)); let isFirst = first; let i = index;">
+            <a [ngClass]="{'font-weight--bold': (selectedCategory && selectedCategory.CategoryPath === category.CategoryPath) && areResultsLoaded && inputCategoryPath,
+                  'margin-left--1rem': selectedCategoryIdx!==undefined && (i > selectedCategoryIdx) && areResultsLoaded && inputCategoryPath}"
+              (click)="getSubCategories(category, inputFilters, i > selectedCategoryIdx ? selectedCategory : null); pushToBreadCrumb(category); "
+              [attr.tid]="componentId + category.ShortDescription + '-category-parent'">
+              {{category.ShortDescription + ' (' + category.Count + ')'}}</a>
+            <ul class="margin-left--1rem"
+              *ngIf="category.ChildCategoryList && category.ChildCategoryList.Category && category.ChildCategoryList.Category.length">
+              <li
+                *ngFor="let child of (showAllCategories ? category.ChildCategoryList.Category : category.ChildCategoryList.Category.slice(0,1));">
+                <a (click)="getSubCategories(child, inputFilters, category); pushToBreadCrumb(child);"
+                  [attr.tid]="componentId + child.ShortDescription + '-category-child'">
+                  {{child.ShortDescription + ' (' + child.Count + ')'}}</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <!-- Show View all link if total categories are more than 10 -->
+        <!-- View all link starts  -->
+        <div *ngIf="!showAllCategories" class="margin-bottom--1rem">
+          <a (click)="showAllCategories = true">{{'PRODUCT_SEARCH.ITEM_SEARCH.LABEL_VIEW_ALL' |
+            translate}}</a>
+        </div>
+        <!-- View all link ends  -->
+      </div>
+    </div>
+    <!-- Categories container ends -->
+
+    <!-- Filter container starts -->
+    <div class="filter-container ">
+      <div class="d--flex justify-content--space-between margin-left--0_5rem margin-top--1rem margin-bottom--1rem">
+        <div class="filter-container__header">{{'PRODUCT_SEARCH.ITEM_SEARCH.LABEL_FILTER' | translate}}</div>
+        <div class="filter-container__clear-filter" *ngIf="!isCancelBtnDisabled"><a (click)="cancelFilter()"
+            [attr.tid]="componentId + '-clear-filters'">{{'PRODUCT_SEARCH.ITEM_SEARCH.LABEL_CLEAR_FILTERS' |
+            translate}}</a></div>
+      </div>
+
+      <!-- Filter tags start -->
+      <div class="margin-left--0_5rem margin-top--0_5rem margin-right--0_5rem d--flex flex-wrap--wrap"
+        *ngIf="filterTags.length">
+        <div *ngFor="let tag of filterTags; let i = index;">
+          <buc-tag [type]="'blue'" [isFilter]="true" (closeFunc)="onCloseTag(tag, i)"
+            [attr.tid]="componentId + '-' + i + '-filter-tag'">{{tag.key}} :
+            {{tag.value}}
+          </buc-tag>
+        </div>
+      </div>
+      <!-- Filter tags end -->
+
+      <!-- Filter fields start  -->
+      <div *ngIf="filterFields; else noFilterFields">
+        <div class="margin-left--0_5rem margin-top--0_5rem margin-right--0_5rem" *ngFor="let field of filterFields">
+          <buc-combobox *ngIf="field.AssignedValueList.AssignedValue" type="single"
+            [attr.tid]="componentId + '-' + field.ItemAttributeDescription+ '-combobox'"
+            [items]="field.AssignedValueList.AssignedValue"
+            [label]="field.Attribute !==undefined ? field.Attribute.ShortDescription:field.ItemAttributeDescription"
+            [placeholder]="''" (selectItemAction)="onSelectFilterValue(field, $event)">
+          </buc-combobox>
+        </div>
+      </div>
+
+      <ng-template #noFilterFields>
+        <span class="margin-left--0_5rem"
+          *ngIf="selectedCategory">{{'PRODUCT_SEARCH.ITEM_SEARCH.LABEL_NO_FILTERS_AVAILABLE' |
+          translate}}</span>
+        <div class="margin-left--0_5rem line-height--1rem" *ngIf="!selectedCategory">
+          {{'PRODUCT_SEARCH.ITEM_SEARCH.LABEL_SELECT_CATEGORY' | translate}}</div>
+      </ng-template>
+      <!-- Filter fields end  -->
+
+      <div class="filter-container__actions padding-top--2rem">
+        <buc-button [isDisabled]="isCancelBtnDisabled" [type]="'secondary'" [attr.tid]="componentId + '-button-cancel'"
+          [btnSize]="'sm'" (click)="cancelFilter()">
+          {{'PRODUCT_SEARCH.GENERAL.LABEL_CANCEL' | translate}}
+        </buc-button>
+        <buc-button [isDisabled]="isApplyBtnDisabled" [type]="'primary'" [attr.tid]="componentId + '-button-apply'"
+          [btnSize]="'sm'" (click)="applyFilter()">
+          {{'PRODUCT_SEARCH.GENERAL.LABEL_APPLY' | translate}}</buc-button>
+      </div>
+
+    </div>
+    <!-- Filter container ends -->
+
+  </section>
+  <!-- Categories & filter panel ends -->
+
+  <!-- Items list section starts -->
+  <section class="cds--col-lg-12 cds--col-md-10 cds--col-sm-16 height--fit-content"
+    [ngClass]="{'bg-white' : areResultsLoaded, 'results-panel': areResultsLoaded}">
+    <div *ngIf="areResultsLoaded else resultsNotLoaded">
+      <!-- Breadcrumb for search results starts-->
+      <ul class="breadcrumb" *ngIf="breadCrumbStack.length > 1 && itemsList?.length">
+        <li *ngFor="let link of breadCrumbStack"><a (click)="onBreadCrumbLinkClick(link)">{{link.content}}</a>
+        </li>
+      </ul>
+      <!-- Breadcrumb for search results ends-->
+
+      <!-- Search results description based on selected category or search term starts-->
+      <div class="results-panel__header-container">
+        <div class="font-weight--bold margin-left--0_5rem margin-top--1rem margin-bottom--1rem">
+          {{'PRODUCT_SEARCH.ITEM_SEARCH.NUM_RESULTS' | translate: {num: totalHits, category:
+          breadCrumbStack[breadCrumbStack.length-1].content} }}
+        </div>
+      </div>
+      <!-- Search results description based on selected category or search term ends-->
+
+      <!-- Fulfillment method, ZipCode and sort fields start -->
+      <div class="results-panel__fulfill-sort" *ngIf="itemsList && itemsList.length"
+        [ngClass]="{'country-invalid': isCountryInvalid }">
+        <div class="fulfill-container" *ngIf="!isReturnOrder">
+          <buc-dropdown class="fulfillmentMethodItemsForProduct" placeholder="" [theme]="'dark'"
+            *ngIf="fulfillmentMethodItemsForProduct" [items]="fulfillmentMethodItemsForProduct"
+            (selected)="onSelectFulfillmentMethodHeaderLevel($event)"
+            [attr.tid]="componentId + '-fulfillment-dropdown'">
+          </buc-dropdown>
+          <!-- Show country dropdown if standalone product browsing is launched -->
+          <buc-combobox *ngIf="productBrowsingStandalone && selectedFulfillMethod === 'SHP'" type="single"
+            [attr.tid]="componentId + '-country-dropdown'" [label]="''" [items]="countries" class="country-dropdown"
+            [invalid]="isCountryInvalid" [invalidText]="'PRODUCT_SEARCH.GENERAL.MSG_INVALID_SEARCH_TEXT' | translate"
+            placeholder="" (selectItemAction)="onCountrySelectionChange($event.item)"
+            (searchHandler)="onCountryValSearch($event)">
+          </buc-combobox>
+
+          <div *ngIf="selectedFulfillMethod === 'SHP'"
+            [ngClass]="{'min-width--fit-content': !isZipCodeAvailable && !showZipCodeInputField}">
+            <!-- Show generic text to enter zip code if not available -->
+            <div *ngIf="!isZipCodeAvailable && !showZipCodeInputField" class="padding-left--1rem">
+              <span (click)="onClickEnterPostalCode()">
+                <a>{{'PRODUCT_SEARCH.ITEM_SEARCH.LABEL_ENTER_ZIP_CODE' | translate}} </a>
+                <svg ibmIcon="edit" [attr.tid]="componentId + '-zip-edit-icon'" size="16" class="icon-style"
+                  role="button"></svg>
+              </span>
+            </div>
+            <!-- Show available zip code with edit icon -->
+            <div *ngIf="isZipCodeAvailable && !showZipCodeInputField" class="padding-left--1rem">
+              <span (click)="onClickEnterPostalCode()">
+                <a>{{parentZipCode}} </a>
+                <svg ibmIcon="edit" size="16" class="icon-style" role="button"></svg>
+              </span>
+            </div>
+            <!-- Show input field to enter zip code -->
+            <div class="padding-left--1rem d--flex" *ngIf="showZipCodeInputField">
+              <div class="cds--label align-self--flex-end">
+                {{'PRODUCT_SEARCH.ITEM_SEARCH.LABEL_POSTAL_CODE' | translate}}
+              </div>
+              <buc-label class="zipCodeInput" placeholder="" [(inputValue)]="parentZipCode">
+              </buc-label>
+
+              <!-- [label]="'PRODUCT_SEARCH.ITEM_SEARCH.LABEL_POSTAL_CODE' | translate" -->
+
+              <div class="align-self--flex-end">
+                <span (click)="onSaveZipCode()" [class.isSaveIconDisabled]="!parentZipCode || isCountryInvalid">
+                  <svg ibmIcon="save" size="16" class="icon-style" role="button"></svg>
+                </span>
+              </div>
+
+            </div>
+          </div>
+          <div *ngIf="selectedFulfillMethod === 'PICK'">
+            <!-- Show select store -->
+            <div *ngIf="!isPickupStoreAddrAvailable" class="padding-left--1rem">
+              <span (click)="onClickSelectStore()">
+                <a>{{'PRODUCT_SEARCH.ITEM_SEARCH.LABEL_SELECT_STORE' | translate}} </a>
+                <svg ibmIcon="edit" size="16" class="icon-style" role="button"></svg>
+              </span>
+            </div>
+            <div *ngIf="isPickupStoreAddrAvailable" class="padding-left--1rem">
+              <span (click)="onClickSelectStore(pickupStoreAddr)">
+                <a>{{pickupStoreAddr.Description | translate}} </a>
+                <svg ibmIcon="edit" size="16" class="icon-style" role="button"></svg>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="sortOptions && sortOptions.length"
+          class="padding-right--0 d--flex align-items--flex-end d--flex-jc-flex-end">
+          <div class="cds--label align-self--flex-end sortByLabel">
+            {{'PRODUCT_SEARCH.ITEM_SEARCH.LABEL_SORT_BY' | translate}}
+          </div>
+          <buc-dropdown class="sortOptions" placeholder="" [theme]="'dark'" *ngIf="sortOptions" [items]="sortOptions"
+            (selected)="onSelectSortOption($event)" [attr.tid]="componentId + '-sort-by'">
+          </buc-dropdown>
+        </div>
+      </div>
+      <!-- Fulfillment method, ZipCode and sort fields end -->
+
+      <!-- Search results container starts-->
+      <div class="results-panel__search-results" *ngFor="let item of itemsList; let isLast = last;"
+        [ngClass]="{'results-panel__search-results-last': isLast}">
+        <div class="d--flex margin-bottom--1rem margin-top--1rem" [attr.tid]="componentId + item.ItemID + '-item'">
+          <div class="results-panel__image-container">
+            <img class="cursor--pointer"
+              (click)="openItemDetails(item, item.PrimaryInformation.KitCode === 'BUNDLE'? 'bundle': '')"
+              [src]="item.PrimaryInformation.ImageLocation+'/'+item.PrimaryInformation.ImageID"
+              onerror="this.src='/call-center-order/assets/call-center-order/images/default-image.svg'" />
+          </div>
+          <div class="results-panel__item-container">
+            <buc-product-summary [item]="item" [currency]="currency" [showGoToOrder]="showGoToOrder" [isReturnOrder]="isReturnOrder" [isExchangeOrder]="isExchangeOrder"
+              [onSelectFulfillmentMethodForItem]="onSelectFulfillmentMethodForItem.bind(this)"
+              [openItemDetails]="openItemDetails.bind(this)" [onAddToCart]="onAddToCart.bind(this)"
+              [onAddToOrder]="onAddToOrder.bind(this)">
+            </buc-product-summary>
+            <div class="results-panel__overrideQty"
+              *ngIf="item.showQtyOverrideCheckbox && item.hasQuantityOverridePermission">
+              <buc-checkbox [checked]="item.quantityLimitOverride"
+                (change)="onOverrideCheckboxChange($event.checked, item)"
+                [attr.tid]="componentId + '-override-quantity'">
+                {{'PRODUCT_DETAIL.GENERAL.LABEL_OVERRIDE_VALIDATION' | translate}}
+              </buc-checkbox>
+            </div>
+
+            <div class="results-panel__stock-info"
+              [ngClass]="{'align-items--flex-end': item.selectedFulfillMethodItem === 'SHP' && item.showZipCodeInputFieldItem }"
+              *ngIf="item.PrimaryInformation.IsModelItem !== 'Y' && !isReturnOrder">
+              <div class="stock-container">
+                <div *ngIf="!(item.PrimaryInformation.KitCode === 'BUNDLE' && item.PrimaryInformation.BundleFulfillmentMode === '00') &&
+                         !(!item.isPickupStoreAddrAvailableItem && item.selectedFulfillMethodItem === 'PICK')"
+                  class="padding-right--1rem">
+                  <p *ngIf="item.Availability && getNumber(item.Availability.CurrentAvailableQty) > getNumber(item.PrimaryInformation.MinOrderQuantity); else futureAvailable;"
+                    class="in-stock cds--label">
+                    {{ 'PRODUCT_DETAIL.GENERAL.UOM_WITH_QUANTITY' | translate : { quantity:
+                    getNumber(item.Availability.CurrentAvailableQty), uom: toLowerCase(item.UnitOfMeasure) } }}
+                  </p>
+                  <ng-template #futureAvailable>
+                    <p *ngIf="item.Availability && (item.Availability.FutureAvailableQuantity > 0); else outOfStock;"
+                      class="available-on cds--label">{{
+                      'PRODUCT_SEARCH.ITEM_SEARCH.LABEL_AVAILABLE_ON' | translate}}
+                      {{item.Availability.FutureAvailableDate | bucCommonDateFmt:'L'}}</p>
+                  </ng-template>
+                  <ng-template #outOfStock>
+                    <p class="out-of-stock cds--label">{{ 'PRODUCT_SEARCH.ITEM_SEARCH.LABEL_OUT_OF_STOCK'
+                      | translate}}</p>
+                    <p class="change-fulfillment-text cds--label">{{
+                      'PRODUCT_SEARCH.ITEM_SEARCH.LABEL_CHANGE_FULFILLMENT_FOR_MORE_OPTIONS' |
+                      translate}}</p>
+                  </ng-template>
+                </div>
+
+                <!-- Display See component availability link if the item is a bundle ship independent item starts -->
+                <div
+                  *ngIf="item.PrimaryInformation.KitCode === 'BUNDLE' && item.PrimaryInformation.BundleFulfillmentMode === '00'"
+                  class="padding-right--1rem line-height--1rem">
+                  <a (click)="openItemDetails(item, 'bundle')">
+                    {{'PRODUCT_SEARCH.ITEM_SEARCH.LABEL_SEE_COMPONENT_AVAILABILITY' | translate}}
+                  </a>
+                </div>
+                <!-- Display See component availability link if the item is a bundle ship independent item ends -->
+
+                <div>
+                  <div *ngIf="item.selectedFulfillMethodItem === 'SHP'">
+                    <!-- Show generic text to enter zip code if not available -->
+                    <div *ngIf="!item.isZipCodeAvailableItem && !item.showZipCodeInputFieldItem"
+                      class="line-height--1rem">
+                      <span (click)="onClickEnterPostalCode(item)">
+                        <a>{{'PRODUCT_SEARCH.ITEM_SEARCH.LABEL_ENTER_ZIP_CODE' | translate}} </a>
+                        <svg ibmIcon="edit" size="16" class="icon-style" role="button"></svg>
+                      </span>
+                    </div>
+                    <!-- Show available zip code with edit icon -->
+                    <div *ngIf="item.isZipCodeAvailableItem && !item.showZipCodeInputFieldItem"
+                      class="line-height--1rem">
+                      <span (click)="onClickEnterPostalCode(item)">
+                        <a>{{item.zipCodeItem}} </a>
+                        <svg ibmIcon="edit" size="16" class="icon-style" role="button"></svg>
+                      </span>
+                    </div>
+                    <!-- Show input field to enter zip code -->
+                    <div class="d--flex" *ngIf="item.showZipCodeInputFieldItem">
+                      <div class="cds--label align-self--flex-end">
+                        {{'PRODUCT_SEARCH.ITEM_SEARCH.LABEL_POSTAL_CODE' | translate}}
+                      </div>
+                      <buc-label class="zipCodeInput" placeholder="" [(inputValue)]="item.zipCodeItem">
+                      </buc-label>
+
+                      <div class="align-self--flex-end">
+                        <span (click)="onSaveZipCode(item)"
+                          [class.isSaveIconDisabled]="!item.zipCodeItem || isCountryInvalid">
+                          <svg ibmIcon="save" size="16" class="icon-style" role="button">
+                          </svg>
+                        </span>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div *ngIf="item.selectedFulfillMethodItem === 'PICK'">
+                    <!-- Show select store -->
+                    <div *ngIf="!item.isPickupStoreAddrAvailableItem">
+                      <span (click)="onClickSelectStore(null, item)" [attr.tid]="componentId + '-select-store'">
+                        <a>{{'PRODUCT_SEARCH.ITEM_SEARCH.LABEL_SELECT_STORE' | translate}} </a>
+                        <svg ibmIcon="edit" size="16" class="icon-style" role="button"
+                          [attr.tid]="componentId + '-select-store-edit'"></svg>
+                      </span>
+                    </div>
+                    <div *ngIf="item.isPickupStoreAddrAvailableItem">
+                      <span (click)="onClickSelectStore(item.pickupStoreAddrItem, item)">
+                        <a>{{item.pickupStoreAddrItem.Description | translate}} </a>
+                        <svg ibmIcon="edit" size="16" class="icon-style" role="button"></svg>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Substitute options link starts -->
+              <div class="substitute-options margin-left--auto" *ngIf="( (item.selectedFulfillMethodItem === 'SHP' && item.zipCodeItem) || (item.selectedFulfillMethodItem === 'PICK' && item.pickupStoreAddrItem) ) && (
+                                        ( !item.Availability || (getNumber(item.Availability?.CurrentAvailableQty) <= getNumber(item.PrimaryInformation.MinOrderQuantity)) && !item.Availability.FutureAvailableQuantity) ||
+                                                    (item.Availability?.FutureAvailableQuantity && item.Availability?.FutureAvailableQuantity <= 0 && getNumber(item.Availability?.CurrentAvailableQty) <= getNumber(item.PrimaryInformation.MinOrderQuantity)
+                                ) )">
+                <div
+                  *ngIf="!(item.PrimaryInformation.KitCode === 'BUNDLE' && item.PrimaryInformation.BundleFulfillmentMode === '00')"
+                  class="d--flex align-items--flex-end" [ngClass]="{'withAddOrder': showGoToOrder}">
+                  <a (click)="openItemDetails(item, 'substitute')">{{'PRODUCT_SEARCH.ITEM_SEARCH.LABEL_SUBSTITUTE_OPTIONS'
+                    |
+                    translate}}</a>
+                </div>
+              </div>
+              <!-- Substitute options link ends -->
+
+              <!-- Product qty in cart starts -->
+              <div class="product-in-cart" *ngIf="item.productQtyInCart">
+                <span>
+                  {{'PRODUCT_SEARCH.SHARED.LABEL_PRODUCT_IN_CART' | translate: {num:
+                  item.productQtyInCart} }}
+                </span>
+              </div>
+              <!-- Product qty in cart ends -->
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!-- Search results container ends-->
+
+      <div class="results-panel__pagination" *ngIf="model.totalDataLength > defaultPageLength">
+        <buc-pagination [model]="model" [disabled]="false" [itemsPerPageOptions]="itemsPerPageOptions"
+          [pageInputDisabled]="false" [pagesUnknown]="false" (selectPage)="onSelectPage($event)">
+        </buc-pagination>
+      </div>
+    </div>
+
+    <ng-template #resultsNotLoaded>
+      <div class="noProductsUploaded">
+        <span class="empty-state"></span>
+        <div class="noProductsUploaded__header " [attr.tid]="componentId + '-search-apply-filter-header'">
+          {{ 'PRODUCT_SEARCH.ITEM_SEARCH.LABEL_SEARCH_OR_APPLY_FILTERS' | translate }}
+        </div>
+        <p class="padding-left--0" [attr.tid]="componentId + '-search-apply-filter-desc'">
+          {{ 'PRODUCT_SEARCH.ITEM_SEARCH.LABEL_SEARCH_OR_APPLY_FILTERS_DESC' | translate }}
+        </p>
+      </div>
+    </ng-template>
+
+  </section>
+
+  <!-- Items list section ends -->
+</div>
+
+<div *ngIf="isItemSearchPage && isIndexError" class="margin-top--2rem noProductsUploaded">
+  <span class="empty-state"></span>
+  <div class="noProductsUploaded__header ">
+    {{'PRODUCT_SEARCH.MESSAGES.MSG_NO_ACTIVE_INDEX' | translate}}
+  </div>
+</div>
+
+<!-- Show item details page on clicking item link from search results -->
+<!-- EOMS-13713 - Changes Start -->
+<div *ngIf="isItemDetailsPage">
+  <buc-product-detail [productIdentifierInfo]="productIdentifierInfo" [currency]="enterpriseCurrency"
+    [customerInformation]="customerInformation" [isParentItemSearchResult]="true" [rulesConfig]="rulesConfig"
+    [isReturnOrder]="isReturnOrder" [isExchangeOrder]="isExchangeOrder" (returnToItemSearchResult)="showItemSearchPage($event)" (sendCartDetails)="updateCartDetails($event)"
+    (navigateToCreateOrder)="onNavigateToCreateOrder($event)" (setReadFromSessionFalse)="doNotAllowToReadFromSession()"
+    (updateOrderSummary)="updateOrderSummary.emit($event)"
+    (sendCartErrorDetails)="getCartErrorDetailsForProduct($event)"
+    (updateFulfillmentData)="updateFulfillmentData($event)"
+    (handleCreateOrder)="handleCreateOrder.emit($event)" [orderReasonOptions]="orderReasonOptions" [costCenterOptions] ="costCenterOptions" [fulfillmentDetails]="fulfillmentDetails">
+  </buc-product-detail>
+</div>
+<!-- EOMS-13713 - Changes End -->
+
+<ng-template bucExtension [componentName]="componentId" [placement]="'bottom'" [id]="EXTENSION.BOTTOM" [parent]="this">
+</ng-template>

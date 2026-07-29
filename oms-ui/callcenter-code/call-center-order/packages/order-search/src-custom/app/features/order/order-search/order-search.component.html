@@ -1,0 +1,89 @@
+<!--
+* IBM Confidential
+* OCO Source Materials
+* 5737-D18, 5725-D10
+*
+* (C) Copyright International Business Machines Corp. 2021, 2023
+*
+* The source code for this program is not published or otherwise divested
+* of its trade secrets, irrespective of what has been deposited with the
+* U.S. Copyright Office.
+-->
+
+<ng-template bucExtension [componentName]="componentId" [placement]="'top'" [id]="EXTENSION.TOP" [parent]="this">
+</ng-template>
+
+<div *ngIf="isScreenInitialized">
+    <div class="margin-x--neg1rem d--flex-direction--column screen-header" [attr.tid]="'screen-header'">
+        <buc-page-header *ngIf="breadCrumbList" class="screen-breadcrumb" [breadcrumbList]="breadCrumbList" [headerOrder]="['breadcrumb']"></buc-page-header>
+    </div>
+</div> 
+
+<buc-search-panel *ngIf="isPageInitialized"
+  [showHeaderDescription]=false  
+  [fieldsContainer]="fieldsContainer"
+  [oobFieldsMap]="oobFieldsMap"
+  [tenantFieldMap]="tenantFieldMap"
+  [searchSettings]="searchSettings"
+  [searchDirection]="searchDirection"
+  [uncheckSavedSearchDropdown]="uncheckSavedSearchDropdown.bind(this)"
+  [renderingMap]="renderingMap"
+  [defaultLabels]="defaultLabels"
+  [context]="this">
+</buc-search-panel>
+
+<div class="bottom-extension">
+  <ng-template bucExtension [componentName]="componentId" [placement]="'bottom'" [id]="EXTENSION.BOTTOM" [parent]="this">
+  </ng-template>
+</div>
+
+<div *ngIf="isPageInitialized" class="screen-footer">
+  <div class="height--3rem width--100p">
+    <div class="d--flex width--inherit">
+      <div class="d--flex-ai-flex-start">
+        <buc-button class="padding-right--1rem" [isDisabled]="!isPageInitialized" [attr.tid]="'buc-order-search.search'"
+          [btnSize]="'field'" (buttonClicked)="isPageInitialized && querySearch()"
+          enableDoubleClickCheck="true">
+          {{'ORDER_SEARCH.GENERAL.LABEL_ORDER_SEARCH' | translate}}
+        </buc-button>
+
+        <div class="clear">
+          <buc-button [isDisabled]="!isPageInitialized" [attr.tid]="'order-search-clear'" [btnSize]="'sm'"
+            (buttonClicked)="isPageInitialized && clearForm()" [type]="'ghost'"
+            enableDoubleClickCheck="true">
+            {{ 'ORDER_SEARCH.GENERAL.LABEL_CLEAR' | translate }}
+          </buc-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template bucId="orderTotal" let-f>
+  <call-center-amount-range [title]="f.internalConfig.title"
+    [rangeSet]="f.internalConfig.rangeSet" 
+    [enterprise]="oobFieldsMap?.enterprise?.storage?.value"
+    [freeformEnabled]="f.internalConfig.freeformEnabled"
+    (selected)="onOrderTotalRangeSelected($event)"
+    [attr.tid]="f.id">
+  </call-center-amount-range>
+</ng-template>
+
+<ng-template bucId="orderLineStatus" let-f>
+  <div class="cds--label status-margin-bottom">
+    <span>{{f.internalConfig.title | translate}}</span>
+    <cds-tooltip class="tooltip-pos" [description]="tooltipTemplate" trigger="hover" [align]="'right'" [autoAlign]="'true'">
+      <svg ibmIcon="information" size="16"></svg>
+    </cds-tooltip>
+    <ng-template #tooltipTemplate>
+      {{ f.internalConfig.tooltipMsg | translate}}
+    </ng-template>
+  </div>  
+  <buc-combobox
+    [placeholder]="(f.internalConfig.placeholder || '') | translate"
+    [items]="f.storage.items" 
+    (searchHandler)="onEmptySearch($event, f)"
+    (selectItemAction)="onOrderLineStatusSelected($event, f)"
+    [attr.tid]="f.id">
+  </buc-combobox>
+</ng-template>

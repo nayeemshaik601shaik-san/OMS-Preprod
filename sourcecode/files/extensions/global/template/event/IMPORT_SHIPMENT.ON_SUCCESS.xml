@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- IMPORT_SHIPMENT.ON_SUCCESS event XML. -->
+<Shipment ShipmentKey=" ">
+	<ShipmentLines>
+		<ShipmentLine ShipmentLineKey=" ">
+			<Order DocumentType=" " EnterpriseCode=" " OrderNo=" "/>
+		</ShipmentLine>
+	</ShipmentLines>
+</Shipment>

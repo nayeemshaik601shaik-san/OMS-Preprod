@@ -1,0 +1,63 @@
+/*
+ * IBM Confidential
+ * OCO Source Materials
+ * 5737-D18, 5725-D10
+ *
+ * (C) Copyright International Business Machines Corp. 2021, 2024
+ *
+ * The source code for this program is not published or otherwise divested
+ * of its trade secrets, irrespective of what has been deposited with the
+ * U.S. Copyright Office.
+ */
+
+@use 'variables' as *;
+
+::ng-deep {
+  .adjust-pricing-modal-tooltip {
+    .cds--tooltip__trigger.cds--tooltip--right.cds--tooltip--align-end .cds--assistive-text {
+      right: -0.8125rem;
+      transform: translate(100%, -50%);
+      top: 0.5rem;
+      max-width: 25rem;
+    }
+
+    .cds--tooltip__trigger.cds--tooltip--right {
+      font-size: 0.75rem;
+      color: #525252;
+      letter-spacing: 0.32px;
+    }
+    .cds--tooltip[data-floating-menu-direction=top] {
+      margin-top: calc(0.5rem * 0);
+    }
+  }
+  .cds--tooltip {
+    vertical-align: middle;
+    .adjust-pricing-modal-tooltip {
+      z-index: 9999;
+
+      .cds--label {
+        color: $white-0;
+      }
+    }
+  }
+  .parentAmount {
+    left: 0 !important;
+  }
+
+  .reverse {
+    display: flex !important;
+    flex-direction: row-reverse !important;
+  }
+
+  .normal {
+    display: flex;
+  }
+
+  .width--30 {
+    width: 30% !important;
+  }
+
+  .width--unset {
+    width: unset !important;
+  }
+}

@@ -1,0 +1,3 @@
+Text1 = it contains the Tracking number
+Text2 = it contains the Tracking URL
+Text3 = it contains the Narvar Label URL

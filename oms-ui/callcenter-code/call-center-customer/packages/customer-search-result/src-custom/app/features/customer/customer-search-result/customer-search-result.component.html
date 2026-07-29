@@ -1,0 +1,80 @@
+<!--
+* IBM Confidential
+* OCO Source Materials
+* 5737-D18, 5725-D10
+*
+* (C) Copyright International Business Machines Corp. 2022, 2023
+*
+* The source code for this program is not published or otherwise divested
+* of its trade secrets, irrespective of what has been deposited with the
+* U.S. Copyright Office.
+-->
+
+<div *ngIf="!moreThanOneResult && !doneLoadingResults && !isScreenInitialized">
+    <buc-loading [isActive]="!moreThanOneResult && !doneLoadingResults"></buc-loading>
+</div>
+<ng-template bucExtension [componentName]="componentId" [placement]="'top'" [id]="EXTENSION.TOP" [parent]="this">
+</ng-template>
+<div *ngIf="isScreenInitialized" [style.visibility]="!moreThanOneResult && !doneLoadingResults ? 'hidden': 'visible'">
+    <div class="margin-x--neg1rem d--flex-direction--column screen-header" [attr.tid]="'screen-header'">
+        <buc-page-header *ngIf="breadCrumbList" class="screen-breadcrumb" [breadcrumbList]="breadCrumbList"
+            [headerOrder]="['breadcrumb']">
+<!-- [headerOrder]="['breadcrumb', 'button']" [customButtonTemplate]="createCustomer"> TODO: uncomment when Create Customer dev is complete -->
+        </buc-page-header>
+    </div>
+    <div class="screen" [attr.tid]="'div.screen'">
+      <div class="screen-body cds--grid" [attr.tid]="'div.screen-body'">
+          <div [attr.tid]="'div.screen-content'" class="screen-content cds--row cds--no-gutter">
+              <section class="action-tabs cds--col" [attr.tid]="'section.action-tabs'">
+                  <div *ngIf="!showFilter">
+                      <button class="expand-filter" type="button" (click)="toggleFilter()">
+                          <svg ibmIcon="chevron--right" size="16" class="close-filter-icon"></svg>
+                      </button>
+                  </div>
+                    <buc-table-filter *ngIf="hasSearched && showFilter"
+                        [ngClass]="{ 'showFilter': tableFilterModel?.isOpen }"
+                        [tableFilterModel]="tableFilterModel"
+                        [(appliedFilter)]="searchCriteria"
+                        [datePickerLabel]="datePickerLabel"
+                        [datePickerRangeLabel]="datePickerRangeLabel"
+                        [datePickPlaceholder]="i18nDatePlaceholder"
+                        [dateRange]="dateRange"
+                        (applied)="applyFilters($event)"
+                        (closeFilter)="toggleFilter()"
+                        (clear)="clearFilters($event)"
+                        (radioFieldValue)="customerTypeOnChange($event)"
+                        [outsideOfTable]="true"
+                        [searchSettings]="searchSettings"
+                        [hasSaveSearch]="false"
+                        [showChevron]="true">
+                    </buc-table-filter>
+                    <div class="table-section" *ngIf="loaded" [ngClass]="{'left-border': !showFilter}">
+                        <call-center-customer-table
+                            [toggleFilter]="toggleFilter.bind(this)"
+                            [parentPage]="this"
+                            [customerType]="selectedCustomerType"
+                            (resultChange)="searchResultChange($event)"
+                            [selectedEnterprise]="enterprise"
+                            [searchText]="searchText"
+                            (searchTextChange)="searchTextChanged($event)"
+                            [tabId]="tabId">
+                        </call-center-customer-table>
+                    </div>
+                </section>
+            </div>
+            <div *ngIf="!hasSearched" class="initial-empty screen-content cds--row cds--no-gutter screen-loading">
+              <buc-loading [isActive]="!hasSearched "></buc-loading>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template bucExtension [componentName]="componentId" [placement]="'bottom'" [id]="EXTENSION.BOTTOM" [parent]="this">
+</ng-template>
+
+<ng-template #createCustomer>
+    <buc-button class="create-customer-btn" btnSize="sm" [type]="'ghost'" (click)="createCustomer()">
+      {{'CUSTOMER_SEARCH.SEARCH.LABEL_CREATE_BUTTON' | translate }}
+      <svg ibmIcon="add" size="16" class="cds--btn__icon"></svg>
+  </buc-button>
+</ng-template>

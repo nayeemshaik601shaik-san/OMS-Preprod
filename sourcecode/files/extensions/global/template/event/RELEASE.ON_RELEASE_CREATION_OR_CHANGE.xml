@@ -1,0 +1,35 @@
+<OrderRelease CarrierServiceCode="" Currency="" EnterpriseCode=""
+    HoldFlag="" MaxOrderReleaseStatus=""
+    MaxOrderReleaseStatusDesc="" MinOrderReleaseStatus=""
+    MinOrderReleaseStatusDesc="" OrderDate=""
+    OrderHeaderKey="" OrderReleaseKey="" OrderType="" PriorityCode="" ReleaseNo=""
+    ReqDeliveryDate="" ReqShipDate="" ShipNode="" Status="">
+	<Order DocumentType="" EnterpriseCode="" OrderHeaderKey="" OrderNo="" CustomerEMailID="" PriorityNumber="" SellerOrganizationCode="" OrderType="" CustCustPONo="" CustomerPONo="" EnteredBy="" EntryType="">
+		<PriceInfo Currency=""/>
+		<Extn ExtnCustId=""/>
+	<PersonInfoBillTo AddressID="" AddressLine1="" AddressLine2="" AddressLine3="" City="" Country="" EMailID="" FirstName="" LastName="" MiddleName="" MobilePhone="" PersonInfoKey="" State="" ZipCode="" DayPhone=""/>
+		 <PaymentMethods>
+	<PaymentMethod PaymentKey="" PaymentType="" ChargeSequence="" CustomerAccountNo="" CreditCardType="" CreditCardName="" CreditCardNo="" CreditCardExpDate="" DisplayCreditCardNo="" PaymentReference1="" PaymentReference2="" PaymentReference3="" CheckReference="" MaxChargeLimit="" TotalAuthorized="" TotalCharged="" RequestedAuthAmount="" RequestedChargeAmount="" AwaitingChargeInterfaceAmount="" TotalRefundedAmount="" SuspendAnyMoreCharges="" UnlimitedCharges=""/>
+    </PaymentMethods>
+	</Order>
+	<PersonInfoShipTo AddressLine1="" AddressLine2="" AddressLine3="" City="" Country="" EMailID=""
+        FirstName="" LastName="" MiddleName="" MobilePhone="" DayPhone="" PersonInfoKey="" State="" ZipCode=""/>
+		<Shipnode ShipNode="" ThreePlNode="">
+		<ShipNodePersonInfo City="" Country="" DayPhone="" State="" ZipCode=""/>
+        </Shipnode>
+	<OrderLine PrimeLineNo="" SubLineNo="" OrderedQty="" ReshipParentLineKey="" StatusQuantity="">
+	<LinePriceInfo LineTotal="" UnitPrice=""/>
+		<Item CostCurrency="" ItemDesc="" ItemID="" ProductClass="" UnitCost="" UnitOfMeasure=""/>
+		<ItemDetails>
+		<Extn ExtnSAPMaterialGroup="" ExtnImageUrl="" ExtnSAPGender="" ExtnSAPSilhoette=""/>
+		<PrimaryInformation ItemType="" Description="" ColorCode="" SizeCode=""/>
+		<ClassificationCodes Model=""/>
+		<ItemAliasList>
+            <ItemAlias AliasName="" AliasValue=""/>
+            </ItemAliasList>
+			<AdditionalAttributeList>
+					<AdditionalAttribute Name="" Value="" AttributeGroupID=""/>
+				</AdditionalAttributeList>
+		</ItemDetails>
+	</OrderLine>
+</OrderRelease>

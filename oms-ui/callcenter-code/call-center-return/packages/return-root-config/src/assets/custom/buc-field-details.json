@@ -1,0 +1,15 @@
+{
+  "return-summary": {
+    "name": "return-summary",
+    "attributes": [
+      {
+        "id": "EnteredBy",
+        "name": "RETURN_SUMMARY.GENERAL.LABEL_ENTERED_BY",
+        "type": "label",
+        "dataBinding": "rawData.EnteredBy",
+        "index":9,
+        "insertAfter":"originalOrderTotal"
+        }
+    ]
+  }
+  }

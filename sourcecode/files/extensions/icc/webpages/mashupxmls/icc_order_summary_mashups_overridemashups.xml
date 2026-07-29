@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  5737-D18
+
+  (C) Copyright IBM Corp. 2019, 2023 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<mashups>
+<mashup description="To add charges/adjustments for an Orderline"
+    id="icc.order.summary.adjustPricing.addLineCharges.changeOrder" mashuptype="XAPI" transactional="true"
+    skipDataProvider="true">
+    <classInformation name="com.ibm.icc.order.ICCHeaderChargesChangeOrderExtn" />
+    <API Name="changeOrder">
+      <Input>
+        <Order OrderHeaderKey="" DisplayLocalizedFieldInLocale="">
+          <AppContextInfo Channel="Call Center" />
+          <OrderLines>
+            <OrderLine OrderLineKey="">
+              <LineCharges Reset="N">
+                <LineCharge ChargeCategory="" ChargeName="" ChargePerLine="" ChargePerUnit="" Reference=""/>
+              </LineCharges>
+            </OrderLine>
+          </OrderLines>
+          <PendingChanges RecordPendingChanges="" />
+        </Order>
+      </Input>
+      <Template>
+        <Order OrderHeaderKey="" Status="">
+          <OrderLines>
+            <OrderLine>
+              <Item></Item>
+              <ItemDetails>
+                <PrimaryInformation />
+              </ItemDetails>
+              <LineOverallTotals />
+              <LineCharges>
+                <LineCharge ChargeCategory="" ChargeName="" ChargePerLine="" ChargePerUnit="" Reference=""/>
+              </LineCharges>
+            </OrderLine>
+          </OrderLines>
+        </Order>
+      </Template>
+    </API>
+    <AlternateResourceIds>
+      <AlternateResourceId altResourceId="ICCSYS00001" />
+    </AlternateResourceIds>
+  </mashup>
+  <mashup description="Get Payment types list for an order based on organization"
+    id="icc.order.summary.getPaymentTypeList" mashuptype="XAPI" transactional="true" skipDataProvider="true">
+    <classInformation name="com.ibm.icc.common.mashups.ICCBaseMashup" />
+    <API FlowName="CrocsGetPaymentTypeList">
+      <Input>
+        <PaymentType CallingEnterpriseCode="" CallingSellerOrganizationCode=""
+          DisplayLocalizedFieldInLocale="xml:CurrentUser:/User/@Localecode">
+        </PaymentType>
+      </Input>
+      <Template>
+        <PaymentTypeList>
+          <PaymentType PaymentType="" PaymentTypeDescription="" PaymentTypeGroup="" PaymentTypeKey=""
+            ChargeUpToAvailable="" DefaultForReturn="" ValidForReturn=""/>
+        </PaymentTypeList>
+      </Template>
+    </API>
+    <AlternateResourceIds>
+      <AlternateResourceId altResourceId="ICCSYS00001" />
+    </AlternateResourceIds>
+  </mashup>
+  <mashup description="This mashup is used to add customer appeasements on current order"
+    id="icc.order.summary.appeaseCustomer.recordInvoiceCreation" mashuptype="XAPI" transactional="true"
+    skipDataProvider="true">
+    <classInformation name="com.ibm.icc.order.ICCCustomerAppeasementRecordInvoice" />
+    <API FlowName="CrocsRecordInvoiceCreation">
+      <Input>
+        <OrderInvoice DisplayLocalizedFieldInLocale="xml:CurrentUser:/User/@Localecode" InvoiceCreationReason="" InvoiceType="CREDIT_MEMO"
+          OrderHeaderKey="" UseOrderLineCharges="N">
+          <LineDetails>
+            <LineDetail OrderLineKey="" Quantity="" PrimeLineNo="">
+              <LineChargeList>
+                <LineCharge ChargeCategory="" ChargeName="" ChargePerLine="" />
+              </LineChargeList>
+            </LineDetail>
+          </LineDetails>
+          <HeaderChargeList>
+            <HeaderCharge ChargeAmount="" ChargeCategory="" ChargeName="" />
+          </HeaderChargeList>
+        </OrderInvoice>
+      </Input>
+      <Template>
+        <OrderInvoice OrderHeaderKey="" TotalAmount="" OrderInvoiceKey=""/>
+      </Template>
+    </API>
+  </mashup>
+  </mashups>

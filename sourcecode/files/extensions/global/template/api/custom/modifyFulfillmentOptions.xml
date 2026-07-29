@@ -1,0 +1,5 @@
+<Order BillToID="" DraftOrderFlag="" MaxOrderStatus="" MinOrderStatus="" OrderHeaderKey="" OrderName="" OrderNo="">
+                <PriceInfo Currency="" TotalAmount=""/>
+                <OrderLines TotalNumberOfRecords=""/>
+                <OverallTotals GrandCharges="" GrandDiscount="" GrandTax="" GrandTotal="" HdrCharges="" HdrDiscount="" HdrTax="" HdrTotal="" LineSubTotal=""/>
+            </Order>

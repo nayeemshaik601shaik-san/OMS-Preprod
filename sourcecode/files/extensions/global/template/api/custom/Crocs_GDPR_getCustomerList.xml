@@ -1,0 +1,16 @@
+<CustomerList>
+	<Customer CustomerID="" CustomerKey="" CustomerType="" OrganizationCode="" Status="">
+		<CustomerContactList>
+			<CustomerContact CustomerContactID="" EmailID="">
+				<CustomerAdditionalAddressList>
+					<CustomerAdditionalAddress >
+						<PersonInfo />
+					</CustomerAdditionalAddress>
+					<CustomerAdditionalAddress >
+						<PersonInfo />
+					</CustomerAdditionalAddress>
+				</CustomerAdditionalAddressList>
+			</CustomerContact>
+		</CustomerContactList>
+	</Customer>
+</CustomerList>

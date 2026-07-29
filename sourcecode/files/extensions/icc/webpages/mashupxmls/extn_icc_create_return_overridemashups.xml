@@ -1,0 +1,226 @@
+  
+   <mashups>
+  <mashup description="This mashup is used to create the draft return"
+    id="icc.return.create-return.createReturnOrder" mashuptype="XAPI" transactional="true" skipDataProvider="false">
+    <classInformation name="com.ibm.icc.returns.create_return.ICCManageReturn" />
+    <API Name="createOrder">
+      <Input>
+        <Order BillToID="" BuyerUserId="" CustomerContactID="" CustomerEMailID="" CustomerFirstName=""
+          CustomerLastName="" CustomerPhoneNo="" DefaultCustomerInformation="" OrderName=""
+          DisplayLocalizedFieldInLocale="xml:CurrentUser:/User/@Localecode" DocumentType="" DraftOrderFlag="Y"
+          EnterpriseCode="" EntryType="" ProcessPaymentOnReturnOrder="N" ReturnByGiftRecipient=""
+          SellerOrganizationCode="">
+          <PersonInfoShipTo AddressID="" AddressLine1="" AddressLine2="" AddressLine3=""
+            AddressLine4="" AddressLine5="" AddressLine6="" AlternateEmailID="" Beeper="" City="" Company="" Country=""
+            DayFaxNo="" DayPhone="" Department="" EMailID="" EveningFaxNo="" EveningPhone="" FirstName=""
+            IsAddressVerified="" IsCommercialAddress="" JobTitle="" LastName="" Latitude="" Longitude="" MiddleName=""
+            MobilePhone="" OtherPhone="" PersonID="" PersonInfoKey="" State="" Suffix="" TaxGeoCode="" Title=""
+            ZipCode="" />
+          <PersonInfoBillTo AddressID="" AddressLine1="" AddressLine2="" AddressLine3=""
+            AddressLine4="" AddressLine5="" AddressLine6="" AlternateEmailID="" Beeper="" City="" Company="" Country=""
+            DayFaxNo="" DayPhone="" Department="" EMailID="" EveningFaxNo="" EveningPhone="" FirstName=""
+            IsAddressVerified="" IsCommercialAddress="" JobTitle="" LastName="" Latitude="" Longitude="" MiddleName=""
+            MobilePhone="" OtherPhone="" PersonID="" PersonInfoKey="" State="" Suffix="" TaxGeoCode="" Title=""
+            ZipCode="" />
+        </Order>
+      </Input>
+      <Template>
+        <Order BillToID="" BuyerUserId="" CustomerContactID="" TotalNumberOfParentLines="" CustomerEMailID=""
+          CustomerFirstName="" CustomerPhoneNo="" CustomerLastName="" CustomerZipCode="" DocumentType=""
+          DraftOrderFlag="" EnterpriseCode="" EnterpriseName="" EntryType="" ExchangeType="" MaxOrderStatus=""
+          MaxOrderStatusDesc="" MinOrderStatus="" MultipleStatusesExist="" OrderName="" OrderDate="" OrderHeaderKey=""
+          OrderNo="" ReturnOrderHeaderKeyForExchange="" Status="" SellerOrganizationCode="" SellerOrganizationName=""
+          TaxExemptFlag="" TaxExemptionCertificate="" HasPendingChanges="" PendingChangesUserID="" ProcessPaymentOnReturnOrder="">
+          <PersonInfoBillTo />
+          <PersonInfoShipTo />
+          <OrderLines TotalNumberOfRecords="">
+            <OrderLine DeliveryMethod="" ItemGroupCode="" OrderLineKey="" OrderedQty="">
+              <Item ItemID="" UnitOfMeasure="" />
+            </OrderLine>
+          </OrderLines>
+          <Notes>
+            <Note Modifyts="" Createts=""  Modifyuserid="" ContactReference="" ContactTime="" ContactType="" ContactUser="" CustomerSatIndicator=""
+              NoteText="" Priority="" ReasonCode="" SequenceNo="" VisibleToAll="">
+              <User Username="" />
+            </Note>
+          </Notes>
+          <OverallTotals AdjustedSubtotalWithoutTaxes="" GrandAdjustmentsWithoutTotalShipping=""
+            GrandDeliveryCharges="" GrandRefundTotal="" GrandShippingTotal="" HdrShippingTotal="" GrandTax="" HdrTax=""
+            GrandTotal="" GrandDiscount="" GrandCharges="" GrandShippingCharges="" HdrShippingCharges=""
+            HeaderAdjustmentWithoutShipping="" LineSubTotal="" OrderHeaderKey="" SubtotalWithoutTaxes="" />
+          <Promotions>
+            <Promotion DenialReason="" Description="" PromotionAmount="" PromotionApplied="" PromotionId="">
+              <PricingRule Description="" />
+            </Promotion>
+          </Promotions>
+          <HeaderCharges>
+            <HeaderCharge ChargeAmount="" ChargeCategory="" ChargeName="" IsDiscount="" IsManual="" IsShippingCharge="">
+              <ChargeCategoryDetails Description="" />
+              <ChargeNameDetails Description="" />
+            </HeaderCharge>
+          </HeaderCharges>
+          <HeaderTaxes>
+            <HeaderTax Tax="" TaxName="" ChargeCategory=""/>
+          </HeaderTaxes>
+          <Awards>
+            <Award AwardAmount="" AwardApplied="" AwardId="" AwardQuantity="" AwardType="" ChargeCategory=""
+              ChargeName="" DenialReason="" Description="" IsFreeGiftAward="" PromotionId="" />
+          </Awards>
+          <RemainingFinancialTotals RemainingToAuthorize="" RemainingToCharge=""
+            RemainingToRefund="" />
+          <PaymentMethods>
+            <PaymentMethod CheckNo="" CheckReference="" CreditCardExpDate="" CreditCardName=""
+              CreditCardNo="" CreditCardType="" CustomerAccountNo="" CustomerPONo="" DebitCardNo=""
+              DisplayCreditCardNo="" DisplayCustomerAccountNo="" DisplayDebitCardNo="" DisplayPaymentReference1=""
+              DisplayPrimaryAccountNo="" DisplaySvcNo="" FirstName="" FundsAvailable=""
+              GetFundsAvailableUserExitInvoked="" IncompletePaymentType="" IsCustomer="" IsDefaultMethod="" LastName=""
+              MaxChargeLimit="" PaymentKey="" PaymentReference1="" PaymentReference2="" PaymentReference3=""
+              PaymentTemplateType="" PaymentType="" PaymentTypeDescription="" CreditCardTypeDesc=""
+              NoProcessingRequired="" ChargeUpToAvailable="" PaymentTypeGroup="" PrimaryAccountNo=""
+              RequestedAuthAmount="" RequestedChargeAmount="" RequestedRefundAmount="" SuspendAnyMoreCharges="" SvcNo=""
+              TotalAltRefundedAmount="" TotalAuthorized="" TotalCharged="" TotalRefundedAmount="" UnlimitedCharges="">
+            </PaymentMethod>
+          </PaymentMethods>
+          <PriceInfo Currency="" TotalAmount="" />
+        </Order>
+      </Template>
+    </API>
+    <AdditionalDataProviders>
+      <AdditionalDataProvider class="com.ibm.icc.core.dataproviders.ICCUserNameDataProvider">
+        <InterestedIn>
+          <Element path="/Order/Notes/Note" />
+        </InterestedIn>
+      </AdditionalDataProvider>
+      <AdditionalDataProvider
+          class="com.ibm.icc.core.dataproviders.ICCTaxNameDescriptionDataProvider">
+          <InterestedIn>
+              <Element path="/Order/HeaderTaxes/HeaderTax" />
+              <Attribute path="HeaderTax" name="TaxName" />
+          </InterestedIn>
+          <NewAttributes>
+              <Attribute name="TaxNameDescription" />
+              <Attribute name="IsDiscount" />
+          </NewAttributes>
+      </AdditionalDataProvider>
+    </AdditionalDataProviders>
+    <AlternateResourceIds>
+      <AlternateResourceId altResourceId="ICC000041" />
+    </AlternateResourceIds>
+  </mashup>
+  
+  <mashup description="This mashup is called to massage the input for adding lines to a return order "
+    endpoint="EP_ORDER" id="icc.return.create-return.changeReturnOrder" mashuptype="XAPI" skipDataProvider="false" transactional="true">
+    <classInformation name="com.ibm.icc.returns.create_return.ICCManageReturn" />
+    <API FlowName="CrocsChangeOrderForReturnOrder">
+      <Input>
+        <Order hasViolations="false" BillToID="" BuyerUserId="" EntryType="" DraftOrderFlag="" DefaultCustomerInformation=""
+          CustomerPhoneNo="" CustomerContactID="" CustomerFirstName="" CustomerLastName="" CustomerEmailID=""
+          DisplayLocalizedFieldInLocale="xml:CurrentUser:/User/@Localecode" DocumentType="" EnterpriseCode=""
+          OrderHeaderKey="" OrderNo="" ProcessPaymentOnReturnOrder="N" SellerOrganizationCode="">
+          <OrderLines>
+            <OrderLine Action="" GiftFlag="" OrderLineKey="" OrderedQty="" ReturnReason="" LineType=""
+              DeliveryMethod="">
+              <Item ItemID="" ProductClass="" UnitOfMeasure="" />
+              <DerivedFrom OrderLineKey="" />
+              <Notes>
+                <Note Modifyts="" Createts=""  Modifyuserid="" AuditTransactionId="" ContactReference="" ContactTime="" ContactType="" ContactUser=""
+                  CustomerSatIndicator="" NoteText="" Priority="" ReasonCode="" SequenceNo="" VisibleToAll="" />
+              </Notes>
+            </OrderLine>
+          </OrderLines>
+        </Order>
+      </Input>
+      <Template>
+        <Order EnterpriseCode="" DocumentType="" OrderHeaderKey="" OrderNo="" SellerOrganizationCode=""
+          CustomerEMailID="" CustomerFirstName="" CustomerPhoneNo="" MaxOrderStatusDesc="" CustomerLastName=""
+          CustomerZipCode="" BuyerUserId="" DraftOrderFlag="" CustomerContactID="" BillToID="" BuyerOrganizationCode=""
+          isHistory="" OrderName="" CustomerPONo="" TaxExemptFlag="" TaxExemptionCertificate="" EntryType="" ProcessPaymentOnReturnOrder="">
+          <PriceInfo Currency="" TotalAmount="" />
+          <PersonInfoShipTo AddressID="" AddressLine1="" AddressLine2="" AddressLine3=""
+          AddressLine4="" AddressLine5="" AddressLine6="" AlternateEmailID="" Beeper="" City="" Company="" Country=""
+          DayFaxNo="" DayPhone="" Department="" EMailID="" EveningFaxNo="" EveningPhone="" FirstName=""
+          IsAddressVerified="" IsCommercialAddress="" JobTitle="" LastName="" Latitude="" Longitude="" MiddleName=""
+          MobilePhone="" OtherPhone="" PersonID="" PersonInfoKey="" State="" Suffix="" TaxGeoCode="" Title=""
+          ZipCode="" />
+          <PersonInfoBillTo AddressID="" AddressLine1="" AddressLine2="" AddressLine3=""
+            AddressLine4="" AddressLine5="" AddressLine6="" AlternateEmailID="" Beeper="" City="" Company="" Country=""
+            DayFaxNo="" DayPhone="" Department="" EMailID="" EveningFaxNo="" EveningPhone="" FirstName=""
+            IsAddressVerified="" IsCommercialAddress="" JobTitle="" LastName="" Latitude="" Longitude="" MiddleName=""
+            MobilePhone="" OtherPhone="" PersonID="" PersonInfoKey="" State="" Suffix="" TaxGeoCode="" Title=""
+            ZipCode="" />
+          <OrderLines TotalNumberOfRecords="">
+            <OrderLine DeliveryMethod="" HasNotes="" HoldFlag="" LineType="" MaxLineStatusDesc="" DerivedFromOrderLineKey=""
+              MaxOrderStatusDesc="" MultipleStatusesExist="" OrderHeaderKey="" OrderLineKey="" OrderedQty=""
+              OverallStatus="" PrimeLineNo="" ReturnReason="" ReturnReasonShortDesc="" ReshippedQty=""
+              ShippedQuantity="" Status="">
+            </OrderLine>
+          </OrderLines>
+          <OverallTotals AdjustedSubtotalWithoutTaxes="" GrandAdjustmentsWithoutTotalShipping=""
+            GrandDeliveryCharges="" GrandRefundTotal="" GrandShippingTotal="" HdrShippingTotal="" GrandTax="" HdrTax=""
+            GrandTotal="" GrandDiscount="" GrandCharges="" GrandShippingCharges="" HdrShippingCharges=""
+            HeaderAdjustmentWithoutShipping="" LineSubTotal="" OrderHeaderKey="" SubtotalWithoutTaxes="" />
+          <Promotions>
+            <Promotion DenialReason="" Description="" PromotionAmount="" PromotionApplied="" PromotionId="">
+              <PricingRule Description="" />
+            </Promotion>
+          </Promotions>
+          <Notes>
+            <Note NotesKey="" Modifyts="" Createts=""  Modifyuserid="" TableKey="" ContactReference="" ContactTime="" ContactType="" ContactUser="" CustomerSatIndicator=""
+              NoteText="" Priority="" ReasonCode="" SequenceNo="" VisibleToAll="">
+              <User Username="" />
+            </Note>
+          </Notes>
+          <HeaderCharges>
+            <HeaderCharge ChargeAmount="" ChargeCategory="" ChargeName="" IsDiscount="" IsManual="" IsShippingCharge="">
+              <ChargeCategoryDetails Description="" />
+              <ChargeNameDetails Description="" />
+            </HeaderCharge>
+          </HeaderCharges>
+          <HeaderTaxes>
+            <HeaderTax Tax="" TaxName="" ChargeCategory=""/>
+          </HeaderTaxes>
+        </Order>
+      </Template>
+    </API>
+    <AdditionalDataProviders>
+      <AdditionalDataProvider class="com.ibm.icc.core.dataproviders.ICCUserNameDataProvider">
+        <InterestedIn>
+          <Element path="/Order/Notes/Note" />
+        </InterestedIn>
+      </AdditionalDataProvider>
+      <AdditionalDataProvider class="com.ibm.icc.core.dataproviders.ICCDisplayStatusProvider">
+        <InterestedIn>
+          <Element path="/Order/OrderLines/OrderLine" />
+          <Attribute path="OrderLine" name="Status" />
+        </InterestedIn>
+        <NewAttributes>
+          <Attribute name="DisplayStatus" />
+        </NewAttributes>
+      </AdditionalDataProvider>
+      <AdditionalDataProvider
+        class="com.ibm.icc.core.dataproviders.ICCDeliveryMethodNameProvider">
+        <InterestedIn>
+          <Element path="/Order/OrderLines/OrderLine" />
+          <Attribute path="OrderLine" name="DeliveryMethod" />
+        </InterestedIn>
+        <NewAttributes>
+          <Attribute name="ICCDeliveryMethodDesc" />
+        </NewAttributes>
+      </AdditionalDataProvider>
+      <AdditionalDataProvider
+          class="com.ibm.icc.core.dataproviders.ICCTaxNameDescriptionDataProvider">
+          <InterestedIn>
+              <Element path="/Order/HeaderTaxes/HeaderTax" />
+              <Attribute path="HeaderTax" name="TaxName" />
+          </InterestedIn>
+          <NewAttributes>
+              <Attribute name="TaxNameDescription" />
+              <Attribute name="IsDiscount" />
+          </NewAttributes>
+      </AdditionalDataProvider>
+    </AdditionalDataProviders>
+    <AlternateResourceIds>
+      <AlternateResourceId altResourceId="ICC000041" />
+    </AlternateResourceIds>
+  </mashup>
+   </mashups>

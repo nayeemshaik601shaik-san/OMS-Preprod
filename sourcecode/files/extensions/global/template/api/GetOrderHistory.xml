@@ -1,0 +1,7 @@
+<OrderList>
+	<Order OrderNo=" " OrderDate=" " CustomerPhoneNo=" " CustomerEMailID=" " DocumentType=" " ReqDeliveryDate="" EnterpriseCode=" " Status=" " TotalAmount=" " TrackingNumber=" ">
+		<PersonInfoBillTo ZipCode=""/>
+		<PriceInfo Currency="" TotalAmount=""/>
+		<Extn ExtnCustId="" ExtnCustomerLocale=""/>
+	</Order>
+</OrderList>

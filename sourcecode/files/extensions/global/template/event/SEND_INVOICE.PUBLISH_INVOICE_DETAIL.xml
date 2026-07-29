@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<InvoiceDetail>
+    <InvoiceHeader AmountCollected="" Currency="" DateInvoiced="" DocumentType="" EnterpriseCode="" HeaderCharges="" HeaderDiscount="" HeaderTax="" InvoiceCreationReason="" InvoiceNo="" InvoiceType="" LineSubTotal="" OrderInvoiceKey="" OrderNo="" Reference1="" TotalAmount="" TotalCharges="" TotalDiscount="" TotalHeaderCharges="" TotalTax="">
+        <Order DocumentType="" EnterpriseCode="" EntryType="" OrderDate="" OrderType="" EnteredBy="" OrderHeaderKey="" OrderNo="" SellerOrganizationCode="" Status="">
+            <PriceInfo Currency=""/>
+            <PersonInfoShipTo AddressLine1="" AddressLine2="" AddressLine3="" City="" Company="" Country="" DayPhone="" EMailID="" FirstName="" LastName="" MiddleName="" State="" ZipCode=""/>
+            <PersonInfoBillTo AddressLine1="" AddressLine2="" AddressLine3="" City="" Company="" Country="" DayPhone="" EMailID="" FirstName="" LastName="" MiddleName="" State="" ZipCode=""/>
+        </Order>
+        <Shipment CarrierServiceCode="" SCAC="" ShipDate="" ShipNode="" ShipmentKey="" ShipmentNo="">
+            <ToAddress AddressLine1="" AddressLine2="" AddressLine3="" City="" Company="" Country="" DayPhone="" EMailID="" FirstName="" LastName="" MiddleName="" State="" ZipCode=""/>
+            <ShipNode IdentifiedByParentAs="" NodeOrgCode="" NodeType="" OwnerKey="" ShipnodeKey=""/>
+        </Shipment>
+        <LineDetails TotalLines="">
+            <LineDetail Charges="" ExtendedPrice="" ItemID="" LineTotal="" OrderInvoiceDetailKey="" OrderLineKey="" PrimeLineNo="" Quantity="" Tax="" UnitOfMeasure="" UnitPrice="">
+                <OrderLine CarrierServiceCode="" DeliveryMethod="" OrderLineKey="" OrderedQty="" PrimeLineNo="" ReturnReason="" Status="">
+                    <Item ItemID="" ItemShortDesc="" UPCCode=""/>
+                    <LinePriceInfo DiscountPercentage="" DiscountReference="" DiscountType="" InvoicedPricingQty="" ListPrice="" OrderedPricingQty="" UnitPrice=""/>
+                    <DerivedFromOrderLine PrimeLineNo="1" SubLineNo="1">
+                        <Order OrderNo=""/>
+                    </DerivedFromOrderLine>
+                </OrderLine>
+                <LineCharges>
+                    <LineCharge AmountFromAddnlLinePrices="" ChargeAmount="" ChargeCategory="" ChargeName="" ChargeNameKey="" ChargePerLine="" ChargePerUnit="" IsBillable="" IsDiscount="" IsManual="" IsShippingCharge="" OriginalChargePerLine="" OriginalChargePerUnit="" Reference="" Tax="">
+                        <Extn ExtnDWPromotionId="" ExtnPromotionId="" ExtnPromotionText=""/>
+                    </LineCharge>
+                </LineCharges>
+                <LineTaxes>
+                    <LineTax ChargeCategory="" ChargeName="" ChargeNameKey="" Reference_1="" Reference_2="" Reference_3="" Tax="" TaxName="" TaxPercentage=""/>
+                    <TaxSummary>
+                        <TaxSummaryDetail Tax="" TaxName=""/>
+                    </TaxSummary>
+                </LineTaxes>
+            </LineDetail>
+        </LineDetails>
+        <TotalSummary>
+            <ChargeSummary>
+                <ChargeSummaryDetail ChargeAmount="" ChargeCategory="" ChargeName="" ChargeNameKey="" IsBillable="" IsDiscount="" IsShippingCharge="" OriginalChargeAmount="" Reference="">
+                    <Extn/>
+                </ChargeSummaryDetail>
+            </ChargeSummary>
+            <TaxSummary>
+                <TaxSummaryDetail Tax="" TaxName=""/>
+            </TaxSummary>
+        </TotalSummary>
+        <HeaderCharges>
+            <HeaderCharge ChargeAmount="" ChargeCategory="" ChargeName="" ChargeNameKey="" IsBillable="" IsDiscount="" IsShippingCharge="" OriginalChargeAmount="" Reference="">
+                <Extn/>
+            </HeaderCharge>
+        </HeaderCharges>
+        <HeaderTaxes>
+            <HeaderTax ChargeCategory="" ChargeName="" ChargeNameKey="" Reference_1="" Reference_2="" Reference_3="" Tax="" TaxName="" TaxPercentage=""/>
+            <TaxSummary>
+                <TaxSummaryDetail Tax="" TaxName=""/>
+            </TaxSummary>
+        </HeaderTaxes>
+    </InvoiceHeader>
+</InvoiceDetail>

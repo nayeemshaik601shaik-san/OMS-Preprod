@@ -1,0 +1,173 @@
+<!--
+* IBM Confidential
+* OCO Source Materials
+* 5737-D18, 5725-D10
+*
+* (C) Copyright International Business Machines Corp. 2021, 2024
+*
+* The source code for this program is not published or otherwise divested
+* of its trade secrets, irrespective of what has been deposited with the
+* U.S. Copyright Office.
+-->
+
+<ng-template bucExtension [componentName]="componentId" [placement]="'top'" [id]="EXTENSION.TOP" [parent]="this">
+</ng-template>
+
+<div class="screen-loading" *ngIf="isLoader" [attr.tid]="componentId + '-screen-loading'">
+    <buc-loading [isActive]="isLoader"></buc-loading>
+</div>
+
+<section *ngIf="isScreenInitialized">
+    <section class="payment-details" [attr.tid]="'confirm-payment-details-label'">
+        <div class="title"> {{'PAYMENT.GENERAL.LABEL_PAYMENT_DETAILS' | translate }}</div>
+        <div>
+            <ibm-notification [attr.tid]="componentId + '-info-notification'" *ngIf="isAmountDue && !isErrorInPayment" [notificationObj]="{
+                type: 'info',
+                title: amountDueText,
+                showClose: false,
+                lowContrast: true
+            }">
+            </ibm-notification>
+            <ibm-notification [attr.tid]="componentId + '-info-notification'" *ngIf="!isAmountDue && !isErrorInPayment" [notificationObj]="{
+                type: 'success',
+                title: amountDueText,
+                showClose: false,
+                lowContrast: true
+            }">
+            </ibm-notification>
+            <ibm-notification [attr.tid]="componentId + '-error-notification'" *ngIf="(isAmountDue && isErrorInPayment) || (!isAmountDue && isErrorInPayment)" [notificationObj]="{
+                type: 'error',
+                title: amountDueText,
+                showClose: false,
+                lowContrast: true
+              }"></ibm-notification>
+        </div>
+        <div class="no-payment-methods" *ngIf="!paymentMethods?.length">
+            <div class="no-data" [attr.tid]="componentId + '-label-must-add-payment-method'">
+              {{'PAYMENT.GENERAL.LABEL_MUST_ADD_PAYMENT_METHOD' | translate }}
+            </div>
+            <!-- EOMS-1463: Disable the button  -->
+            <div class="margin-left--1rem" *ngIf="isResourceAllowedForModifyPaymentMethod">
+              <buc-button class="btn-add-payment-method" btnSize="sm" (click)="paymentInfo=true" [attr.tid]="componentId + '-add-payment-method-button'" [isDisabled]="isAddPaymentDisabled">
+                {{'PAYMENT.GENERAL.LABEL_ADD_PAYMENT_METHOD' | translate }}<svg ibmIcon="add" size="16" class="cds--btn__icon"></svg>
+              </buc-button>
+            </div>
+        </div>
+
+        <div class="payment-methods-list" *ngIf="paymentMethods?.length">
+            <div class="accordion-content" *ngFor="let item of paymentMethods;let i = index; let first = first;">
+                <div [ngClass]="{'first-accordion': first}" class="accordion">
+                    <div class="cds--row">
+                        <div class="cds--col-lg-16 cds--col-md-12 cds--col-sm-8">
+                            <buc-checkbox [attr.tid]="componentId + '-payment-method-checkbox-' + i" class="payment-type-checkbox" [disabled]="item.SuspendAnyMoreCharges === 'Y' || isPaymentTypeDisabled[i]"
+                                [checked]="isSelected[i]" (change)="toggleAccordian($event, i, item)">
+                                    {{item.PaymentTypeGroup === 'CREDIT_CARD' ? item.creditCardTypeHeading : item.paymentTypeHeading}} {{item.DisplayPrimaryAccountNo}}
+                            </buc-checkbox>
+                            <span class="item-collapsed margin-left--1rem" [attr.tid]="componentId + '-label-credit-card-expdate-' + i" *ngIf="item.CreditCardExpDate">
+                                {{'PAYMENT.GENERAL.LABEL_EXPIRES' | translate }} {{item.CreditCardExpDate}}
+                            </span>
+                            <span class="tag margin-left--0_5rem" [attr.tid]="componentId + '-label-saved-to-profile-' + i" *ngIf="item.IsCustomer && item.IsCustomer === 'Y'">
+                                <ibm-tag class="cds--tag--sm" [type]="item.SuspendAnyMoreCharges === 'Y' ? 'warm-gray' : 'teal'">{{'PAYMENT.GENERAL.LABEL_SAVED_TO_PROFILE' | translate }}</ibm-tag>
+                            </span>
+                            <span class="item-collapsed margin-left--1rem" [attr.tid]="componentId + '-label-amount-paid-' + i" *ngIf="item.PaidAmount > 0">
+                                {{'PAYMENT.GENERAL.LABEL_AMOUNT_PAID' | translate }}: {{ item.PaidAmount | bucCommonCurrencyFmt: currency: 'symbol' }}
+                            </span>
+                            <span class="item-collapsed margin-left--1rem" [attr.tid]="componentId + '-label-funds-available-' + i" *ngIf="(item.ChargeUpToAvailable === 'Y' || item.PaymentTypeGroup === 'CUSTOMER_ACCOUNT') && item.FundsAvailable > 0">
+                                {{'PAYMENT.GENERAL.LABEL_FUNDS_AVAILABLE' | translate }}: {{ item.FundsAvailable | bucCommonCurrencyFmt: currency: 'symbol' }}
+                            </span>
+                            <span class="item-collapsed margin-left--1rem" *ngIf="(item.ChargeUpToAvailable === 'Y' || item.PaymentTypeGroup === 'CUSTOMER_ACCOUNT') && !(item.FundsAvailable > 0)">
+                                <svg ibmIcon="warning--filled" size="16" [attr.tid]="componentId + '-alert-icon-' + i" class="danger info-icon"></svg> {{'PAYMENT.GENERAL.LABEL_NO_FUNDS_AVAILABLE' | translate }}
+                            </span>
+                            <span class="item-collapsed margin-left--1rem" *ngIf="displayBalanceLink[i]">
+                                <buc-link (click)="onCheckBalance(item)" [attr.tid]="componentId + '-label-check-balance-' + i">
+                                  {{ 'PAYMENT.GENERAL.LABEL_CHECK_BALANCE' | translate }}
+                                </buc-link>
+                            </span>
+                            <span class="tag margin-left--1rem" *ngIf="item.SuspendAnyMoreCharges && item.SuspendAnyMoreCharges === 'Y'">
+                                <ibm-tag class="cds--tag--sm" type="red" [attr.tid]="componentId + '-label-suspended-' + i">{{'PAYMENT.GENERAL.LABEL_SUSPENDED' | translate }}</ibm-tag>
+                            </span>
+                            <span class="payment-overflow-menu" *ngIf="(item.IsCustomMethod || !(item.PaidAmount > 0))">
+                                <ibm-overflow-menu placement="bottom" [flip]="true" [attr.tid]="componentId + '-payment-overflow-menu-' + i">                   
+                                    <ibm-overflow-menu-option class="remove-payment" [attr.tid]="componentId + '-label-remove-payment-method-' + i" (click)="removePaymentMethod(item)" *ngIf="(item.IsCustomMethod) || !(item.PaidAmount > 0)">
+                                        {{'PAYMENT.GENERAL.LABEL_REMOVE_PAYMENT_METHOD_FROM_ORDER' | translate}}
+                                    </ibm-overflow-menu-option>
+                                </ibm-overflow-menu>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="panel">
+                        <div class="charge-amount" *ngIf="isResourceAllowedForModifyPaymentMethod">
+                            <span class="currencyStyling">
+                                {{ null | bucCommonCurrencyFmt: currency: 'symbol' }}
+                            </span>
+                            <div class="input-box">
+                                <!-- <ibm-label [invalid]="isAmountExceeded[item.PaymentKey]" [invalidText]="exceedAmountError[item.PaymentKey]">{{'PAYMENT.GENERAL.LABEL_AMOUNT_TO_PAY' | translate }}
+                                    <input ibmText bucNumericValuesOnly [attr.tid]="componentId + '-amount-to-pay-input-' + i"
+                                    [placeholder]=""
+                                    [(ngModel)]="inputCharge[item.PaymentKey]" [disabled]="((item.ChargeUpToAvailable === 'Y' || item.PaymentTypeGroup === 'CUSTOMER_ACCOUNT') && !(item.FundsAvailable > 0))" (focusout)="focusOut($event, item)" (ngModelChange)="onAmountToPayChange($event, item)">
+                                </ibm-label> -->
+                                <buc-number-ext 
+                                    [labelTagId]="componentId + '-amount-to-pay-input-' + i"
+                                    [isInvalid]="isAmountExceeded[item.PaymentKey]"
+                                    [invalidText]="exceedAmountError[item.PaymentKey]"
+                                    [label]="'PAYMENT.GENERAL.LABEL_AMOUNT_TO_PAY' | translate"
+                                    [tagId]="componentId + '-amount-to-pay-input-' + i"
+                                    [placeholder]=""
+                                    [isDisabled]="((item.ChargeUpToAvailable === 'Y' || item.PaymentTypeGroup === 'CUSTOMER_ACCOUNT') && !(item.FundsAvailable > 0))"
+                                    [stepButtonEnabled]="false"
+                                    [curLocale]="curLocale"
+                                    (loseFocus)="focusOut($event, item)"
+                                    [(value)]="inputCharge[item.PaymentKey]"
+                                    [validationType]="'decimal'"
+                                    (invalidNumber)="onAmountToPayChange(undefined, item)"
+                                    [displayValue]="displayValue[item.PaymentKey]"
+                                    (displayChange)="onDisplayChange($event, item)"
+                                    (change)="onAmountToPayChange($event, item)">
+                                </buc-number-ext>
+                            </div>
+                            <span class="add-remainder-link" *ngIf="isAmountDue && !isAmountExceeded[item.PaymentKey]">
+                                <buc-link (click)="onAddRemainder(item)" [attr.tid]="componentId + '-add-remainder-' + i">{{'PAYMENT.GENERAL.LABEL_ADD_REMAINDER' | translate }}
+                                </buc-link>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <div class="add-payment-link d--flex-ai-center" *ngIf="isResourceAllowedForModifyPaymentMethod">
+                <buc-button #b type="ghost" btnSize="sm" (click)="paymentInfo=true" *ngIf="isAmountDue">{{ 'PAYMENT.GENERAL.LABEL_ADD_PAYMENT_METHOD' | translate }}
+                  <svg ibmIcon="add" size="16" [attr.tid]="componentId + '-add-icon'" class="addBtn cds--btn__icon"></svg>
+                </buc-button>
+                <div class="margin-top--0_5rem" *ngIf="!isAmountDue">
+                    <span class="link-disabled margin-left--1rem" [attr.tid]="componentId + '-label-add-payment-method'">{{ 'PAYMENT.GENERAL.LABEL_ADD_PAYMENT_METHOD' | translate }}</span>
+                    <cds-tooltip class="tooltip-pos" [description]="tooltipTemplate" trigger="hover" [align]="'right'" [autoAlign]="'true'">
+                      <svg ibmIcon="information" size="16"></svg>
+                    </cds-tooltip>
+                </div>
+                
+            </div>
+            <ng-template #tooltipTemplate let-tooltip="tooltip">
+                <div class="payment-details-tooltip">
+                    <div class="cds--label">
+                    {{'PAYMENT.GENERAL.MSG_ADD_PAYMENT_NO_PENDING_PAYMENT' | translate}}
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+
+    </section>
+</section>
+
+<div *ngIf="paymentInfo">
+    <call-center-add-modify-payment-method
+      [summaryDetails] = "summaryDetails"  
+      (paymentInfoEmit)="cancelAddPayment($event)"
+      (addNewPaymentMethodEvent) = "callAddNewPaymentMethod($event)"
+      [amountDueForPayment] = "pendingAmount"
+      [existingPaymentMethods] = "paymentMethods"
+      >
+    </call-center-add-modify-payment-method>
+  </div>
+
+  <ng-template bucExtension [componentName]="componentId" [placement]="'bottom'" [id]="EXTENSION.BOTTOM" [parent]="this">
+</ng-template>

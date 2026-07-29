@@ -1,0 +1,8 @@
+<OrderList>
+<Order OrderNo="" DocumentType="" EnterpriseCode="" OrderHeaderKey="">
+<PersonInfoShipTo AddressLine1="" City="" Country="" DayPhone="" EMailID="" FirstName="" LastName="" MobilePhone="" State="" ZipCode=""/>
+<PaymentMethods>
+<PaymentMethod FirstName="" FundsAvailable="" GetFundsAvailableUserExitInvoked="" IncompletePaymentType="" LastName="" MaxChargeLimit="" MiddleName="" PaymentKey="" PaymentReference1="" PaymentReference2="" PaymentReference3="" PaymentReference4="" PaymentReference5="" PaymentType="" PaymentTypeGroup="" UnlimitedCharges=""/>
+</PaymentMethods>
+</Order>
+</OrderList>

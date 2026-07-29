@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 
+Licensed Materials - Property of IBM
+IBM Sterling Selling And Fulfillment Suite
+(C) Copyright IBM Corp. 2005, 2013 All Rights Reserved.
+US Government Users Restricted Rights - Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ -->
+<Order BuyerOrganizationCode="" SellerOrganizationCode="" DocumentType="" PaymentStatus="" EnteredBy="" EnterpriseCode="" OrderType="" OrderPurpose="" OrderName="" LevelOfService="" CurrentUserRole="" SourceType="" >
+   <PriceInfo Currency="" EnterpriseCurrency="" ReportingConversionDate="" ReportingConversionRate="" TotalAmount=""/>
+   <PaymentMethods>
+		<PaymentMethod CreditCardName="" DisplaySvcNo="" SvcNo="" PaymentType="" CreditCardNo="" DisplayCreditCardNo="" CreditCardType="" CreditCardExpDate="" FirstName="" LastName="" UnlimitedCharges="" MaxChargeLimit="" PaymentReference1="" PaymentReference2="" PaymentReference4="" PaymentReference5="">
+			<PaymentDetails RequestAmount="" ChargeType="" ProcessedAmount="" AuthorizationID="" AuthorizationExpirationDate="" HoldAgainstBook="" TranType="" TranRequestTime=""/>
+		</PaymentMethod>
+	</PaymentMethods>
+</Order>

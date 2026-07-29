@@ -1,0 +1,148 @@
+/*
+ * IBM Confidential
+ * OCO Source Materials
+ * 5737-D18, 5725-D10
+ *
+ * (C) Copyright International Business Machines Corp. 2022, 2023
+ *
+ * The source code for this program is not published or otherwise divested
+ * of its trade secrets, irrespective of what has been deposited with the
+ * U.S. Copyright Office.
+ */
+
+@use 'variables' as *;
+
+$background-color: $gray-10;
+$section-bg-color: $white-0;
+
+:host {
+  ::ng-deep {
+    ibm-breadcrumb-item:last-child {
+      a.cds--link {
+        pointer-events: none;
+        cursor: default;
+        color: unset;
+      }
+    }
+    buc-loading {
+      align-items: center;
+      display: flex;
+    }
+    buc-organization-details buc-summary-panel {
+      background-color: $white-0;
+    }
+  }
+
+  .display-flex {
+    display: flex;
+  }
+  .justify-content--space-between {
+    justify-content: space-between;
+  }
+
+  .screen-header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1001;
+    .screen-breadcrumb {
+      background-color: $gray-10 !important;
+    }
+  }
+
+  .title-text {
+    font-size: 1.25rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    padding-left: 1rem;
+  }
+
+  .cust-selection-container {
+    margin-left: 2rem;
+    margin-top: 2rem;
+  }
+
+  .screen {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5.5rem;
+    margin-top: 2.5rem;
+
+    .form-container {
+        background-color: $section-bg-color;
+    }
+    .container-section {
+        padding: 1rem 1rem 0 2rem;
+        margin-bottom: 1rem;
+    }
+
+    ::ng-deep {
+      .form-section {
+        padding: 0 1rem;
+      }
+
+      .cds--col-sm-1 {
+        max-width: 25%;
+      }
+
+      .desc-text {
+        color: $gray-60;
+        font-size: 0.75rem;
+        line-height: 1rem;
+      }
+
+      .section-title-text {
+        font-size: 1rem;
+        padding: 1rem 0 0 1rem;
+      }
+
+      .tile-title-text {
+        font-size: 1rem;
+        font-weight: 600;
+      }
+
+      ibm-icon-checkmark-filled {
+        float: right
+      }
+
+      .labelWithTemplate ibm-label.cds--form-item>.cds--label {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  div.screen-footer {
+    overflow: hidden;
+    position: fixed;
+    padding: 1rem 0 1rem 2rem;
+    border-top: 1px solid $gray-20;
+    background-color: $section-bg-color;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    z-index: 1;
+
+
+    ::ng-deep {
+      .cds--btn {
+        height: 3rem;
+        min-width: 10rem;
+
+        .button-loading {
+          padding: 0 0 0 0.5rem;
+          background-color: $gray-30;
+        }
+      }
+
+      .clear {
+        margin-left: 1rem;
+      }
+      .display-flex {
+        display: flex;
+      }
+      .justify-content--space-between {
+        justify-content: space-between;
+      }
+    }
+  }
+}

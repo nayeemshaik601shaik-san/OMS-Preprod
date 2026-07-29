@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Order OrderNo="" CustomerEMailID="" OrderDate="" EnterpriseCode="" Status="" MaxOrderStatus="" MinOrderStatus="" OrderHeaderKey="" DocumentType="" EnteredBy="" EntryType="" OrderType="" OrderPurpose="">
+    <Extn ExtnCustomerLocale=""/>
+    <CustomAttributes Text1="" Decimal1="" Text2="" Decimal2="" Text3="" Decimal3="" Text4="" Decimal4="" Text5="" Decimal5=""/>
+    <PersonInfoShipTo AddressLine1="" AddressLine2="" City="" Country="" FirstName="" LastName="" State="" ZipCode=""/>
+    <PersonInfoBillTo AddressLine1="" AddressLine2="" City="" Country="" FirstName="" LastName="" State="" ZipCode=""/>
+    <PriceInfo Currency=""/>
+    <OrderLines>
+        <OrderLine OrderedQty="" OriginalOrderedQty="">
+            <ItemDetails>
+                <PrimaryInformation ColorCode="" SizeCode=""/>
+                <Extn ExtnImageUrl="" ExtnProductUrl="">
+                    <CrocsItemOrgDataList>
+                        <CrocsItemOrgData SizeCode="" OrganizationCode="" Locale="" Color="" ProductUrl=""/>
+                    </CrocsItemOrgDataList>
+                </Extn>
+                <ItemLocaleList >
+                    <ItemLocale Country="" Language="">
+                        <Extn ExtnProductUrl=""
+                              ExtnColorCode=""/>
+                    </ItemLocale>
+                </ItemLocaleList>
+            </ItemDetails>
+            <Item ItemDesc="" ItemID="">
+            </Item>
+            <LinePriceInfo UnitPrice=""/>
+            <LineOverallTotals  Discount="" UnitPrice=""/>
+            <LineCharges>
+                <LineCharge  ChargeAmount="" ChargeCategory="" ChargeName="" ChargePerUnit="" Reference="">
+                    <Extn ExtnPromotionText="" />
+                </LineCharge>
+            </LineCharges>
+            <LineTaxes>
+                <LineTax ChargeCategory="" ChargeName=""  Reference1="" Tax="" TaxName="" TaxPercentage=""/>
+            </LineTaxes>
+            <OrderStatuses>
+                <OrderStatus StatusQty="" Status=""/>
+            </OrderStatuses>
+        </OrderLine>
+    </OrderLines>
+    <ChargeTransactionDetails>
+        <ChargeTransactionDetail RequestAmount="" ChargeType="">
+            <PaymentMethod PaymentType=""/>
+        </ChargeTransactionDetail>
+    </ChargeTransactionDetails>
+    <HeaderCharges>
+    <HeaderCharge ChargeAmount="" ChargeCategory=""  Reference="">
+    </HeaderCharge>
+    </HeaderCharges>
+    <HeaderTaxes>
+        <HeaderTax ChargeCategory="" ChargeName=""  Reference1=""  Tax="" TaxName="" TaxPercentage=""/>
+    </HeaderTaxes>
+    <OverallTotals GrandCharges="" GrandDiscount="" GrandTax="" GrandTotal="" LineSubTotal="">
+        <OverallChargeTotals>
+            <OverallChargeTotal ChargeCategory="" ChargeName="" GrandCharges="" GrandDiscount="" Reference=""/>
+        </OverallChargeTotals>
+    </OverallTotals>
+    <PaymentMethods>
+            <PaymentMethod>
+                <ChargeTransactionDetails>
+                    <ChargeTransactionDetail/>
+                </ChargeTransactionDetails>
+         </PaymentMethod>
+    </PaymentMethods>
+</Order>

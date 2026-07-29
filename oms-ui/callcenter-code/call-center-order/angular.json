@@ -1,0 +1,3012 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "cli": {
+    "packageManager": "yarn",
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
+  },
+  "newProjectRoot": "packages",
+  "projects": {
+    "order-shared": {
+      "projectType": "library",
+      "root": "packages/order-shared",
+      "sourceRoot": "packages/order-shared/src",
+      "prefix": "call-center",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "packages/order-shared/tsconfig.lib.json",
+            "project": "packages/order-shared/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "packages/order-shared/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "packages/order-shared/src/test.ts",
+            "tsConfig": "packages/order-shared/tsconfig.spec.json",
+            "karmaConfig": "packages/order-shared/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/order-shared/**/*.ts",
+              "packages/order-shared/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "order-search": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "inlineTemplate": true,
+          "inlineStyle": true,
+          "style": "scss",
+          "skipTests": true
+        },
+        "@schematics/angular:class": {
+          "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true
+        },
+        "@schematics/angular:guard": {
+          "skipTests": true
+        },
+        "@schematics/angular:interceptor": {
+          "skipTests": true
+        },
+        "@schematics/angular:module": {},
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
+        }
+      },
+      "root": "packages/order-search",
+      "sourceRoot": "packages/order-search/src",
+      "prefix": "call-center",
+      "architect": {
+        "build": {
+          "builder": "@angular-builders/custom-webpack:browser",
+          "options": {
+            "preserveSymlinks": true,
+            "outputPath": "dist/call-center-order/order-search",
+            "index": "packages/order-search/src/index.html",
+            "main": "packages/order-search/src/main.single-spa.ts",
+            "polyfills": "packages/order-search/src/polyfills.ts",
+            "tsConfig": "packages/order-search/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "packages/order-search/src/favicon.ico",
+              "packages/order-search/src/assets",
+              {
+                "glob": "*.json",
+                "input": "packages/order-search/assets/order-search",
+                "output": "assets/order-search"
+              }
+            ],
+            "styles": [
+              "packages/order-search/src/styles.scss"
+            ],
+            "scripts": [],
+            "customWebpackConfig": {
+              "path": "extra-webpack.config.js",
+              "libraryName": "order-search",
+              "libraryTarget": "umd"
+            },
+            "deployUrl": "/call-center-order/order-search/",
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "packages/order-search/src/assets/scss"
+              ]
+            }
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "packages/order-search/src/environments/environment.ts",
+                  "with": "packages/order-search/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "none",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "10mb",
+                  "maximumError": "12mb"
+                }
+              ]
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
+            "merged": {
+              "preserveSymlinks": true,
+              "outputPath": "dist/call-center-order/order-search",
+              "index": "packages/order-search/src-merged/index.html",
+              "main": "packages/order-search/src-merged/main.single-spa.ts",
+              "polyfills": "packages/order-search/src-merged/polyfills.ts",
+              "tsConfig": "packages/order-search/tsconfig.app.merged.json",
+              "aot": true,
+              "assets": [
+                {
+                  "glob": "**",
+                  "input": "packages/order-search/src-merged/assets",
+                  "output": "assets"
+                },
+                {
+                  "glob": "*.json",
+                  "input": "packages/order-search/src-merged/assets/call-center-order",
+                  "output": "assets/order-search"
+                },
+                {
+                  "glob": "**",
+                  "input": "node_modules/@buc/svc-angular/assets",
+                  "output": "assets"
+                },
+                {
+                  "glob": "**",
+                  "input": "node_modules/@buc/common-components/assets",
+                  "output": "assets"
+                }
+              ],
+              "styles": [
+                "packages/order-search/src-merged/styles.scss"
+              ],
+              "scripts": [],
+              "customWebpackConfig": {
+                "path": "extra-webpack.config.js",
+                "libraryName": "order-search",
+                "libraryTarget": "umd"
+              },
+              "deployUrl": "/call-center-order/order-search/",
+              "stylePreprocessorOptions": {
+                "includePaths": [
+                  "packages/order-search/src-merged/assets/scss"
+                ]
+              },
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
+            "merged-prod": {
+              "preserveSymlinks": true,
+              "outputPath": "dist/call-center-order/order-search",
+              "index": "packages/order-search/src-merged/index.html",
+              "main": "packages/order-search/src-merged/main.single-spa.ts",
+              "polyfills": "packages/order-search/src-merged/polyfills.ts",
+              "tsConfig": "packages/order-search/tsconfig.app.merged.json",
+              "aot": true,
+              "assets": [
+                {
+                  "glob": "**",
+                  "input": "packages/order-search/src-merged/assets",
+                  "output": "assets"
+                },
+                {
+                  "glob": "*.json",
+                  "input": "packages/order-search/src-merged/assets/call-center-order",
+                  "output": "assets/order-search"
+                },
+                {
+                  "glob": "**",
+                  "input": "node_modules/@buc/svc-angular/assets",
+                  "output": "assets"
+                },
+                {
+                  "glob": "**",
+                  "input": "node_modules/@buc/common-components/assets",
+                  "output": "assets"
+                }
+              ],
+              "styles": [
+                "packages/order-search/src-merged/styles.scss"
+              ],
+              "scripts": [],
+              "customWebpackConfig": {
+                "path": "extra-webpack.config.js",
+                "libraryName": "order-search",
+                "libraryTarget": "umd"
+              },
+              "deployUrl": "/call-center-customization/call-center-order/order-search/",
+              "stylePreprocessorOptions": {
+                "includePaths": [
+                  "packages/order-search/src-merged/assets/scss"
+                ]
+              },
+              "buildOptimizer": true,
+              "optimization": true,
+              "vendorChunk": false,
+              "extractLicenses": true,
+              "sourceMap": false,
+              "namedChunks": false,
+              "fileReplacements": [
+                {
+                  "replace": "packages/order-search/src-merged/environments/environment.ts",
+                  "with": "packages/order-search/src-merged/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "none",
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "10mb",
+                  "maximumError": "12mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-builders/custom-webpack:dev-server",
+          "options": {
+            "buildTarget": "order-search:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "order-search:build:production"
+            },
+            "development": {
+              "buildTarget": "order-search:build:development"
+            },
+            "merged": {
+              "buildTarget": "order-search:build:merged"
+            },
+            "merged-prod": {
+              "buildTarget": "order-search:build-merged-prod"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "order-search:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/order-search/**/*.ts",
+              "packages/order-search/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "order-details": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "inlineTemplate": true,
+          "inlineStyle": true,
+          "style": "scss",
+          "skipTests": true
+        },
+        "@schematics/angular:class": {
+          "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true
+        },
+        "@schematics/angular:guard": {
+          "skipTests": true
+        },
+        "@schematics/angular:interceptor": {
+          "skipTests": true
+        },
+        "@schematics/angular:module": {},
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
+        }
+      },
+      "root": "packages/order-details",
+      "sourceRoot": "packages/order-details/src",
+      "prefix": "call-center",
+      "architect": {
+        "build": {
+          "builder": "@angular-builders/custom-webpack:browser",
+          "options": {
+            "preserveSymlinks": true,
+            "outputPath": "dist/call-center-order/order-details",
+            "index": "packages/order-details/src/index.html",
+            "main": "packages/order-details/src/main.single-spa.ts",
+            "polyfills": "packages/order-details/src/polyfills.ts",
+            "tsConfig": "packages/order-details/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "packages/order-details/src/favicon.ico",
+              "packages/order-details/src/assets",
+              {
+                "glob": "*.json",
+                "input": "packages/order-details/assets/order-details",
+                "output": "assets/order-details"
+              }
+            ],
+            "styles": [
+              "packages/order-details/src/styles.scss"
+            ],
+            "scripts": [],
+            "customWebpackConfig": {
+              "path": "extra-webpack.config.js",
+              "libraryName": "order-details",
+              "libraryTarget": "umd"
+            },
+            "deployUrl": "/call-center-order/order-details/",
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "packages/order-details/src/assets/scss"
+              ]
+            }
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "packages/order-details/src/environments/environment.ts",
+                  "with": "packages/order-details/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "none",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "10mb",
+                  "maximumError": "12mb"
+                }
+              ]
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
+            "merged": {
+              "preserveSymlinks": true,
+              "outputPath": "dist/call-center-order/order-details",
+              "index": "packages/order-details/src-merged/index.html",
+              "main": "packages/order-details/src-merged/main.single-spa.ts",
+              "polyfills": "packages/order-details/src-merged/polyfills.ts",
+              "tsConfig": "packages/order-details/tsconfig.app.merged.json",
+              "aot": true,
+              "assets": [
+                {
+                  "glob": "**",
+                  "input": "packages/order-details/src-merged/assets",
+                  "output": "assets"
+                },
+                {
+                  "glob": "*.json",
+                  "input": "packages/order-details/src-merged/assets/call-center-order",
+                  "output": "assets/order-details"
+                },
+                {
+                  "glob": "**",
+                  "input": "node_modules/@buc/svc-angular/assets",
+                  "output": "assets"
+                },
+                {
+                  "glob": "**",
+                  "input": "node_modules/@buc/common-components/assets",
+                  "output": "assets"
+                }
+              ],
+              "styles": [
+                "packages/order-details/src-merged/styles.scss"
+              ],
+              "scripts": [],
+              "customWebpackConfig": {
+                "path": "extra-webpack.config.js",
+                "libraryName": "order-details",
+                "libraryTarget": "umd"
+              },
+              "deployUrl": "/call-center-order/order-details/",
+              "stylePreprocessorOptions": {
+                "includePaths": [
+                  "packages/order-details/src-merged/assets/scss"
+                ]
+              },
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
+            "merged-prod": {
+              "preserveSymlinks": true,
+              "outputPath": "dist/call-center-order/order-details",
+              "index": "packages/order-details/src-merged/index.html",
+              "main": "packages/order-details/src-merged/main.single-spa.ts",
+              "polyfills": "packages/order-details/src-merged/polyfills.ts",
+              "tsConfig": "packages/order-details/tsconfig.app.merged.json",
+              "aot": true,
+              "assets": [
+                {
+                  "glob": "**",
+                  "input": "packages/order-details/src-merged/assets",
+                  "output": "assets"
+                },
+                {
+                  "glob": "*.json",
+                  "input": "packages/order-details/src-merged/assets/call-center-order",
+                  "output": "assets/order-details"
+                },
+                {
+                  "glob": "**",
+                  "input": "node_modules/@buc/svc-angular/assets",
+                  "output": "assets"
+                },
+                {
+                  "glob": "**",
+                  "input": "node_modules/@buc/common-components/assets",
+                  "output": "assets"
+                }
+              ],
+              "styles": [
+                "packages/order-details/src-merged/styles.scss"
+              ],
+              "scripts": [],
+              "customWebpackConfig": {
+                "path": "extra-webpack.config.js",
+                "libraryName": "order-details",
+                "libraryTarget": "umd"
+              },
+              "deployUrl": "/call-center-customization/call-center-order/order-details/",
+              "stylePreprocessorOptions": {
+                "includePaths": [
+                  "packages/order-details/src-merged/assets/scss"
+                ]
+              },
+              "buildOptimizer": true,
+              "optimization": true,
+              "vendorChunk": false,
+              "extractLicenses": true,
+              "sourceMap": false,
+              "namedChunks": false,
+              "fileReplacements": [
+                {
+                  "replace": "packages/order-details/src-merged/environments/environment.ts",
+                  "with": "packages/order-details/src-merged/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "none",
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "10mb",
+                  "maximumError": "12mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-builders/custom-webpack:dev-server",
+          "options": {
+            "buildTarget": "order-details:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "order-details:build:production"
+            },
+            "development": {
+              "buildTarget": "order-details:build:development"
+            },
+            "merged": {
+              "buildTarget": "order-details:build:merged"
+            },
+            "merged-prod": {
+              "buildTarget": "order-details:build-merged-prod"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "order-details:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/order-details/**/*.ts",
+              "packages/order-details/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "change-fulfillment-method": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "inlineTemplate": true,
+          "inlineStyle": true,
+          "style": "scss",
+          "skipTests": true
+        },
+        "@schematics/angular:class": {
+          "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true
+        },
+        "@schematics/angular:guard": {
+          "skipTests": true
+        },
+        "@schematics/angular:interceptor": {
+          "skipTests": true
+        },
+        "@schematics/angular:module": {},
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
+        }
+      },
+      "root": "packages/change-fulfillment-method",
+      "sourceRoot": "packages/change-fulfillment-method/src",
+      "prefix": "call-center",
+      "architect": {
+        "build": {
+          "builder": "@angular-builders/custom-webpack:browser",
+          "options": {
+            "preserveSymlinks": true,
+            "outputPath": "dist/call-center-order/change-fulfillment-method",
+            "index": "packages/change-fulfillment-method/src/index.html",
+            "main": "packages/change-fulfillment-method/src/main.single-spa.ts",
+            "polyfills": "packages/change-fulfillment-method/src/polyfills.ts",
+            "tsConfig": "packages/change-fulfillment-method/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "packages/change-fulfillment-method/src/favicon.ico",
+              "packages/change-fulfillment-method/src/assets",
+              {
+                "glob": "*.json",
+                "input": "packages/change-fulfillment-method/assets/change-fulfillment-method",
+                "output": "assets/change-fulfillment-method"
+              }
+            ],
+            "styles": [
+              "packages/change-fulfillment-method/src/styles.scss"
+            ],
+            "scripts": [],
+            "customWebpackConfig": {
+              "path": "extra-webpack.config.js",
+              "libraryName": "change-fulfillment-method",
+              "libraryTarget": "umd"
+            },
+            "deployUrl": "/call-center-order/change-fulfillment-method/",
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "packages/change-fulfillment-method/src/assets/scss"
+              ]
+            }
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "packages/change-fulfillment-method/src/environments/environment.ts",
+                  "with": "packages/change-fulfillment-method/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "none",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "10mb",
+                  "maximumError": "12mb"
+                }
+              ]
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
+            "merged": {
+              "preserveSymlinks": true,
+              "outputPath": "dist/call-center-order/change-fulfillment-method",
+              "index": "packages/change-fulfillment-method/src-merged/index.html",
+              "main": "packages/change-fulfillment-method/src-merged/main.single-spa.ts",
+              "polyfills": "packages/change-fulfillment-method/src-merged/polyfills.ts",
+              "tsConfig": "packages/change-fulfillment-method/tsconfig.app.merged.json",
+              "aot": true,
+              "assets": [
+                {
+                  "glob": "**",
+                  "input": "packages/change-fulfillment-method/src-merged/assets",
+                  "output": "assets"
+                },
+                {
+                  "glob": "*.json",
+                  "input": "packages/change-fulfillment-method/src-merged/assets/call-center-order",
+                  "output": "assets/change-fulfillment-method"
+                },
+                {
+                  "glob": "**",
+                  "input": "node_modules/@buc/svc-angular/assets",
+                  "output": "assets"
+                },
+                {
+                  "glob": "**",
+                  "input": "node_modules/@buc/common-components/assets",
+                  "output": "assets"
+                }
+              ],
+              "styles": [
+                "packages/change-fulfillment-method/src-merged/styles.scss"
+              ],
+              "scripts": [],
+              "customWebpackConfig": {
+                "path": "extra-webpack.config.js",
+                "libraryName": "change-fulfillment-method",
+                "libraryTarget": "umd"
+              },
+              "deployUrl": "/call-center-order/change-fulfillment-method/",
+              "stylePreprocessorOptions": {
+                "includePaths": [
+                  "packages/change-fulfillment-method/src-merged/assets/scss"
+                ]
+              },
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
+            "merged-prod": {
+              "preserveSymlinks": true,
+              "outputPath": "dist/call-center-order/change-fulfillment-method",
+              "index": "packages/change-fulfillment-method/src-merged/index.html",
+              "main": "packages/change-fulfillment-method/src-merged/main.single-spa.ts",
+              "polyfills": "packages/change-fulfillment-method/src-merged/polyfills.ts",
+              "tsConfig": "packages/change-fulfillment-method/tsconfig.app.merged.json",
+              "aot": true,
+              "assets": [
+                {
+                  "glob": "**",
+                  "input": "packages/change-fulfillment-method/src-merged/assets",
+                  "output": "assets"
+                },
+                {
+                  "glob": "*.json",
+                  "input": "packages/change-fulfillment-method/src-merged/assets/call-center-order",
+                  "output": "assets/change-fulfillment-method"
+                },
+                {
+                  "glob": "**",
+                  "input": "node_modules/@buc/svc-angular/assets",
+                  "output": "assets"
+                },
+                {
+                  "glob": "**",
+                  "input": "node_modules/@buc/common-components/assets",
+                  "output": "assets"
+                }
+              ],
+              "styles": [
+                "packages/change-fulfillment-method/src-merged/styles.scss"
+              ],
+              "scripts": [],
+              "customWebpackConfig": {
+                "path": "extra-webpack.config.js",
+                "libraryName": "change-fulfillment-method",
+                "libraryTarget": "umd"
+              },
+              "deployUrl": "/call-center-customization/call-center-order/change-fulfillment-method/",
+              "stylePreprocessorOptions": {
+                "includePaths": [
+                  "packages/change-fulfillment-method/src-merged/assets/scss"
+                ]
+              },
+              "buildOptimizer": true,
+              "optimization": true,
+              "vendorChunk": false,
+              "extractLicenses": true,
+              "sourceMap": false,
+              "namedChunks": false,
+              "fileReplacements": [
+                {
+                  "replace": "packages/change-fulfillment-method/src-merged/environments/environment.ts",
+                  "with": "packages/change-fulfillment-method/src-merged/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "none",
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "10mb",
+                  "maximumError": "12mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-builders/custom-webpack:dev-server",
+          "options": {
+            "buildTarget": "change-fulfillment-method:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "change-fulfillment-method:build:production"
+            },
+            "development": {
+              "buildTarget": "change-fulfillment-method:build:development"
+            },
+            "merged": {
+              "buildTarget": "change-fulfillment-method:build:merged"
+            },
+            "merged-prod": {
+              "buildTarget": "change-fulfillment-method:build-merged-prod"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "change-fulfillment-method:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/change-fulfillment-method/**/*.ts",
+              "packages/change-fulfillment-method/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "create-order": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "inlineTemplate": true,
+          "inlineStyle": true,
+          "style": "scss",
+          "skipTests": true
+        },
+        "@schematics/angular:class": {
+          "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true
+        },
+        "@schematics/angular:guard": {
+          "skipTests": true
+        },
+        "@schematics/angular:interceptor": {
+          "skipTests": true
+        },
+        "@schematics/angular:module": {},
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
+        }
+      },
+      "root": "packages/create-order",
+      "sourceRoot": "packages/create-order/src",
+      "prefix": "call-center",
+      "architect": {
+        "build": {
+          "builder": "@angular-builders/custom-webpack:browser",
+          "options": {
+            "preserveSymlinks": true,
+            "outputPath": "dist/call-center-order/create-order",
+            "index": "packages/create-order/src/index.html",
+            "main": "packages/create-order/src/main.single-spa.ts",
+            "polyfills": "packages/create-order/src/polyfills.ts",
+            "tsConfig": "packages/create-order/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "packages/create-order/src/favicon.ico",
+              "packages/create-order/src/assets",
+              {
+                "glob": "*.json",
+                "input": "packages/create-order/assets/create-order",
+                "output": "assets/create-order"
+              }
+            ],
+            "styles": [
+              "packages/create-order/src/styles.scss"
+            ],
+            "scripts": [],
+            "customWebpackConfig": {
+              "path": "extra-webpack.config.js",
+              "libraryName": "create-order",
+              "libraryTarget": "umd"
+            },
+            "deployUrl": "/call-center-order/create-order/",
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "packages/create-order/src/assets/scss"
+              ]
+            }
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "packages/create-order/src/environments/environment.ts",
+                  "with": "packages/create-order/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "none",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "10mb",
+                  "maximumError": "12mb"
+                }
+              ]
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
+            "merged": {
+              "preserveSymlinks": true,
+              "outputPath": "dist/call-center-order/create-order",
+              "index": "packages/create-order/src-merged/index.html",
+              "main": "packages/create-order/src-merged/main.single-spa.ts",
+              "polyfills": "packages/create-order/src-merged/polyfills.ts",
+              "tsConfig": "packages/create-order/tsconfig.app.merged.json",
+              "aot": true,
+              "assets": [
+                {
+                  "glob": "**",
+                  "input": "packages/create-order/src-merged/assets",
+                  "output": "assets"
+                },
+                {
+                  "glob": "*.json",
+                  "input": "packages/create-order/src-merged/assets/call-center-order",
+                  "output": "assets/create-order"
+                },
+                {
+                  "glob": "**",
+                  "input": "node_modules/@buc/svc-angular/assets",
+                  "output": "assets"
+                },
+                {
+                  "glob": "**",
+                  "input": "node_modules/@buc/common-components/assets",
+                  "output": "assets"
+                }
+              ],
+              "styles": [
+                "packages/create-order/src-merged/styles.scss"
+              ],
+              "scripts": [],
+              "customWebpackConfig": {
+                "path": "extra-webpack.config.js",
+                "libraryName": "create-order",
+                "libraryTarget": "umd"
+              },
+              "deployUrl": "/call-center-order/create-order/",
+              "stylePreprocessorOptions": {
+                "includePaths": [
+                  "packages/create-order/src-merged/assets/scss"
+                ]
+              },
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
+            "merged-prod": {
+              "preserveSymlinks": true,
+              "outputPath": "dist/call-center-order/create-order",
+              "index": "packages/create-order/src-merged/index.html",
+              "main": "packages/create-order/src-merged/main.single-spa.ts",
+              "polyfills": "packages/create-order/src-merged/polyfills.ts",
+              "tsConfig": "packages/create-order/tsconfig.app.merged.json",
+              "aot": true,
+              "assets": [
+                {
+                  "glob": "**",
+                  "input": "packages/create-order/src-merged/assets",
+                  "output": "assets"
+                },
+                {
+                  "glob": "*.json",
+                  "input": "packages/create-order/src-merged/assets/call-center-order",
+                  "output": "assets/create-order"
+                },
+                {
+                  "glob": "**",
+                  "input": "node_modules/@buc/svc-angular/assets",
+                  "output": "assets"
+                },
+                {
+                  "glob": "**",
+                  "input": "node_modules/@buc/common-components/assets",
+                  "output": "assets"
+                }
+              ],
+              "styles": [
+                "packages/create-order/src-merged/styles.scss"
+              ],
+              "scripts": [],
+              "customWebpackConfig": {
+                "path": "extra-webpack.config.js",
+                "libraryName": "create-order",
+                "libraryTarget": "umd"
+              },
+              "deployUrl": "/call-center-customization/call-center-order/create-order/",
+              "stylePreprocessorOptions": {
+                "includePaths": [
+                  "packages/create-order/src-merged/assets/scss"
+                ]
+              },
+              "buildOptimizer": true,
+              "optimization": true,
+              "vendorChunk": false,
+              "extractLicenses": true,
+              "sourceMap": false,
+              "namedChunks": false,
+              "fileReplacements": [
+                {
+                  "replace": "packages/create-order/src-merged/environments/environment.ts",
+                  "with": "packages/create-order/src-merged/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "none",
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "10mb",
+                  "maximumError": "12mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-builders/custom-webpack:dev-server",
+          "options": {
+            "buildTarget": "create-order:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "create-order:build:production"
+            },
+            "development": {
+              "buildTarget": "create-order:build:development"
+            },
+            "merged": {
+              "buildTarget": "create-order:build:merged"
+            },
+            "merged-prod": {
+              "buildTarget": "create-order:build-merged-prod"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "create-order:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/create-order/**/*.ts",
+              "packages/create-order/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "product-browsing": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "inlineTemplate": true,
+          "inlineStyle": true,
+          "style": "scss",
+          "skipTests": true
+        },
+        "@schematics/angular:class": {
+          "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true
+        },
+        "@schematics/angular:guard": {
+          "skipTests": true
+        },
+        "@schematics/angular:interceptor": {
+          "skipTests": true
+        },
+        "@schematics/angular:module": {},
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
+        }
+      },
+      "root": "packages/product-browsing",
+      "sourceRoot": "packages/product-browsing/src",
+      "prefix": "call-center",
+      "architect": {
+        "build": {
+          "builder": "@angular-builders/custom-webpack:browser",
+          "options": {
+            "preserveSymlinks": true,
+            "outputPath": "dist/call-center-order/product-browsing",
+            "index": "packages/product-browsing/src/index.html",
+            "main": "packages/product-browsing/src/main.single-spa.ts",
+            "polyfills": "packages/product-browsing/src/polyfills.ts",
+            "tsConfig": "packages/product-browsing/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "packages/product-browsing/src/favicon.ico",
+              "packages/product-browsing/src/assets",
+              {
+                "glob": "*.json",
+                "input": "packages/product-browsing/assets/product-browsing",
+                "output": "assets/product-browsing"
+              }
+            ],
+            "styles": [
+              "packages/product-browsing/src/styles.scss"
+            ],
+            "scripts": [],
+            "customWebpackConfig": {
+              "path": "extra-webpack.config.js",
+              "libraryName": "product-browsing",
+              "libraryTarget": "umd"
+            },
+            "deployUrl": "/call-center-order/product-browsing/",
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "packages/product-browsing/src/assets/scss"
+              ]
+            }
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "packages/product-browsing/src/environments/environment.ts",
+                  "with": "packages/product-browsing/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "none",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "10mb",
+                  "maximumError": "12mb"
+                }
+              ]
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
+            "merged": {
+              "preserveSymlinks": true,
+              "outputPath": "dist/call-center-order/product-browsing",
+              "index": "packages/product-browsing/src-merged/index.html",
+              "main": "packages/product-browsing/src-merged/main.single-spa.ts",
+              "polyfills": "packages/product-browsing/src-merged/polyfills.ts",
+              "tsConfig": "packages/product-browsing/tsconfig.app.merged.json",
+              "aot": true,
+              "assets": [
+                {
+                  "glob": "*.json",
+                  "input": "packages/product-browsing/assets/product-browsing",
+                  "output": "assets/product-browsing"
+                },
+                {
+                  "glob": "**",
+                  "input": "packages/product-browsing/src-merged/assets",
+                  "output": "assets"
+                }
+              ],
+              "styles": [
+                "packages/product-browsing/src-merged/styles.scss"
+              ],
+              "scripts": [],
+              "customWebpackConfig": {
+                "path": "extra-webpack.config.js",
+                "libraryName": "product-browsing",
+                "libraryTarget": "umd"
+              },
+              "deployUrl": "/call-center-order/product-browsing/",
+              "stylePreprocessorOptions": {
+                "includePaths": [
+                  "packages/product-browsing/src-merged/assets/scss"
+                ]
+              },
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
+            "merged-prod": {
+              "preserveSymlinks": true,
+              "outputPath": "dist/call-center-order/product-browsing",
+              "index": "packages/product-browsing/src-merged/index.html",
+              "main": "packages/product-browsing/src-merged/main.single-spa.ts",
+              "polyfills": "packages/product-browsing/src-merged/polyfills.ts",
+              "tsConfig": "packages/product-browsing/tsconfig.app.merged.json",
+              "aot": true,
+              "assets": [
+                {
+                  "glob": "*.json",
+                  "input": "packages/product-browsing/assets/product-browsing",
+                  "output": "assets/product-browsing"
+                },
+                {
+                  "glob": "**",
+                  "input": "packages/product-browsing/src-merged/assets",
+                  "output": "assets"
+                }
+              ],
+              "styles": [
+                "packages/product-browsing/src-merged/styles.scss"
+              ],
+              "scripts": [],
+              "customWebpackConfig": {
+                "path": "extra-webpack.config.js",
+                "libraryName": "product-browsing",
+                "libraryTarget": "umd"
+              },
+              "deployUrl": "/call-center-customization/call-center-order/product-browsing/",
+              "stylePreprocessorOptions": {
+                "includePaths": [
+                  "packages/product-browsing/src-merged/assets/scss"
+                ]
+              },
+              "buildOptimizer": true,
+              "optimization": true,
+              "vendorChunk": false,
+              "extractLicenses": true,
+              "sourceMap": false,
+              "namedChunks": false,
+              "fileReplacements": [
+                {
+                  "replace": "packages/product-browsing/src-merged/environments/environment.ts",
+                  "with": "packages/product-browsing/src-merged/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "none",
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "10mb",
+                  "maximumError": "12mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-builders/custom-webpack:dev-server",
+          "options": {
+            "buildTarget": "product-browsing:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "product-browsing:build:production"
+            },
+            "development": {
+              "buildTarget": "product-browsing:build:development"
+            },
+            "merged": {
+              "buildTarget": "product-browsing:build:merged"
+            },
+            "merged-prod": {
+              "buildTarget": "product-browsing:build-merged-prod"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "product-browsing:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/product-browsing/**/*.ts",
+              "packages/product-browsing/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "order-search-result": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "inlineTemplate": true,
+          "inlineStyle": true,
+          "style": "scss",
+          "skipTests": true
+        },
+        "@schematics/angular:class": {
+          "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true
+        },
+        "@schematics/angular:guard": {
+          "skipTests": true
+        },
+        "@schematics/angular:interceptor": {
+          "skipTests": true
+        },
+        "@schematics/angular:module": {},
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
+        }
+      },
+      "root": "packages/order-search-result",
+      "sourceRoot": "packages/order-search-result/src",
+      "prefix": "call-center",
+      "architect": {
+        "build": {
+          "builder": "@angular-builders/custom-webpack:browser",
+          "options": {
+            "preserveSymlinks": true,
+            "outputPath": "dist/call-center-order/order-search-result",
+            "index": "packages/order-search-result/src/index.html",
+            "main": "packages/order-search-result/src/main.single-spa.ts",
+            "polyfills": "packages/order-search-result/src/polyfills.ts",
+            "tsConfig": "packages/order-search-result/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "packages/order-search-result/src/favicon.ico",
+              "packages/order-search-result/src/assets",
+              {
+                "glob": "*.json",
+                "input": "packages/order-search-result/assets/order-search-result",
+                "output": "assets/order-search-result"
+              }
+            ],
+            "styles": [
+              "packages/order-search-result/src/styles.scss"
+            ],
+            "scripts": [],
+            "customWebpackConfig": {
+              "path": "extra-webpack.config.js",
+              "libraryName": "order-search-result",
+              "libraryTarget": "umd"
+            },
+            "deployUrl": "/call-center-order/order-search-result/",
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "packages/order-search-result/src/assets/scss"
+              ]
+            }
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "packages/order-search-result/src/environments/environment.ts",
+                  "with": "packages/order-search-result/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "none",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "10mb",
+                  "maximumError": "12mb"
+                }
+              ]
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
+            "merged": {
+              "preserveSymlinks": true,
+              "outputPath": "dist/call-center-order/order-search-result",
+              "index": "packages/order-search-result/src-merged/index.html",
+              "main": "packages/order-search-result/src-merged/main.single-spa.ts",
+              "polyfills": "packages/order-search-result/src-merged/polyfills.ts",
+              "tsConfig": "packages/order-search-result/tsconfig.app.merged.json",
+              "aot": true,
+              "assets": [
+                {
+                  "glob": "**",
+                  "input": "packages/order-search-result/src-merged/assets",
+                  "output": "assets"
+                },
+                {
+                  "glob": "*.json",
+                  "input": "packages/order-search-result/src-merged/assets/call-center-order",
+                  "output": "assets/order-search-result"
+                },
+                {
+                  "glob": "**",
+                  "input": "node_modules/@buc/svc-angular/assets",
+                  "output": "assets"
+                },
+                {
+                  "glob": "**",
+                  "input": "node_modules/@buc/common-components/assets",
+                  "output": "assets"
+                }
+              ],
+              "styles": [
+                "packages/order-search-result/src-merged/styles.scss"
+              ],
+              "scripts": [],
+              "customWebpackConfig": {
+                "path": "extra-webpack.config.js",
+                "libraryName": "order-search-result",
+                "libraryTarget": "umd"
+              },
+              "deployUrl": "/call-center-order/order-search-result/",
+              "stylePreprocessorOptions": {
+                "includePaths": [
+                  "packages/order-search-result/src-merged/assets/scss"
+                ]
+              },
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
+            "merged-prod": {
+              "preserveSymlinks": true,
+              "outputPath": "dist/call-center-order/order-search-result",
+              "index": "packages/order-search-result/src-merged/index.html",
+              "main": "packages/order-search-result/src-merged/main.single-spa.ts",
+              "polyfills": "packages/order-search-result/src-merged/polyfills.ts",
+              "tsConfig": "packages/order-search-result/tsconfig.app.merged.json",
+              "aot": true,
+              "assets": [
+                {
+                  "glob": "**",
+                  "input": "packages/order-search-result/src-merged/assets",
+                  "output": "assets"
+                },
+                {
+                  "glob": "*.json",
+                  "input": "packages/order-search-result/src-merged/assets/call-center-order",
+                  "output": "assets/order-search-result"
+                },
+                {
+                  "glob": "**",
+                  "input": "node_modules/@buc/svc-angular/assets",
+                  "output": "assets"
+                },
+                {
+                  "glob": "**",
+                  "input": "node_modules/@buc/common-components/assets",
+                  "output": "assets"
+                }
+              ],
+              "styles": [
+                "packages/order-search-result/src-merged/styles.scss"
+              ],
+              "scripts": [],
+              "customWebpackConfig": {
+                "path": "extra-webpack.config.js",
+                "libraryName": "order-search-result",
+                "libraryTarget": "umd"
+              },
+              "deployUrl": "/call-center-customization/call-center-order/order-search-result/",
+              "stylePreprocessorOptions": {
+                "includePaths": [
+                  "packages/order-search-result/src-merged/assets/scss"
+                ]
+              },
+              "buildOptimizer": true,
+              "optimization": true,
+              "vendorChunk": false,
+              "extractLicenses": true,
+              "sourceMap": false,
+              "namedChunks": false,
+              "fileReplacements": [
+                {
+                  "replace": "packages/order-search-result/src-merged/environments/environment.ts",
+                  "with": "packages/order-search-result/src-merged/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "none",
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "10mb",
+                  "maximumError": "12mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-builders/custom-webpack:dev-server",
+          "options": {
+            "buildTarget": "order-search-result:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "order-search-result:build:production"
+            },
+            "development": {
+              "buildTarget": "order-search-result:build:development"
+            },
+            "merged": {
+              "buildTarget": "order-search-result:build:merged"
+            },
+            "merged-prod": {
+              "buildTarget": "order-search-result:build-merged-prod"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "order-search-result:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/order-search-result/**/*.ts",
+              "packages/order-search-result/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "manage-holds": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "inlineTemplate": true,
+          "inlineStyle": true,
+          "style": "scss",
+          "skipTests": true
+        },
+        "@schematics/angular:class": {
+          "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true
+        },
+        "@schematics/angular:guard": {
+          "skipTests": true
+        },
+        "@schematics/angular:interceptor": {
+          "skipTests": true
+        },
+        "@schematics/angular:module": {},
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
+        }
+      },
+      "root": "packages/manage-holds",
+      "sourceRoot": "packages/manage-holds/src",
+      "prefix": "call-center",
+      "architect": {
+        "build": {
+          "builder": "@angular-builders/custom-webpack:browser",
+          "options": {
+            "preserveSymlinks": true,
+            "outputPath": "dist/call-center-order/manage-holds",
+            "index": "packages/manage-holds/src/index.html",
+            "main": "packages/manage-holds/src/main.single-spa.ts",
+            "polyfills": "packages/manage-holds/src/polyfills.ts",
+            "tsConfig": "packages/manage-holds/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "packages/manage-holds/src/favicon.ico",
+              "packages/manage-holds/src/assets",
+              {
+                "glob": "*.json",
+                "input": "packages/manage-holds/assets/manage-holds",
+                "output": "assets/manage-holds"
+              }
+            ],
+            "styles": [
+              "packages/manage-holds/src/styles.scss"
+            ],
+            "scripts": [],
+            "customWebpackConfig": {
+              "path": "extra-webpack.config.js",
+              "libraryName": "manage-holds",
+              "libraryTarget": "umd"
+            },
+            "deployUrl": "/call-center-order/manage-holds/",
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "packages/manage-holds/src/assets/scss"
+              ]
+            }
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "packages/manage-holds/src/environments/environment.ts",
+                  "with": "packages/manage-holds/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "none",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "5mb",
+                  "maximumError": "8mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "50kb"
+                }
+              ]
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
+            "merged": {
+              "preserveSymlinks": true,
+              "outputPath": "dist/call-center-order/manage-holds",
+              "index": "packages/manage-holds/src-merged/index.html",
+              "main": "packages/manage-holds/src-merged/main.single-spa.ts",
+              "polyfills": "packages/manage-holds/src-merged/polyfills.ts",
+              "tsConfig": "packages/manage-holds/tsconfig.app.merged.json",
+              "aot": true,
+              "assets": [
+                {
+                  "glob": "*.json",
+                  "input": "packages/manage-holds/assets/manage-holds",
+                  "output": "assets/manage-holds"
+                },
+                {
+                  "glob": "**",
+                  "input": "packages/manage-holds/src-merged/assets",
+                  "output": "assets"
+                }
+              ],
+              "styles": [
+                "packages/manage-holds/src-merged/styles.scss"
+              ],
+              "scripts": [],
+              "customWebpackConfig": {
+                "path": "extra-webpack.config.js",
+                "libraryName": "manage-holds",
+                "libraryTarget": "umd"
+              },
+              "deployUrl": "/call-center-order/manage-holds/",
+              "stylePreprocessorOptions": {
+                "includePaths": [
+                  "packages/manage-holds/src-merged/assets/scss"
+                ]
+              },
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
+            "merged-prod": {
+              "preserveSymlinks": true,
+              "outputPath": "dist/call-center-order/manage-holds",
+              "index": "packages/manage-holds/src-merged/index.html",
+              "main": "packages/manage-holds/src-merged/main.single-spa.ts",
+              "polyfills": "packages/manage-holds/src-merged/polyfills.ts",
+              "tsConfig": "packages/manage-holds/tsconfig.app.merged.json",
+              "aot": true,
+              "assets": [
+                {
+                  "glob": "*.json",
+                  "input": "packages/manage-holds/assets/manage-holds",
+                  "output": "assets/manage-holds"
+                },
+                {
+                  "glob": "**",
+                  "input": "packages/manage-holds/src-merged/assets",
+                  "output": "assets"
+                }
+              ],
+              "styles": [
+                "packages/manage-holds/src-merged/styles.scss"
+              ],
+              "scripts": [],
+              "customWebpackConfig": {
+                "path": "extra-webpack.config.js",
+                "libraryName": "manage-holds",
+                "libraryTarget": "umd"
+              },
+              "deployUrl": "/call-center-customization/call-center-order/manage-holds/",
+              "stylePreprocessorOptions": {
+                "includePaths": [
+                  "packages/manage-holds/src-merged/assets/scss"
+                ]
+              },
+              "buildOptimizer": true,
+              "optimization": true,
+              "vendorChunk": false,
+              "extractLicenses": true,
+              "sourceMap": false,
+              "namedChunks": false,
+              "fileReplacements": [
+                {
+                  "replace": "packages/manage-holds/src-merged/environments/environment.ts",
+                  "with": "packages/manage-holds/src-merged/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "none",
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "5mb",
+                  "maximumError": "8mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "50kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-builders/custom-webpack:dev-server",
+          "options": {
+            "buildTarget": "manage-holds:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "manage-holds:build:production"
+            },
+            "development": {
+              "buildTarget": "manage-holds:build:development"
+            },
+            "merged": {
+              "buildTarget": "manage-holds:build:merged"
+            },
+            "merged-prod": {
+              "buildTarget": "manage-holds:build-merged-prod"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "manage-holds:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/manage-holds/**/*.ts",
+              "packages/manage-holds/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "order-line-details": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "inlineTemplate": false,
+          "inlineStyle": false,
+          "style": "scss",
+          "skipTests": true
+        },
+        "@schematics/angular:class": {
+          "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true
+        },
+        "@schematics/angular:guard": {
+          "skipTests": true
+        },
+        "@schematics/angular:interceptor": {
+          "skipTests": true
+        },
+        "@schematics/angular:module": {},
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
+        }
+      },
+      "root": "packages/order-line-details",
+      "sourceRoot": "packages/order-line-details/src",
+      "prefix": "call-center",
+      "architect": {
+        "build": {
+          "builder": "@angular-builders/custom-webpack:browser",
+          "options": {
+            "preserveSymlinks": true,
+            "outputPath": "dist/call-center-order/order-line-details",
+            "index": "packages/order-line-details/src/index.html",
+            "main": "packages/order-line-details/src/main.single-spa.ts",
+            "polyfills": "packages/order-line-details/src/polyfills.ts",
+            "tsConfig": "packages/order-line-details/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "packages/order-line-details/src/favicon.ico",
+              "packages/order-line-details/src/assets",
+              {
+                "glob": "*.json",
+                "input": "packages/order-line-details/assets/order-line-details",
+                "output": "assets/order-line-details"
+              }
+            ],
+            "styles": [
+              "packages/order-line-details/src/styles.scss"
+            ],
+            "scripts": [],
+            "customWebpackConfig": {
+              "path": "extra-webpack.config.js",
+              "libraryName": "order-line-details",
+              "libraryTarget": "umd"
+            },
+            "deployUrl": "/call-center-order/order-line-details/",
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "packages/order-line-details/src/assets/scss"
+              ]
+            }
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "packages/order-line-details/src/environments/environment.ts",
+                  "with": "packages/order-line-details/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "none",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "10mb",
+                  "maximumError": "12mb"
+                }
+              ]
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
+            "merged": {
+              "preserveSymlinks": true,
+              "outputPath": "dist/call-center-order/order-line-details",
+              "index": "packages/order-line-details/src-merged/index.html",
+              "main": "packages/order-line-details/src-merged/main.single-spa.ts",
+              "polyfills": "packages/order-line-details/src-merged/polyfills.ts",
+              "tsConfig": "packages/order-line-details/tsconfig.app.merged.json",
+              "aot": true,
+              "assets": [
+                {
+                  "glob": "*.json",
+                  "input": "packages/order-line-details/assets/order-line-details",
+                  "output": "assets/order-line-details"
+                },
+                {
+                  "glob": "**",
+                  "input": "packages/order-line-details/src-merged/assets",
+                  "output": "assets"
+                }
+              ],
+              "styles": [
+                "packages/order-line-details/src-merged/styles.scss"
+              ],
+              "scripts": [],
+              "customWebpackConfig": {
+                "path": "extra-webpack.config.js",
+                "libraryName": "order-line-details",
+                "libraryTarget": "umd"
+              },
+              "deployUrl": "/call-center-order/order-line-details/",
+              "stylePreprocessorOptions": {
+                "includePaths": [
+                  "packages/order-line-details/src-merged/assets/scss"
+                ]
+              },
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
+            "merged-prod": {
+              "preserveSymlinks": true,
+              "outputPath": "dist/call-center-order/order-line-details",
+              "index": "packages/order-line-details/src-merged/index.html",
+              "main": "packages/order-line-details/src-merged/main.single-spa.ts",
+              "polyfills": "packages/order-line-details/src-merged/polyfills.ts",
+              "tsConfig": "packages/order-line-details/tsconfig.app.merged.json",
+              "aot": true,
+              "assets": [
+                {
+                  "glob": "*.json",
+                  "input": "packages/order-line-details/assets/order-line-details",
+                  "output": "assets/order-line-details"
+                },
+                {
+                  "glob": "**",
+                  "input": "packages/order-line-details/src-merged/assets",
+                  "output": "assets"
+                }
+              ],
+              "styles": [
+                "packages/order-line-details/src-merged/styles.scss"
+              ],
+              "scripts": [],
+              "customWebpackConfig": {
+                "path": "extra-webpack.config.js",
+                "libraryName": "order-line-details",
+                "libraryTarget": "umd"
+              },
+              "deployUrl": "/call-center-customization/call-center-order/order-line-details/",
+              "stylePreprocessorOptions": {
+                "includePaths": [
+                  "packages/order-line-details/src-merged/assets/scss"
+                ]
+              },
+              "buildOptimizer": true,
+              "optimization": true,
+              "vendorChunk": false,
+              "extractLicenses": true,
+              "sourceMap": false,
+              "namedChunks": false,
+              "fileReplacements": [
+                {
+                  "replace": "packages/order-line-details/src-merged/environments/environment.ts",
+                  "with": "packages/order-line-details/src-merged/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "none",
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "10mb",
+                  "maximumError": "12mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-builders/custom-webpack:dev-server",
+          "options": {
+            "buildTarget": "order-line-details:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "order-line-details:build:production"
+            },
+            "development": {
+              "buildTarget": "order-line-details:build:development"
+            },
+            "merged": {
+              "buildTarget": "order-line-details:build:merged"
+            },
+            "merged-prod": {
+              "buildTarget": "order-line-details:build-merged-prod"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "order-line-details:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/order-line-details/**/*.ts",
+              "packages/order-line-details/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "view-invoices": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "inlineTemplate": false,
+          "inlineStyle": false,
+          "style": "scss",
+          "skipTests": true
+        },
+        "@schematics/angular:class": {
+          "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true
+        },
+        "@schematics/angular:guard": {
+          "skipTests": true
+        },
+        "@schematics/angular:interceptor": {
+          "skipTests": true
+        },
+        "@schematics/angular:module": {},
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
+        }
+      },
+      "root": "packages/view-invoices",
+      "sourceRoot": "packages/view-invoices/src",
+      "prefix": "call-center",
+      "architect": {
+        "build": {
+          "builder": "@angular-builders/custom-webpack:browser",
+          "options": {
+            "preserveSymlinks": true,
+            "outputPath": "dist/call-center-order/view-invoices",
+            "index": "packages/view-invoices/src/index.html",
+            "main": "packages/view-invoices/src/main.single-spa.ts",
+            "polyfills": "packages/view-invoices/src/polyfills.ts",
+            "tsConfig": "packages/view-invoices/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "packages/view-invoices/src/favicon.ico",
+              "packages/view-invoices/src/assets",
+              {
+                "glob": "*.json",
+                "input": "packages/view-invoices/assets/view-invoices",
+                "output": "assets/view-invoices"
+              }
+            ],
+            "styles": [
+              "packages/view-invoices/src/styles.scss"
+            ],
+            "scripts": [],
+            "customWebpackConfig": {
+              "path": "extra-webpack.config.js",
+              "libraryName": "view-invoices",
+              "libraryTarget": "umd"
+            },
+            "deployUrl": "/call-center-order/view-invoices/",
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "packages/view-invoices/src/assets/scss"
+              ]
+            }
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "packages/view-invoices/src/environments/environment.ts",
+                  "with": "packages/view-invoices/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "none",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "10mb",
+                  "maximumError": "12mb"
+                }
+              ]
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
+            "merged": {
+              "preserveSymlinks": true,
+              "outputPath": "dist/call-center-order/view-invoices",
+              "index": "packages/view-invoices/src-merged/index.html",
+              "main": "packages/view-invoices/src-merged/main.single-spa.ts",
+              "polyfills": "packages/view-invoices/src-merged/polyfills.ts",
+              "tsConfig": "packages/view-invoices/tsconfig.app.merged.json",
+              "aot": true,
+              "assets": [
+                {
+                  "glob": "*.json",
+                  "input": "packages/view-invoices/assets/view-invoices",
+                  "output": "assets/view-invoices"
+                },
+                {
+                  "glob": "**",
+                  "input": "packages/view-invoices/src-merged/assets",
+                  "output": "assets"
+                }
+              ],
+              "styles": [
+                "packages/view-invoices/src-merged/styles.scss"
+              ],
+              "scripts": [],
+              "customWebpackConfig": {
+                "path": "extra-webpack.config.js",
+                "libraryName": "view-invoices",
+                "libraryTarget": "umd"
+              },
+              "deployUrl": "/call-center-order/view-invoices/",
+              "stylePreprocessorOptions": {
+                "includePaths": [
+                  "packages/view-invoices/src-merged/assets/scss"
+                ]
+              },
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
+            "merged-prod": {
+              "preserveSymlinks": true,
+              "outputPath": "dist/call-center-order/view-invoices",
+              "index": "packages/view-invoices/src-merged/index.html",
+              "main": "packages/view-invoices/src-merged/main.single-spa.ts",
+              "polyfills": "packages/view-invoices/src-merged/polyfills.ts",
+              "tsConfig": "packages/view-invoices/tsconfig.app.merged.json",
+              "aot": true,
+              "assets": [
+                {
+                  "glob": "*.json",
+                  "input": "packages/view-invoices/assets/view-invoices",
+                  "output": "assets/view-invoices"
+                },
+                {
+                  "glob": "**",
+                  "input": "packages/view-invoices/src-merged/assets",
+                  "output": "assets"
+                }
+              ],
+              "styles": [
+                "packages/view-invoices/src-merged/styles.scss"
+              ],
+              "scripts": [],
+              "customWebpackConfig": {
+                "path": "extra-webpack.config.js",
+                "libraryName": "view-invoices",
+                "libraryTarget": "umd"
+              },
+              "deployUrl": "/call-center-customization/call-center-order/view-invoices/",
+              "stylePreprocessorOptions": {
+                "includePaths": [
+                  "packages/view-invoices/src-merged/assets/scss"
+                ]
+              },
+              "buildOptimizer": true,
+              "optimization": true,
+              "vendorChunk": false,
+              "extractLicenses": true,
+              "sourceMap": false,
+              "namedChunks": false,
+              "fileReplacements": [
+                {
+                  "replace": "packages/view-invoices/src-merged/environments/environment.ts",
+                  "with": "packages/view-invoices/src-merged/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "none",
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "10mb",
+                  "maximumError": "12mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-builders/custom-webpack:dev-server",
+          "options": {
+            "buildTarget": "view-invoices:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "view-invoices:build:production"
+            },
+            "development": {
+              "buildTarget": "view-invoices:build:development"
+            },
+            "merged": {
+              "buildTarget": "view-invoices:build:merged"
+            },
+            "merged-prod": {
+              "buildTarget": "view-invoices:build-merged-prod"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "view-invoices:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/view-invoices/**/*.ts",
+              "packages/view-invoices/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "view-invoices-details": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "inlineTemplate": false,
+          "inlineStyle": false,
+          "style": "scss",
+          "skipTests": true
+        },
+        "@schematics/angular:class": {
+          "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true
+        },
+        "@schematics/angular:guard": {
+          "skipTests": true
+        },
+        "@schematics/angular:interceptor": {
+          "skipTests": true
+        },
+        "@schematics/angular:module": {},
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
+        }
+      },
+      "root": "packages/view-invoices-details",
+      "sourceRoot": "packages/view-invoices-details/src",
+      "prefix": "call-center",
+      "architect": {
+        "build": {
+          "builder": "@angular-builders/custom-webpack:browser",
+          "options": {
+            "preserveSymlinks": true,
+            "outputPath": "dist/call-center-order/view-invoices-details",
+            "index": "packages/view-invoices-details/src/index.html",
+            "main": "packages/view-invoices-details/src/main.single-spa.ts",
+            "polyfills": "packages/view-invoices-details/src/polyfills.ts",
+            "tsConfig": "packages/view-invoices-details/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "packages/view-invoices-details/src/favicon.ico",
+              "packages/view-invoices-details/src/assets",
+              {
+                "glob": "*.json",
+                "input": "packages/view-invoices-details/assets/view-invoices-details",
+                "output": "assets/view-invoices-details"
+              }
+            ],
+            "styles": [
+              "packages/view-invoices-details/src/styles.scss"
+            ],
+            "scripts": [],
+            "customWebpackConfig": {
+              "path": "extra-webpack.config.js",
+              "libraryName": "view-invoices-details",
+              "libraryTarget": "umd"
+            },
+            "deployUrl": "/call-center-order/view-invoices-details/",
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "packages/view-invoices-details/src/assets/scss"
+              ]
+            }
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "packages/view-invoices-details/src/environments/environment.ts",
+                  "with": "packages/view-invoices-details/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "none",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "10mb",
+                  "maximumError": "12mb"
+                }
+              ]
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
+            "merged": {
+              "preserveSymlinks": true,
+              "outputPath": "dist/call-center-order/view-invoices-details",
+              "index": "packages/view-invoices-details/src-merged/index.html",
+              "main": "packages/view-invoices-details/src-merged/main.single-spa.ts",
+              "polyfills": "packages/view-invoices-details/src-merged/polyfills.ts",
+              "tsConfig": "packages/view-invoices-details/tsconfig.app.merged.json",
+              "aot": true,
+              "assets": [
+                {
+                  "glob": "*.json",
+                  "input": "packages/view-invoices-details/assets/view-invoices-details",
+                  "output": "assets/view-invoices-details"
+                },
+                {
+                  "glob": "**",
+                  "input": "packages/view-invoices-details/src-merged/assets",
+                  "output": "assets"
+                }
+              ],
+              "styles": [
+                "packages/view-invoices-details/src-merged/styles.scss"
+              ],
+              "scripts": [],
+              "customWebpackConfig": {
+                "path": "extra-webpack.config.js",
+                "libraryName": "view-invoices-details",
+                "libraryTarget": "umd"
+              },
+              "deployUrl": "/call-center-order/view-invoices-details/",
+              "stylePreprocessorOptions": {
+                "includePaths": [
+                  "packages/view-invoices-details/src-merged/assets/scss"
+                ]
+              },
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
+            "merged-prod": {
+              "preserveSymlinks": true,
+              "outputPath": "dist/call-center-order/view-invoices-details",
+              "index": "packages/view-invoices-details/src-merged/index.html",
+              "main": "packages/view-invoices-details/src-merged/main.single-spa.ts",
+              "polyfills": "packages/view-invoices-details/src-merged/polyfills.ts",
+              "tsConfig": "packages/view-invoices-details/tsconfig.app.merged.json",
+              "aot": true,
+              "assets": [
+                {
+                  "glob": "*.json",
+                  "input": "packages/view-invoices-details/assets/view-invoices-details",
+                  "output": "assets/view-invoices-details"
+                },
+                {
+                  "glob": "**",
+                  "input": "packages/view-invoices-details/src-merged/assets",
+                  "output": "assets"
+                }
+              ],
+              "styles": [
+                "packages/view-invoices-details/src-merged/styles.scss"
+              ],
+              "scripts": [],
+              "customWebpackConfig": {
+                "path": "extra-webpack.config.js",
+                "libraryName": "view-invoices-details",
+                "libraryTarget": "umd"
+              },
+              "deployUrl": "/call-center-customization/call-center-order/view-invoices-details/",
+              "stylePreprocessorOptions": {
+                "includePaths": [
+                  "packages/view-invoices-details/src-merged/assets/scss"
+                ]
+              },
+              "buildOptimizer": true,
+              "optimization": true,
+              "vendorChunk": false,
+              "extractLicenses": true,
+              "sourceMap": false,
+              "namedChunks": false,
+              "fileReplacements": [
+                {
+                  "replace": "packages/view-invoices-details/src-merged/environments/environment.ts",
+                  "with": "packages/view-invoices-details/src-merged/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "none",
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "10mb",
+                  "maximumError": "12mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-builders/custom-webpack:dev-server",
+          "options": {
+            "buildTarget": "view-invoices-details:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "view-invoices-details:build:production"
+            },
+            "development": {
+              "buildTarget": "view-invoices-details:build:development"
+            },
+            "merged": {
+              "buildTarget": "view-invoices-details:build:merged"
+            },
+            "merged-prod": {
+              "buildTarget": "view-invoices-details:build-merged-prod"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "view-invoices-details:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/view-invoices-details/**/*.ts",
+              "packages/view-invoices-details/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "order-modification-checkout": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "inlineTemplate": true,
+          "inlineStyle": true,
+          "style": "scss",
+          "skipTests": true
+        },
+        "@schematics/angular:class": {
+          "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true
+        },
+        "@schematics/angular:guard": {
+          "skipTests": true
+        },
+        "@schematics/angular:interceptor": {
+          "skipTests": true
+        },
+        "@schematics/angular:module": {},
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
+        }
+      },
+      "root": "packages/order-modification-checkout",
+      "sourceRoot": "packages/order-modification-checkout/src",
+      "prefix": "call-center",
+      "architect": {
+        "build": {
+          "builder": "@angular-builders/custom-webpack:browser",
+          "options": {
+            "preserveSymlinks": true,
+            "outputPath": "dist/call-center-order/order-modification-checkout",
+            "index": "packages/order-modification-checkout/src/index.html",
+            "main": "packages/order-modification-checkout/src/main.single-spa.ts",
+            "polyfills": "packages/order-modification-checkout/src/polyfills.ts",
+            "tsConfig": "packages/order-modification-checkout/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "packages/order-modification-checkout/src/favicon.ico",
+              "packages/order-modification-checkout/src/assets",
+              {
+                "glob": "*.json",
+                "input": "packages/order-modification-checkout/assets/order-modification-checkout",
+                "output": "assets/order-modification-checkout"
+              }
+            ],
+            "styles": [
+              "packages/order-modification-checkout/src/styles.scss"
+            ],
+            "scripts": [],
+            "customWebpackConfig": {
+              "path": "extra-webpack.config.js",
+              "libraryName": "order-modification-checkout",
+              "libraryTarget": "umd"
+            },
+            "deployUrl": "/call-center-order/order-modification-checkout/",
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "packages/order-modification-checkout/src/assets/scss"
+              ]
+            }
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "packages/order-modification-checkout/src/environments/environment.ts",
+                  "with": "packages/order-modification-checkout/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "none",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "10mb",
+                  "maximumError": "12mb"
+                }
+              ]
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
+            "merged": {
+              "preserveSymlinks": true,
+              "outputPath": "dist/call-center-order/order-modification-checkout",
+              "index": "packages/order-modification-checkout/src-merged/index.html",
+              "main": "packages/order-modification-checkout/src-merged/main.single-spa.ts",
+              "polyfills": "packages/order-modification-checkout/src-merged/polyfills.ts",
+              "tsConfig": "packages/order-modification-checkout/tsconfig.app.merged.json",
+              "aot": true,
+              "assets": [
+                {
+                  "glob": "*.json",
+                  "input": "packages/order-modification-checkout/assets/order-modification-checkout",
+                  "output": "assets/order-modification-checkout"
+                },
+                {
+                  "glob": "**",
+                  "input": "packages/order-modification-checkout/src-merged/assets",
+                  "output": "assets"
+                }
+              ],
+              "styles": [
+                "packages/order-modification-checkout/src-merged/styles.scss"
+              ],
+              "scripts": [],
+              "customWebpackConfig": {
+                "path": "extra-webpack.config.js",
+                "libraryName": "order-modification-checkout",
+                "libraryTarget": "umd"
+              },
+              "deployUrl": "/call-center-order/order-modification-checkout/",
+              "stylePreprocessorOptions": {
+                "includePaths": [
+                  "packages/order-modification-checkout/src-merged/assets/scss"
+                ]
+              },
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
+            "merged-prod": {
+              "preserveSymlinks": true,
+              "outputPath": "dist/call-center-order/order-modification-checkout",
+              "index": "packages/order-modification-checkout/src-merged/index.html",
+              "main": "packages/order-modification-checkout/src-merged/main.single-spa.ts",
+              "polyfills": "packages/order-modification-checkout/src-merged/polyfills.ts",
+              "tsConfig": "packages/order-modification-checkout/tsconfig.app.merged.json",
+              "aot": true,
+              "assets": [
+                {
+                  "glob": "*.json",
+                  "input": "packages/order-modification-checkout/assets/order-modification-checkout",
+                  "output": "assets/order-modification-checkout"
+                },
+                {
+                  "glob": "**",
+                  "input": "packages/order-modification-checkout/src-merged/assets",
+                  "output": "assets"
+                }
+              ],
+              "styles": [
+                "packages/order-modification-checkout/src-merged/styles.scss"
+              ],
+              "scripts": [],
+              "customWebpackConfig": {
+                "path": "extra-webpack.config.js",
+                "libraryName": "order-modification-checkout",
+                "libraryTarget": "umd"
+              },
+              "deployUrl": "/call-center-customization/call-center-order/order-modification-checkout/",
+              "stylePreprocessorOptions": {
+                "includePaths": [
+                  "packages/order-modification-checkout/src-merged/assets/scss"
+                ]
+              },
+              "buildOptimizer": true,
+              "optimization": true,
+              "vendorChunk": false,
+              "extractLicenses": true,
+              "sourceMap": false,
+              "namedChunks": false,
+              "fileReplacements": [
+                {
+                  "replace": "packages/order-modification-checkout/src-merged/environments/environment.ts",
+                  "with": "packages/order-modification-checkout/src-merged/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "none",
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "10mb",
+                  "maximumError": "12mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-builders/custom-webpack:dev-server",
+          "options": {
+            "buildTarget": "order-modification-checkout:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "order-modification-checkout:build:production"
+            },
+            "development": {
+              "buildTarget": "order-modification-checkout:build:development"
+            },
+            "merged": {
+              "buildTarget": "order-modification-checkout:build:merged"
+            },
+            "merged-prod": {
+              "buildTarget": "order-modification-checkout:build-merged-prod"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "order-modification-checkout:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/order-modification-checkout/**/*.ts",
+              "packages/order-modification-checkout/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "product-details": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "inlineTemplate": false,
+          "inlineStyle": false,
+          "style": "scss",
+          "skipTests": true
+        },
+        "@schematics/angular:class": {
+          "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true
+        },
+        "@schematics/angular:guard": {
+          "skipTests": true
+        },
+        "@schematics/angular:interceptor": {
+          "skipTests": true
+        },
+        "@schematics/angular:module": {},
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
+        }
+      },
+      "root": "packages/product-details",
+      "sourceRoot": "packages/product-details/src",
+      "prefix": "call-center",
+      "architect": {
+        "build": {
+          "builder": "@angular-builders/custom-webpack:browser",
+          "options": {
+            "preserveSymlinks": true,
+            "outputPath": "dist/call-center-order/product-details",
+            "index": "packages/product-details/src/index.html",
+            "main": "packages/product-details/src/main.single-spa.ts",
+            "polyfills": "packages/product-details/src/polyfills.ts",
+            "tsConfig": "packages/product-details/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "packages/product-details/src/favicon.ico",
+              "packages/product-details/src/assets",
+              {
+                "glob": "*.json",
+                "input": "packages/product-details/assets/product-details",
+                "output": "assets/product-details"
+              }
+            ],
+            "styles": [
+              "packages/product-details/src/styles.scss"
+            ],
+            "scripts": [],
+            "customWebpackConfig": {
+              "path": "extra-webpack.config.js",
+              "libraryName": "product-details",
+              "libraryTarget": "umd"
+            },
+            "deployUrl": "/call-center-order/product-details/",
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "packages/product-details/src/assets/scss"
+              ]
+            }
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "packages/product-details/src/environments/environment.ts",
+                  "with": "packages/product-details/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "none",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "10mb",
+                  "maximumError": "12mb"
+                }
+              ]
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
+            "merged": {
+              "preserveSymlinks": true,
+              "outputPath": "dist/call-center-order/product-details",
+              "index": "packages/product-details/src-merged/index.html",
+              "main": "packages/product-details/src-merged/main.single-spa.ts",
+              "polyfills": "packages/product-details/src-merged/polyfills.ts",
+              "tsConfig": "packages/product-details/tsconfig.app.merged.json",
+              "aot": true,
+              "assets": [
+                {
+                  "glob": "*.json",
+                  "input": "packages/product-details/assets/product-details",
+                  "output": "assets/product-details"
+                },
+                {
+                  "glob": "**",
+                  "input": "packages/product-details/src-merged/assets",
+                  "output": "assets"
+                }
+              ],
+              "styles": [
+                "packages/product-details/src-merged/styles.scss"
+              ],
+              "scripts": [],
+              "customWebpackConfig": {
+                "path": "extra-webpack.config.js",
+                "libraryName": "product-details",
+                "libraryTarget": "umd"
+              },
+              "deployUrl": "/call-center-order/product-details/",
+              "stylePreprocessorOptions": {
+                "includePaths": [
+                  "packages/product-details/src-merged/assets/scss"
+                ]
+              },
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
+            "merged-prod": {
+              "preserveSymlinks": true,
+              "outputPath": "dist/call-center-order/product-details",
+              "index": "packages/product-details/src-merged/index.html",
+              "main": "packages/product-details/src-merged/main.single-spa.ts",
+              "polyfills": "packages/product-details/src-merged/polyfills.ts",
+              "tsConfig": "packages/product-details/tsconfig.app.merged.json",
+              "aot": true,
+              "assets": [
+                {
+                  "glob": "*.json",
+                  "input": "packages/product-details/assets/product-details",
+                  "output": "assets/product-details"
+                },
+                {
+                  "glob": "**",
+                  "input": "packages/product-details/src-merged/assets",
+                  "output": "assets"
+                }
+              ],
+              "styles": [
+                "packages/product-details/src-merged/styles.scss"
+              ],
+              "scripts": [],
+              "customWebpackConfig": {
+                "path": "extra-webpack.config.js",
+                "libraryName": "product-details",
+                "libraryTarget": "umd"
+              },
+              "deployUrl": "/call-center-customization/call-center-order/product-details/",
+              "stylePreprocessorOptions": {
+                "includePaths": [
+                  "packages/product-details/src-merged/assets/scss"
+                ]
+              },
+              "buildOptimizer": true,
+              "optimization": true,
+              "vendorChunk": false,
+              "extractLicenses": true,
+              "sourceMap": false,
+              "namedChunks": false,
+              "fileReplacements": [
+                {
+                  "replace": "packages/product-details/src-merged/environments/environment.ts",
+                  "with": "packages/product-details/src-merged/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "none",
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "10mb",
+                  "maximumError": "12mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-builders/custom-webpack:dev-server",
+          "options": {
+            "buildTarget": "product-details:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "product-details:build:production"
+            },
+            "development": {
+              "buildTarget": "product-details:build:development"
+            },
+            "merged": {
+              "buildTarget": "product-details:build:merged"
+            },
+            "merged-prod": {
+              "buildTarget": "product-details:build-merged-prod"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "product-details:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/product-details/**/*.ts",
+              "packages/product-details/**/*.html"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "schematics": {
+    "@angular-eslint/schematics:application": {
+      "setParserOptionsProject": true
+    },
+    "@angular-eslint/schematics:library": {
+      "setParserOptionsProject": true
+    }
+  }
+}

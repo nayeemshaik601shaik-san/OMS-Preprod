@@ -1,0 +1,27 @@
+{
+  "routes": {
+    "return-search": {
+      "runAsCustomization": false
+    },
+    "return-search-result": {
+      "runAsCustomization": false
+    },
+    "return-details": {
+      "runAsCustomization": true
+    },
+    "create-return": {
+      "runAsCustomization": true
+    },
+    "return-modification-checkout": {
+      "runAsCustomization": false
+    },
+    "manage-return-holds": {
+      "runAsCustomization": false
+    }
+  },
+  "prodServerConfig": {
+    "hostName": "localhost",
+    "deployUrl": "/call-center-return",
+    "port": 6443
+  }
+}

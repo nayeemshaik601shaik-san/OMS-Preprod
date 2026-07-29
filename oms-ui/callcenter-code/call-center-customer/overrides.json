@@ -1,0 +1,24 @@
+{
+  "routes": {
+    "customer-create": {
+      "runAsCustomization": true
+    },
+    "customer-search": {
+      "runAsCustomization": true
+    },
+    "customer-search-result": {
+      "runAsCustomization": true
+    },
+    "customer-details": {
+      "runAsCustomization": false
+    },
+    "contact-details": {
+      "runAsCustomization": false
+    }
+  },
+  "prodServerConfig": {
+    "hostName": "localhost",
+    "deployUrl": "/call-center-customer",
+    "port": 6443
+  }
+}

@@ -1,0 +1,67 @@
+<!--
+* IBM Confidential
+* OCO Source Materials
+* 5737-D18, 5725-D10
+*
+* (C) Copyright International Business Machines Corp. 2022, 2023
+*
+* The source code for this program is not published or otherwise divested
+* of its trade secrets, irrespective of what has been deposited with the
+* U.S. Copyright Office.
+-->
+
+<div class="list-table" [attr.tid]="componentId + '-container'">
+    <buc-table #groupResults
+      [gotoPageEnabled]="false"
+      [model]="multiModel"
+      [class.no-data]="multiModel.totalDataLength === 0"
+      [defaultPageLen]="TABLE_CONSTANTS.DEFAULT_PAGE_LENGTH"
+      [skeleton]="multiModel.isLoading"
+      [tableToolbarModel]="tableToolbarModel"
+      [(selectedItems)]="selectedItems"
+      (selectPage)="selectPage($event)"
+      (sort)="onColSort($event)"
+      [attr.tid]="componentId"
+      batchText="{{'CUSTOMER_TABLE.TABLE.BATCH_TEXT_MULTIPLE' | translate}}"
+      applyLabel="{{'CUSTOMER_TABLE.TABLE.APPLY' | translate}}"
+      clearLabel="{{'CUSTOMER_TABLE.TABLE.CLEAR' | translate}}"
+      [searchPlaceholderText]="searchPlaceholderMsg"
+      [(searchValue)]="searchText"
+      (searchValueChange)="searchTextChanged($event)"
+      (clear)="searchTextCleared()"
+      [cancelText]="cancelText"
+      [paginationTranslations]="paginationTranslations"
+      [showEmptyState]="true"
+      [showSelectionColumn]=false
+      [hasSearch]="true"
+      [expandableSearch]="false"
+      [isSearchActive]="true"
+      [size]="'sm'">
+    </buc-table>
+  </div>
+
+  <buc-icon-templates #iconTemplates id="iconTemplates"></buc-icon-templates>
+  <buc-content-templates #contentTemplates id="contentTemplates"></buc-content-templates>
+
+
+  <!-- templates for icons -->
+
+  <ng-template #bucSettingsIcon let-data="data">
+    <buc-button #b type="ghost" btnSize="sm" (click)="!b.isDisabled && data.onClick(data)">
+      <svg ibmIcon="settings" size="16" [attr.tid]="componentId + '-settings-icon'"></svg>
+    </buc-button>
+  </ng-template>
+
+  <ng-template #refresh let-data="data">
+    <buc-button #r type="ghost" btnSize="sm" (click)="!r.isDisabled && data.onClick(data)">
+      <svg ibmIcon="renew" size="16" [attr.tid]="componentId + '-refresh-icon'"></svg>
+    </buc-button>
+  </ng-template>
+
+  <ng-template #customerIdLinkTemplate let-data="data">
+    <a class="d--flex" tabindex="0" [attr.tid]="'customerIdAction'" (click)="openCustomerDetails(data)" [title]="data.CustomerID"
+      style="cursor: pointer" (keydown.enter)="$event.preventDefault(); $event.target.click();"
+      (keydown.space)="$event.preventDefault(); $event.target.click();">
+        <span>{{ data.CustomerID }}</span>
+    </a>
+  </ng-template>

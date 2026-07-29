@@ -1,0 +1,35 @@
+<div class="container">
+    <buc-summary-panel [isSummaryComponent]="false" [showConfigIcon]="false" [attributes]="attributes" [context]="this"
+        [options]="{ turnOffLargeBreakpoint: true }" [attr.tid]="componentId + '-summary'">
+    </buc-summary-panel>
+    <div *ngIf="givexDetails?.PaymentMethod?.PaymentType === 'Givex'" class="cardDetails">
+        <div class="card-row">
+            <div class="label">
+                <p class="fontStyle">Card Number</p>
+                <button (click)="toggleMask()" aria-label="Toggle card number visibility">
+                    <svg *ngIf="isMasked" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                    <svg *ngIf="!isMasked" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8a20.29 20.29 0 0 1 5.17-6.29" />
+                        <path d="M1 1l22 22" />
+                        <path d="M9.88 9.88a3 3 0 0 0 4.24 4.24" />
+                        <path d="M14.12 14.12 9.88 9.88" />
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="card-info ">
+                <span class="fontStyle-14">
+                    {{ isMasked ? maskSvcNo(givexDetails?.PaymentMethod?.SvcNo) : givexDetails?.PaymentMethod?.SvcNo }}
+                </span>
+            </div>
+        </div>
+    </div>
+
+</div>

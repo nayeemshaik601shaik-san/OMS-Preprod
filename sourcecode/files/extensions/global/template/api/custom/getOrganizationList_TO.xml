@@ -1,0 +1,7 @@
+<OrganizationList>
+<Organization  OrganizationName="" ParentOrganizationCode="" >
+	<Extn ExtnBrand="" ExtnRegion="" ExtnCarrier="" ExtnSAPOrganizationName=""/>
+	<BillingPersonInfo AddressLine1="" AddressLine2="" City="" State="" ZipCode="" LastName="" FirstName="" Country="" DayPhone="" EMailID="" DayFaxNo="" Latitude="" Longitude=""/>
+	<CorporatePersonInfo AddressLine1="" AddressLine2="" City="" State="" ZipCode="" LastName="" FirstName="" Country="" DayPhone="" EMailID="" DayFaxNo="" Latitude="" Longitude=""/>
+</Organization>
+</OrganizationList>

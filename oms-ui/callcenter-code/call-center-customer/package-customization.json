@@ -1,0 +1,9 @@
+{
+  "repositoryName": "call-center-customer",
+  "customizationContextRoot": "/call-center-customization",
+  "routes": {
+    "customer-create": { "type": "code" },
+    "customer-search": { "type": "code" },
+    "customer-search-result": { "type": "code" }
+  }
+}

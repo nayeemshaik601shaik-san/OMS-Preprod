@@ -1,0 +1,205 @@
+/*
+ * IBM Confidential
+ * OCO Source Materials
+ * 5737-D18, 5725-D10
+ *
+ * (C) Copyright International Business Machines Corp. 2021, 2023
+ *
+ * The source code for this program is not published or otherwise divested
+ * of its trade secrets, irrespective of what has been deposited with the
+ * U.S. Copyright Office.
+ */
+
+@use 'variables' as *;
+@use '@carbon/styles/scss/colors';
+
+$background-color: $gray-10;
+$section-bg-color: $white-0;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background-color: $background-color;
+
+  .screen {
+    display: flex;
+    padding-left: 0;
+    flex-direction: column;
+    &:not(.non-panel) {
+      width: calc(100% - 1rem);
+    }
+
+    buc-loading {
+      align-items: center;
+      display: flex;
+    }
+  }
+
+  .non-panel:not(:only-child) {
+    margin-right: 15.5rem;
+    width: calc(100% - 15.5rem);
+  }
+
+  .screen-breadcrumb {
+    background-color: $gray-10  !important;
+  }
+
+  .screen-header {
+    position: fixed;
+    width: 100%;
+    z-index: 1001;
+  }
+
+  .select-fulfillment-container {
+    padding: 1rem;
+    .select-fulfillment-title {
+      font-size: 1rem;
+      font-weight: bold;
+    }
+    .content-wrapper {
+      margin-bottom: 1.5rem;
+      margin-right: 2rem;
+      display: flex;
+      .item-wrapper {
+          line-height: 1.4;
+          word-wrap: break-word;
+          padding:1rem;
+          .item-title {
+              margin-bottom:.4rem !important;
+              display:block;
+              ibm-tooltip-icon{
+                  float:right;
+                  cursor: pointer;
+              }
+              .icon-custom-style {
+                width: 1rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                &:hover {
+                  background-color: colors.$gray-20;
+                }
+              }
+          }
+          .item-value {
+              white-space: pre;
+              white-space: break-spaces;
+              .elipsis-text {
+                  height: 3.8rem;
+                  display: -webkit-box;
+                  -webkit-box-orient: vertical;
+                  -moz-box-orient: vertical;
+                  -ms-box-orient: vertical;
+                  -webkit-line-clamp: 3;
+                  -moz-line-clamp: 3;
+                  -ms-line-clamp: 3;
+                  overflow: hidden;
+              }
+          }
+          &.tile, &.tile, &.combineTile 
+          {
+              background: $background-color;
+              outline: none;
+          }
+      }
+      .level-of-service {
+        width: 23rem;
+        max-width: none !important;
+        flex: 0 0 auto !important;
+      }
+  }   
+  }
+
+  .cds--grid {
+    margin-left: 0;
+    margin-right: 0;
+    max-width: unset;
+
+    .cds--row {
+      margin-left: 0;
+      margin-right: 0;
+
+      .list-table {
+        &:first-child>div {
+          padding-top: 1rem;
+        }
+
+        &:not(:first-child)>div {
+          padding-top: 2rem;
+        }
+      }
+    }
+  }
+
+  .read-only {
+    pointer-events: none;
+  }
+
+  div.screen-footer {
+    overflow: hidden;
+    position: fixed;
+    padding: 1rem 0 1rem 2rem;
+    border-top: 1px solid $gray-20;
+    background-color: $white-0;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    z-index: 100;
+
+
+    ::ng-deep {
+      .cds--btn {
+        height: 3rem;
+        min-width: 7rem;
+      }
+      .cancel-btn {
+        margin-left: 1rem;
+      }
+    }
+  }
+
+  ::ng-deep {
+    buc-page-header {
+      &>* {
+        &:not(:last-child) {
+          border-bottom: 1px solid $gray-20;
+        }
+
+        &:last-child {
+          &:not(.expand-icon-container) {
+            padding-right: 16px;
+          }
+        }
+      }
+
+      :last-child.icon-container {
+        border-left: 1px solid $gray-20;
+      }
+      .expand-icon-container {
+        background-color: $white-0;
+      }
+      .cds--breadcrumb {
+        padding-left: 1rem !important;
+      }
+    }
+    .cds--accordion__content {
+      padding-left: 0;
+    }
+    .unavailable-lines ibm-notification {
+      max-width: none;
+      margin-bottom: 0;
+    }
+    .comments .cds--text-area {
+      background-color: $section-bg-color !important;
+    }
+    .cds--date-picker__input{
+      background-color: $white-0;
+    }
+  }
+}
+::ng-deep{
+  .cds--tooltip[data-floating-menu-direction=top] {
+    margin-top: calc(0.5rem * 0);
+  }
+}

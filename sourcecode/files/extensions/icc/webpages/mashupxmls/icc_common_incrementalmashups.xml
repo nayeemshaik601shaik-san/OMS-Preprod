@@ -1,0 +1,73 @@
+<mashups>
+	<mashup description="This mashup is used to add product to cart" endpoint="EP_CONFIG" id="icc.order.create-order.addToCart" mashuptype="XAPI" skipDataProvider="false" transactional="true">
+		<classInformation name="com.ibm.icc.order.createOrder.ICCValidateProductForOrderingMashup"/>
+		<API Name="modifyFulfillmentOptions">
+			<Input>
+				<Order DisplayLocalizedFieldInLocale="xml:CurrentUser:/User/@Localecode" DocumentType="" EnterpriseCode="" OrderHeaderKey="" IgnoreOrdering="Y" ValidateItems="N" AllocationRuleID="">
+					<Extn ExtnReasonCode="" ExtnCostCenter=""/>
+					<OrderLines>
+						<OrderLine Action="" OrderLineKey="" DeliveryMethod="" OrderedQty="" ShipNode="" ValidateItem="N" CarrierServiceCode="" FulfillmentType="">
+							<Item ItemID="" UnitOfMeasure="" ProductClass=""/>
+							<LinePriceInfo IsPriceLocked="" ListPrice="" UnitPrice="" BundleTotal=""/>
+							<OrderLineTranQuantity OrderedQty=""/>
+							<OrderOverride QuantityLimitOverridden=""/>
+							<Notes>
+								<Note ReasonCode="" NoteText="">
+									<User Username=""/>
+								</Note>
+							</Notes>
+						</OrderLine>
+					</OrderLines>
+				</Order>
+			</Input>
+			<Template>
+				<Order BillToID="" BuyerUserId="" CustomerContactID="" TotalNumberOfLinesInCart="" CustomerEMailID="" CustomerFirstName="" CustomerPhoneNo="" CustomerLastName="" CustomerZipCode="" DocumentType="" DraftOrderFlag="" EnterpriseCode="" EntryType="" ExchangeType="" MaxOrderStatus="" MaxOrderStatusDesc="" MinOrderStatus="" MultipleStatusesExist="" OrderName="" OrderDate="" OrderHeaderKey="" OrderNo="" ReturnOrderHeaderKeyForExchange="" Status="" SellerOrganizationCode="" SellerOrganizationName="" TaxExemptFlag="" TaxExemptionCertificate="" HasPendingChanges="" PendingChangesUserID="">
+					<PersonInfoBillTo/>
+					<PersonInfoShipTo/>
+					<OrderLines TotalNumberOfRecords="">
+						<OrderLine DeliveryMethod="" ItemGroupCode="" OrderLineKey="" OrderedQty="">
+							<Item ItemID="" UnitOfMeasure=""/>
+						</OrderLine>
+					</OrderLines>
+					<ModifiedOrderLines TotalNumberOfRecords="">
+						<OrderLine OrderLineKey="" OrderedQty="" KitCode="">
+							<Item ItemID=""/>
+						</OrderLine>
+					</ModifiedOrderLines>
+					<Notes>
+						<Note Createuserid="" NotesKey="" TableKey="" ContactReference="" ContactTime="" ContactType="" ContactUser="" CustomerSatIndicator="" NoteText="" Priority="" ReasonCode="" SequenceNo="" VisibleToAll="">
+							<User Username=""/>
+						</Note>
+					</Notes>
+					<OverallTotals AdjustedSubtotalWithoutTaxes="" GrandAdjustmentsWithoutTotalShipping="" GrandDeliveryCharges="" GrandRefundTotal="" GrandShippingTotal="" HdrShippingTotal="" GrandTax="" HdrTax="" GrandTotal="" GrandDiscount="" GrandCharges="" GrandShippingCharges="" HdrShippingCharges="" HeaderAdjustmentWithoutShipping="" LineSubTotal="" OrderHeaderKey="" SubtotalWithoutTaxes=""/>
+					<Promotions>
+						<Promotion DenialReason="" Description="" PromotionAmount="" PromotionApplied="" PromotionId="">
+							<PricingRule Description=""/>
+						</Promotion>
+					</Promotions>
+					<HeaderCharges>
+						<HeaderCharge ChargeAmount="" ChargeCategory="" ChargeName="" IsDiscount="" IsManual="" IsShippingCharge="">
+							<ChargeCategoryDetails Description=""/>
+							<ChargeNameDetails Description=""/>
+						</HeaderCharge>
+					</HeaderCharges>
+					<HeaderTaxes>
+						<HeaderTax Tax="" TaxName=""/>
+					</HeaderTaxes>
+					<Awards>
+						<Award AwardAmount="" AwardApplied="" AwardId="" AwardQuantity="" AwardType="" ChargeCategory="" ChargeName="" DenialReason="" Description="" IsFreeGiftAward="" PromotionId=""/>
+					</Awards>
+					<RemainingFinancialTotals RemainingToAuthorize="" RemainingToCharge="" RemainingToRefund=""/>
+					<PaymentMethods>
+						<PaymentMethod CheckNo="" CheckReference="" CreditCardExpDate="" CreditCardName="" CreditCardNo="" CreditCardType="" CustomerAccountNo="" CustomerPONo="" DebitCardNo="" DisplayCreditCardNo="" DisplayCustomerAccountNo="" DisplayDebitCardNo="" DisplayPaymentReference1="" DisplayPrimaryAccountNo="" DisplaySvcNo="" FirstName="" FundsAvailable="" GetFundsAvailableUserExitInvoked="" IncompletePaymentType="" IsCustomer="" IsDefaultMethod="" LastName="" MaxChargeLimit="" PaymentKey="" PaymentReference1="" PaymentReference2="" PaymentReference3="" PaymentTemplateType="" PaymentType="" PaymentTypeDescription="" CreditCardTypeDesc="" NoProcessingRequired="" ChargeUpToAvailable="" PaymentTypeGroup="" PrimaryAccountNo="" RequestedAuthAmount="" RequestedChargeAmount="" RequestedRefundAmount="" SuspendAnyMoreCharges="" SvcNo="" TotalAltRefundedAmount="" TotalAuthorized="" TotalCharged="" TotalRefundedAmount="" UnlimitedCharges="">
+                        </PaymentMethod>
+					</PaymentMethods>
+					<PriceInfo Currency="" TotalAmount=""/>
+				</Order>
+			</Template>
+		</API>
+		<AlternateResourceIds>
+			<AlternateResourceId altResourceId="ICC000001"/>
+		</AlternateResourceIds>
+	</mashup>
+</mashups>

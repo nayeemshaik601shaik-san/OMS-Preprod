@@ -1,0 +1,15 @@
+<Order BuyerOrganizationCode="" DocumentType="" EnterpriseCode="" OrderHeaderKey="" OrderNo="" SellerOrganizationCode="">
+<OrderLines>
+<OrderLine ChangeInOrderedQty="" OrderLineKey="" OrderedQty="" PrimeLineNo="" SubLineNo="">
+<OrderLineTranQuantity ChangeInOrderedQty="" OrderedQty="" TransactionalUOM=""/>
+<Item ItemID="" ProductClass="" UnitOfMeasure=""/>
+<LinePriceInfo ChangeInLineTotal="" LineTotal="" TaxExemptionCertificate="" TaxableFlag=""/>
+<StatusBreakupForCanceledQty>
+<CanceledFrom OrderLineScheduleKey="" OrderReleaseKey="" OrderReleaseStatusKey="" Quantity="" Status="" StatusDate="" StatusDescription="">
+<CanceledFromTranQuantity Quantity="" TransactionalUOM=""/>
+<Details ExpectedDeliveryDate="" ExpectedShipmentDate="" OverrideItemID="" OverrideProductClass="" OverrideUnitOfMeasure="" ReceivingNode="" ShipByDate="" ShipNode="" TagNumber=""/>
+</CanceledFrom>
+</StatusBreakupForCanceledQty>
+</OrderLine>
+</OrderLines>
+</Order>

@@ -1,0 +1,123 @@
+<!--
+* IBM Confidential
+* OCO Source Materials
+* 5737-D18, 5725-D10
+*
+* (C) Copyright International Business Machines Corp. 2021, 2023
+*
+* The source code for this program is not published or otherwise divested
+* of its trade secrets, irrespective of what has been deposited with the
+* U.S. Copyright Office.
+-->
+
+<ng-template bucExtension [componentName]="componentId" [placement]="'top'" [id]="EXTENSION.TOP" [parent]="this">
+</ng-template>
+
+<div class="cds--grid cds--no-gutter">
+    <buc-table #groupResults class="cds--col cds--col-lg-16 cds--no-gutter" [attr.tid]="'cc-adjust-pricing-order.table'"
+      [defaultPageLen]="defaultPageLength" [model]="model" [hasSearch]="false" [searchValue]="searchValue"
+      (searchValueChange)="onSearch($event)" (clear)="onSearch('')" [showActions]="false"
+      [showSelectionColumn]="false" [(selectedItems)]="selected" (selectedItemsChange)="onSelectRow($event)"
+      [skeleton]="model.isLoading" (selectPage)="selectPage($event)" (sort)="onColSort($event)"
+      [batchText]="'SHARED.TABLE.BATCH_TEXT_MULTIPLE' | translate" [cancelText]="cancelText"
+      [paginationTranslations]="paginationTranslations" [showEmptyState]="false" [size]="'lg'">
+    </buc-table>
+  </div>
+
+  <ng-template bucId="general" let-data="data">
+    <div class="padding-left--0_25rem padding-right--0_5rem" [attr.tid]="componentId + 'general'">
+      <span class="cds--btn__icon padding-right--1rem width-link">{{ data }}</span>
+    </div>
+  </ng-template>
+
+  <ng-template bucId="totalAmount" let-data="data" >
+    <div class="padding-left--0_25rem padding-right--0_5rem" [attr.tid]="componentId + 'totalAmount'">
+      <span class="cds--btn__icon padding-right--1rem new-total">{{ data.newTotal }}</span>
+      <cds-tooltip *ngIf="data.hasChanges" class="tooltip-box" [description]="tooltipTemplate" trigger="hover" [align]="'right'" [autoAlign]="'true'" [templateContext]="data">
+        <svg ibmIcon="information" size="16" class=""></svg>
+      </cds-tooltip>
+    </div>
+  </ng-template>
+
+  <ng-template #tooltipTemplate let-tooltip="$implicit" >
+    <ng-container  >
+    <div class="cds--grid cds--no-gutter adjust-pricing-order-table-tooltip">
+      <div class="cds--row padding-top--0_25rem padding-bottom--0_25rem">
+        <div class="cds--col-lg-9">
+          <div class="cds--label left-align" [attr.tid]="componentId + 'tooltipStotal'">
+            {{ 'ORDER_PRICING_SUMMARY.ADJUST_PRICING_MODAL.LABEL_SUBTOTAL' | translate }}
+          </div>
+        </div>
+        <div class="cds--col-lg-7">
+          <div class="cds--label right-align" [attr.tid]="componentId + 'tooltipStotalVal'">
+            {{tooltip.subTotal}}
+          </div>
+        </div>
+      </div>
+      <div class="cds--row padding-top--0_25rem padding-bottom--0_25rem">
+        <div class="cds--col-lg-9">
+          <div class="cds--label left-align" [attr.tid]="componentId + 'adjustments'">
+            {{ 'ORDER_PRICING_SUMMARY.ADJUST_PRICING_MODAL.LABEL_ADJUSTMENTS' | translate }}
+          </div>
+        </div>
+        <div class="cds--col-lg-7">
+          <div class="cds--label right-align" [attr.tid]="componentId + 'tooltipAadjustVal'">
+            {{tooltip.adjustments}}
+          </div>
+        </div>
+      </div>
+      <div class="cds--row padding-top--0_25rem padding-bottom--0_25rem">
+        <div class="cds--col-lg-9">
+          <div class="cds--label left-align" [attr.tid]="componentId + 'tooltipPromotion'">
+            {{ 'ORDER_PRICING_SUMMARY.ADJUST_PRICING_MODAL.LABEL_PROMOTIONS' | translate }}
+          </div>
+        </div>
+        <div class="cds--col-lg-7">
+          <div class="cds--label right-align" [attr.tid]="componentId + 'tooltipPromotionVal'">
+            {{tooltip.promotions}}
+          </div>
+        </div>
+      </div>
+      <div class="cds--row padding-top--0_25rem padding-bottom--0_25rem">
+        <div class="cds--col-lg-9">
+          <div class="cds--label left-align" [attr.tid]="componentId + 'tooltipShipping'">
+            {{ 'ORDER_PRICING_SUMMARY.ADJUST_PRICING_MODAL.LABEL_SHIPPING' | translate }}
+          </div>
+        </div>
+        <div class="cds--col-lg-7">
+          <div class="cds--label right-align" [attr.tid]="componentId + 'tooltipShippingVal'">
+            {{tooltip.shipping}}
+          </div>
+        </div>
+      </div>
+      <div class="cds--row padding-top--0_25rem padding-bottom--0_25rem">
+        <div class="cds--col-lg-9">
+          <div class="cds--label left-align" [attr.tid]="componentId + 'tooltipStax'">
+            {{ 'ORDER_PRICING_SUMMARY.ADJUST_PRICING_MODAL.LABEL_TAXES' | translate }}
+          </div>
+        </div>
+        <div class="cds--col-lg-7">
+          <div class="cds--label right-align" [attr.tid]="componentId + 'tooltipStaxVal'">
+            {{tooltip.taxes}}
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="cds--row padding-bottom--0_25rem">
+        <div class="cds--col-lg-9">
+          <div class="cds--label left-align total" [attr.tid]="componentId + 'tooltipStotalAmount'">
+            {{ 'ORDER_PRICING_SUMMARY.ADJUST_PRICING_MODAL.LABEL_TOTAL' | translate }}
+          </div>
+        </div>
+        <div class="cds--col-lg-7">
+          <div class="cds--label right-align total" [attr.tid]="componentId + 'tooltipStotalAmountVal'">
+            {{tooltip.totAmount}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  </ng-template>
+
+  <ng-template bucExtension [componentName]="componentId" [placement]="'bottom'" [id]="EXTENSION.BOTTOM" [parent]="this">
+  </ng-template>

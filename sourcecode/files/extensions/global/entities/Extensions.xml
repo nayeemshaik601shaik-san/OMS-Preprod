@@ -1,0 +1,438 @@
+<DBSchema>
+	<Entities>
+		<!-- EOMS - 548 Extend YFS_ITEM table --> 
+		<Entity TableName="YFS_ITEM">
+			<Attributes>
+				<Attribute ColumnName="EXTN_SAP_MATERIAL_GROUP" DataType="VARCHAR2" DefaultValue="" Description="SAPMaterialGroup" Nullable="true" Type="NVARCHAR" Size="40" XMLName="ExtnSAPMaterialGroup" XMLGroup="Extn"/>
+				<Attribute ColumnName="EXTN_SAP_SILHOETTE" DataType="VARCHAR2" DefaultValue="" Description="SAPSilhoette" Nullable="true" Type="NVARCHAR" Size="40" XMLName="ExtnSAPSilhoette" XMLGroup="Extn"/>
+				<Attribute ColumnName="EXTN_SAP_GENDER" DataType="VARCHAR2" DefaultValue="" Description="SAPgender" Nullable="true" Type="NVARCHAR" Size="40" XMLName="ExtnSAPGender" XMLGroup="Extn"/>
+				<Attribute ColumnName="EXTN_COLLAB_SKU" DataType="VARCHAR2" DefaultValue="" Description="CollabSKU" Nullable="true" Type="NVARCHAR" Size="40" XMLName="ExtnCollabSKU" XMLGroup="Extn"/>
+				<Attribute ColumnName="EXTN_COLOR" DataType="VARCHAR2" DefaultValue="" Description="Color" Nullable="true" Type="NVARCHAR" Size="40" XMLName="ExtnColor" XMLGroup="Extn"/>
+				<Attribute ColumnName="EXTN_IMAGE_URL" DataType="VARCHAR2" DefaultValue="" Description="Thumbnail imange url which is sent in order notification events." Nullable="true" Type="NVARCHAR" Size="255" XMLName="ExtnImageUrl" XMLGroup="Extn"/>
+				<Attribute ColumnName="EXTN_PRODUCT_URL" DataType="VARCHAR2" DefaultValue="" Description="Product url which is sent in order notification events." Nullable="true" Type="NVARCHAR" Size="255" XMLName="ExtnProductUrl" XMLGroup="Extn"/>
+				<Attribute ColumnName="EXTN_SAP_MATERIAL" DataType="VARCHAR2" DefaultValue="" Description="SAP Material" Nullable="true" Type="NVARCHAR" Size="255" XMLName="ExtnSAPMaterial" XMLGroup="Extn"/>
+			</Attributes>
+			<!--  EDW Data Extraction --> 
+			<Indices>
+				<Index Name="EXTN_ITEM_I1">
+				<Column Name="MODIFYTS"/>
+				</Index>
+			</Indices>
+		</Entity>
+		<!-- EOMS - 569 Extend YFS_ORDER_HEADER table -->
+		<Entity TableName="YFS_ORDER_HEADER">
+			<Attributes>
+				<Attribute ColumnName="EXTN_SRC_CODE_GROUP_ID" DataType="VARCHAR2" DefaultValue="" Description="ExtnSourceCodeGrpId" Nullable="true" Type="NVARCHAR" Size="40" XMLName="ExtnSourceCodeGrpId" XMLGroup="Extn"/>
+				<Attribute ColumnName="EXTN_IS_CROCS_CLUB" DataType="Flag" DefaultValue="" Description="ExtnIsCrocsClub" Nullable="true" Type="CHAR" Size="1" XMLName="ExtnIsCrocsClub" XMLGroup="Extn"/>
+				<Attribute ColumnName="EXTN_FRAUD_STATUS" DataType="VARCHAR2" DefaultValue="" Description="FraudStatus From front end" Nullable="true" Type="NVARCHAR" Size="40" XMLName="ExtnFraudStatus" XMLGroup="Extn"/>
+			    <Attribute ColumnName="EXTN_CUST_ID" DataType="VARCHAR2" DefaultValue="" Description="Cust ID From front end" Nullable="true" Type="NVARCHAR" Size="40" XMLName="ExtnCustId" XMLGroup="Extn"/>
+			    <Attribute ColumnName="EXTN_CUSTOMER_LOCALE" DataType="VARCHAR2" DefaultValue="" Description="Customer locale from front end" Nullable="true" Type="NVARCHAR" Size="40" XMLName="ExtnCustomerLocale" XMLGroup="Extn"/>
+				<!-- EOMS - 1495 Extend YFS_ORDER_HEADER table -->
+				<Attribute ColumnName="EXTN_REFUND_AMOUNT" DataType="VARCHAR2" DefaultValue="" Description="ExtnRefundAmount" Nullable="true" Type="NVARCHAR" Size="40" XMLName="ExtnRefundAmount" XMLGroup="Extn"/>
+				<Attribute ColumnName="EXTN_REGISTER_NO" DataType="VARCHAR2" DefaultValue="" Description="ExtnRegisterNo" Nullable="true" Type="NVARCHAR" Size="50" XMLName="ExtnRegisterNo" XMLGroup="Extn"/>
+				<Attribute ColumnName="EXTN_TRANSACTION_NO" DataType="VARCHAR2" DefaultValue="" Description="ExtnTransactionNo" Nullable="true" Type="NVARCHAR" Size="100" XMLName="ExtnTransactionNo" XMLGroup="Extn"/>
+				<!--  EOMS-5404: Return Creation and Return Receipt closed -->
+				<Attribute ColumnName="EXTN_SITE_ADJUSTMENT_ID" DataType="VARCHAR2" DefaultValue="" Description="ExtnSiteAdjustmentId" Nullable="true" Type="NVARCHAR" Size="100" XMLName="ExtnSiteAdjustmentId" XMLGroup="Extn"/>
+				<!--EOMS-5632 :Create Transfer Order -->
+				<Attribute ColumnName="EXTN_EXPECTED_RECEIPT_DATE" DataType="TimeStamp" DefaultValue="" Description="ExtnExpectedReceiptDate" Nullable="true" XMLName="ExtnExpectedReceiptDate" XMLGroup="Extn"/>
+				<!--EOMS-7512 ConsumeConversionRate SFCC to OMS -->	
+				<Attribute ColumnName="EXTN_ROUNDING_RATE" DataType="VARCHAR2" DefaultValue="" Description="ExtnRoundingRate" Nullable="true" Type="NVARCHAR" Size="40" XMLName="ExtnRoundingRate" XMLGroup="Extn"/>
+				<!--EOMS-1463 Save Order Reason & Cost Center for Promo/Call Center Orders -->
+				<Attribute ColumnName="EXTN_REASON_CODE" DataType="VARCHAR2" DefaultValue="" Description="ExtnReasonCode" Nullable="true" Type="NVARCHAR" Size="40" XMLName="ExtnReasonCode" XMLGroup="Extn"/>
+				<Attribute ColumnName="EXTN_COST_CENTER" DataType="VARCHAR2" DefaultValue="" Description="ExtnCostCenter" Nullable="true" Type="NVARCHAR" Size="40" XMLName="ExtnCostCenter" XMLGroup="Extn"/>
+			</Attributes>
+			<Indices>
+            <Index Name="EXTN_YFS_ORDER_HEADER_1724">
+            <Column Name="ENTERPRISE_KEY"/>
+            <Column Name="DOCUMENT_TYPE"/>
+            <Column Name="ORDER_DATE"/>
+            <Column Name="EXTN_CUST_ID"/>
+            </Index>
+            <!--  EDW Data Extraction -->
+            <Index Name="EXTN_ORDER_HEADER_I1">
+	    <Column Name="MODIFYTS"/>
+	    </Index>
+	    	<!-- EOMS-5404 : MP Return Order Creation  -->
+	    	<Index Name="EXTN_ORDER_HEADER_I2">
+	    		<Column Name="CUSTOMER_CUSTOMER_PO_NO"/>
+            	<Column Name="DOCUMENT_TYPE"/>
+	    	</Index>
+	    	<!-- EOMS-6046 : Duplication Order Check for MP orders -->
+	    	<Index Name="EXTN_ORDER_HEADER_I3">
+				<Column Name="CUSTOMER_PO_NO" />
+				<Column Name="DOCUMENT_TYPE" />
+			</Index>
+			<!-- EOMS-7161 : GlobalE create Return order Creation -->
+	    	<Index Name="EXTN_ORDER_HEADER_I4">
+				<Column Name="ORDER_NO" />
+				<Column Name="DOCUMENT_TYPE" />
+			</Index>
+          </Indices> 
+		</Entity>
+		<!-- EOMS - 569 Extend YFS_ORDER_LINE table -->
+		<Entity TableName="YFS_ORDER_LINE">
+			<Attributes>
+				<Attribute ColumnName="EXTN_HST_CODE" DataType="VARCHAR2" DefaultValue="" Description="ExtnHSTCode" Nullable="true" Type="NVARCHAR" Size="40" XMLName="ExtnHSTCode" XMLGroup="Extn"/>
+				<Attribute ColumnName="EXTN_MSRP" DataType="VARCHAR2" DefaultValue="" Description="ExtnMSRP" Nullable="true" Type="NVARCHAR" Size="40" XMLName="ExtnMSRP" XMLGroup="Extn"/>
+				<Attribute ColumnName="EXTN_IS_COLLAB" DataType="VARCHAR2" DefaultValue="" Description="ExtnIsCollab" Nullable="true" Type="NVARCHAR" Size="40" XMLName="ExtnIsCollab" XMLGroup="Extn"/>
+				<Attribute ColumnName="EXTN_SAP_GENDER" DataType="VARCHAR2" DefaultValue="" Description="ExtnSAPGender" Nullable="true" Type="NVARCHAR" Size="100" XMLName="ExtnSAPGender" XMLGroup="Extn"/>
+				<Attribute ColumnName="EXTN_COLOR_RMA" DataType="VARCHAR2" DefaultValue="" Description="ExtnColorRMA" Nullable="true" Type="NVARCHAR" Size="100" XMLName="ExtnColorRMA" XMLGroup="Extn"/>
+				<Attribute ColumnName="EXTN_SIZE_RMA" DataType="VARCHAR2" DefaultValue="" Description="ExtnSizeRMA" Nullable="true" Type="NVARCHAR" Size="100" XMLName="ExtnSizeRMA" XMLGroup="Extn"/>
+				<Attribute ColumnName="EXTN_SIZE_LABEL" DataType="VARCHAR2" DefaultValue="" Description="ExtnSizeLabel" Nullable="true" Type="NVARCHAR" Size="100" XMLName="ExtnSizeLabel" XMLGroup="Extn"/>
+				<Attribute ColumnName="EXTN_TRACKING_URL" DataType="VARCHAR2" DefaultValue="" Description="ExtnTrackingUrl" Nullable="true" Type="NVARCHAR" Size="200" XMLName="ExtnTrackingUrl" XMLGroup="Extn"/>
+				<Attribute ColumnName="EXTN_SHIPMENT_DATE" DataType="VARCHAR2" DefaultValue="" Description="ExtnShipmentDate" Nullable="true" Type="NVARCHAR" Size="40" XMLName="ExtnShipmentDate" XMLGroup="Extn"/>
+				<Attribute ColumnName="EXTN_TRACKING_NO" DataType="VARCHAR2" DefaultValue="" Description="ExtnTrackingNo" Nullable="true" Type="NVARCHAR" Size="40" XMLName="ExtnTrackingNo" XMLGroup="Extn"/>
+				<Attribute ColumnName="EXTN_SHIP_CARRIER" DataType="VARCHAR2" DefaultValue="" Description="ExtnShipCarrier" Nullable="true" Type="NVARCHAR" Size="20" XMLName="ExtnShipCarrier" XMLGroup="Extn"/>
+			</Attributes>
+			<!--  EDW Data Extraction -->
+			<Indices>
+				<Index Name="EXTN_ORDER_LINE_I1">
+				<Column Name="MODIFYTS"/>
+				</Index>
+			</Indices>
+		</Entity>
+		
+		<!-- EOMS - 2016 Extend YFS_LINE_CHARGES table -->
+		<Entity TableName="YFS_LINE_CHARGES">
+			<Attributes>	    																																			
+			    <Attribute ColumnName="EXTN_PROMOTION_ID" DataType="VARCHAR2" DefaultValue="" Description="Promotion ID" Nullable="true" Type="NVARCHAR" Size="200" XMLName="ExtnPromotionId" XMLGroup="Extn"/>
+			    <Attribute ColumnName="EXTN_PROMOTION_TEXT" DataType="VARCHAR2" DefaultValue="" Description="Promotion Text" Nullable="true" Type="NVARCHAR" Size="200" XMLName="ExtnPromotionText" XMLGroup="Extn"/>
+			    <Attribute ColumnName="EXTN_DW_PROMOTION_ID" DataType="VARCHAR2" DefaultValue="" Description="DW Promotion ID" Nullable="true" Type="NVARCHAR" Size="50" XMLName="ExtnDWPromotionId" XMLGroup="Extn"/>				
+			</Attributes>
+			<!--  EDW Data Extraction -->
+			<Indices>
+				<Index Name="EXTN_LINE_CHARGES_I1">
+				<Column Name="MODIFYTS"/>
+				</Index>
+			</Indices>
+		</Entity>
+		<!-- EOMS - 2016 Extend YFS_HEADER_CHARGES table -->
+		<Entity TableName="YFS_HEADER_CHARGES">
+			<Attributes>
+			    <Attribute ColumnName="EXTN_PROMOTION_ID" DataType="VARCHAR2" DefaultValue="" Description="Promotion ID" Nullable="true" Type="NVARCHAR" Size="200" XMLName="ExtnPromotionId" XMLGroup="Extn"/>
+			    <Attribute ColumnName="EXTN_PROMOTION_TEXT" DataType="VARCHAR2" DefaultValue="" Description="Promotion Text" Nullable="true" Type="NVARCHAR" Size="200" XMLName="ExtnPromotionText" XMLGroup="Extn"/>
+			    <Attribute ColumnName="EXTN_DW_PROMOTION_ID" DataType="VARCHAR2" DefaultValue="" Description="DW Promotion ID" Nullable="true" Type="NVARCHAR" Size="50" XMLName="ExtnDWPromotionId" XMLGroup="Extn"/>				
+
+			</Attributes>
+			<!--  EDW Data Extraction -->
+			<Indices>
+				<Index Name="EXTN_HEADER_CHARGES_I1">
+				<Column Name="MODIFYTS"/>
+				</Index>
+			</Indices>
+		</Entity>
+		
+		<!-- EOMS - 602 Extend YFS_SHIPMENT_CONTAINER table -->
+		<Entity TableName="YFS_SHIPMENT_CONTAINER">
+			<Attributes>
+				<Attribute ColumnName="EXTN_TRACKING_URL" DataType="VARCHAR2" DefaultValue="" Description="Tracking Url" Nullable="true" Type="NVARCHAR" Size="200" XMLName="ExtnTrackingUrl" XMLGroup="Extn"/>
+			</Attributes>
+			<Indices>
+				<Index Name="EXTN_SHIPMENT_CONTAINER_I1">
+				<Column Name="MODIFYTS"/>
+				</Index>
+			</Indices>
+		</Entity>
+		
+		<!--  EDW Data Extraction -->
+		<Entity TableName="YFS_PAYMENT">
+			<Indices>
+				<Index Name="EXTN_PAYMENT_I1">
+				<Column Name="MODIFYTS"/>
+				</Index>
+			</Indices>
+		</Entity>
+		<!--  EDW Data Extraction -->
+		<Entity TableName="YFS_CHARGE_TRANSACTION">
+			<Indices>
+				<Index Name="EXTN_CHARGE_TRANSACTION_I1">
+				<Column Name="MODIFYTS"/>
+				</Index>
+			</Indices>
+		</Entity>
+		<!--  EDW Data Extraction -->
+		<Entity TableName="YFS_ORDER_RELEASE_STATUS">
+			<Indices>
+				<Index Name="EXTN_ORDER_RELEASE_STATUS_I1">
+				<Column Name="MODIFYTS"/>
+				</Index>
+			</Indices>
+		</Entity>
+		<!--  EDW Data Extraction -->
+		<Entity TableName="YFS_TAX_BREAKUP">
+			<Indices>
+				<Index Name="EXTN_TAX_BREAKUP_I1">
+				<Column Name="MODIFYTS"/>
+				</Index>
+			</Indices>
+		</Entity>
+		<!--  EDW Data Extraction -->
+		<Entity TableName="YFS_PERSON_INFO">
+			<Indices>
+				<Index Name="EXTN_PERSON_INFO_I1">
+				<Column Name="MODIFYTS"/>
+				</Index>
+				<Index Name="EXTN_PERSON_INFO_I2">
+				<Column Name="EMAILID"/>
+				</Index>
+			</Indices>
+		</Entity>
+		
+		<!-- Customer Contact EmailID Index -->
+		<Entity TableName="YFS_CUSTOMER_CONTACT">
+			<Indices>
+				<Index Name="EXTN_CUSTOMER_CONTACT_I1">
+				<Column Name="EMAILID"/>
+				</Index>
+			</Indices>
+		</Entity>
+
+		<!-- EOMS - 3695 Extend YFS_ORDER_INVOICE table -->
+		<Entity TableName="YFS_ORDER_INVOICE">
+			<Attributes>
+				<Attribute ColumnName="EXTN_IS_ACKNOWLEDGED" DataType="Flag" DefaultValue="N" Description="ExtnIsAcknowledged" Nullable="true" Type="CHAR" Size="1" XMLName="ExtnIsAcknowledged" XMLGroup="Extn"/>
+				<Attribute ColumnName="EXTN_IS_SENT_TO_SAP" DataType="Flag" DefaultValue="" Description="Flag for Return Invoices For EMEA GB" Nullable="true" Type="CHAR" Size="1" XMLName="ExtnIsSentToSAP" XMLGroup="Extn"/>
+			</Attributes>
+			<Indices>
+				<Index Name="EXTN_ORDER_INVOICE_I1">
+				<Column Name="MODIFYTS"/>
+				</Index>
+			</Indices>
+		</Entity>
+
+		<!-- EOMS - 652 Custom table -->
+		<Entity ApiNeeded="Y" AuditRequired="Y" Description="Capture Info" Prefix="CROCS" TableName="CROCS_ADYEN_WEBHOOKS_RES" XMLName="CaptureInfo" HasHistory="Y" KeyType="" >
+        <Attributes>
+
+          <Attribute XMLName="AdyenWebhookKey" ColumnName="ADYEN_WEBHOOK_KEY" DataType="Key" 
+	           Nullable="false" DefaultValue=" " Description="Adyen Webhook Key" />
+          <Attribute XMLName="OrderHeaderKey" ColumnName="ORDER_HEADER_KEY" DataType="VARCHAR2"
+					   Type="NVARCHAR" Size="40" Nullable="true" Description="" />
+			<Attribute XMLName="DocumentType" ColumnName="DOCUMENT_TYPE" DataType="VARCHAR2"
+					   Type="NVARCHAR" Size="40" Nullable="true" Description="" />
+			<Attribute XMLName="ChargeTransactionKey" ColumnName="CHARGE_TRANSACTION_KEY" DataType="VARCHAR2"
+					   Type="NVARCHAR" Size="40" Nullable="true" Description="" /> 
+          <Attribute XMLName="EventCode" ColumnName="EVENT_CODE" DataType="VARCHAR2" 
+	           Type="NVARCHAR" Size="40" Nullable="true"  Description="Event Code" />
+           
+           <Attribute XMLName="PSPReference" ColumnName="PSP_REFERENCE" DataType="VARCHAR2" 
+	          Type="NVARCHAR" Size="40" Nullable="true" Description="" />
+		  <Attribute XMLName="EventDate" ColumnName="EVENT_DATE" DataType="VARCHAR2" 
+	          Type="NVARCHAR" Size="40" Nullable="true" Description="" />
+			  <Attribute XMLName="MerchantAccountCode" ColumnName="MERCHANT_ACCOUNT_CODE" DataType="VARCHAR2" 
+	          Type="NVARCHAR" Size="40" Nullable="true" Description="" />
+			  <Attribute XMLName="OriginalReference" ColumnName="ORIGINAL_REFERENCE" DataType="VARCHAR2" 
+	          Type="NVARCHAR" Size="40" Nullable="true" Description="" />
+			  <Attribute XMLName="Reason" ColumnName="REASON" DataType="VARCHAR2" 
+	          Type="NVARCHAR" Size="100" Nullable="true" Description="" />
+			   <Attribute XMLName="Success" ColumnName="SUCCESS" DataType="VARCHAR2" 
+	          Type="NVARCHAR" Size="40" Nullable="true" Description="" />
+			  <Attribute XMLName="OrderNo" ColumnName="ORDER_NO" DataType="VARCHAR2" 
+	          Type="NVARCHAR" Size="40" Nullable="true" Description="" />
+			  	  <Attribute XMLName="PaymentMethod" ColumnName="PAYMENT_METHOD" DataType="VARCHAR2" 
+	          Type="NVARCHAR" Size="40" Nullable="true" Description="" />
+			  <Attribute XMLName="Currency" ColumnName="CURRENCY" DataType="VARCHAR2" 
+	          Type="NVARCHAR" Size="40" Nullable="true" Description="" />
+			  <Attribute XMLName="Value" ColumnName="Value" DataType="VARCHAR2" 
+	          Type="NVARCHAR" Size="40" Nullable="true" Description="" />
+		   <Attribute ColumnName="CREATETS" DataType="TimeStamp"  
+                DefaultValue="sysdate" Description="Create TimeStamp" />
+                
+           <Attribute ColumnName="MODIFYTS" DataType="TimeStamp" 
+		       DefaultValue="sysdate" Description="Modify TimeStamp" /> 
+		 
+           <Attribute ColumnName="CREATEUSERID" DataType="UserId" 
+		       DefaultValue="" Description="Creating User ID" Nullable="true"/> 
+		 
+           <Attribute ColumnName="MODIFYUSERID" DataType="UserId" 
+		      DefaultValue="" Description="Modifying User ID"  Nullable="true" /> 
+		 
+           <Attribute ColumnName="CREATEPROGID" DataType="ProgramID" 
+		      DefaultValue="" Description="Creating Program ID"  Nullable="true" /> 
+		 
+           <Attribute ColumnName="MODIFYPROGID" DataType="ProgramID"
+		   DefaultValue="" Description="Modifying Program ID"  Nullable="true"/>
+		   <Attribute ColumnName="LOCKID" DataType="Lockid"
+		   DefaultValue="0" Description="Lock ID" Nullable="false"/>
+		   </Attributes>
+			<PrimaryKey Name="ADYEN_IN_PK">
+				<Attribute ColumnName="ADYEN_WEBHOOK_KEY"/>
+			</PrimaryKey>
+			<Indices>
+				<Index Name="CROCS_ADYEN_WEBHOOKS_RES_I1" Unique='True'>
+					<Column Name="PSP_REFERENCE"/>
+				</Index>
+				<Index Name="CROCS_ADYEN_WEBHOOKS_RES_I2" Unique='False'>
+					<Column Name="ORDER_NO"/>
+				</Index>
+				<Index Name="CROCS_ADYEN_WEBHOOKS_RES_I3" Unique='False'>
+					<Column Name="ORDER_HEADER_KEY"/>
+				</Index>
+			</Indices>
+		   </Entity>
+		<!-- Below sequence is already present in Prod. Based on the PMR TS019421017 commenting below sequence-->
+		<!-- <Sequence Name="SEQ_CALL_CENTER_ORDER_NO" Order="Yes" Increment="1" Startwith="1000000" Maxvalue="9999999" Minvalue="1000000" Cachesize="100"/> -->
+		<!-- START : Extended Attributes in YFS_Organization -->
+		<Entity TableName="YFS_ORGANIZATION" AuditRequired="N">
+			<Attributes>
+				<Attribute ColumnName="EXTN_BRAND" Description="Brand Name" Nullable="True" DefaultValue="" Size="20" Type="VARCHAR2" XMLName="ExtnBrand" DataType="ExtnBrand" XMLGroup="Extn" />
+				<!-- EOMS - 8712 Extend YFS_Organization for StoreName and Carrier -->
+				<Attribute ColumnName="EXTN_CARRIER" Description="Carrier Name" Nullable="True" DefaultValue="" Size="40" Type="NVARCHAR" XMLName="ExtnCarrier" DataType="VARCHAR2" XMLGroup="Extn" />
+				<Attribute ColumnName="EXTN_SAP_ORGANIZATION_NAME" Description="SAP Organization Name" Nullable="True" DefaultValue="" Size="200" Type="NVARCHAR" XMLName="ExtnSAPOrganizationName" DataType="VARCHAR2" XMLGroup="Extn" />
+				<!-- End EOMS - 8712 Extend YFS_Organization for StoreName and Carrier -->
+			</Attributes>
+		</Entity>
+		<!-- End -->
+
+		<!-- EOMS - 548 Extend YFS_ITEM_LOCALE table -->
+		<Entity TableName="YFS_ITEM_LOCALE">
+			<Attributes>
+				<Attribute ColumnName="EXTN_COLOR_CODE" DataType="VARCHAR2" DefaultValue="" Description="This field describes color code for the item" Nullable="true" Type="NVARCHAR" Size="40" XMLName="ExtnColorCode" XMLGroup="Extn"/>
+				<Attribute ColumnName="EXTN_PRODUCT_URL" DataType="VARCHAR2" DefaultValue="" Description="Product url which is sent in order notification events." Nullable="true" Type="NVARCHAR" Size="350" XMLName="ExtnProductUrl" XMLGroup="Extn"/>
+			</Attributes>
+		</Entity>
+		<!-- EOMS-5152 : created new table to store item details : START -->
+		<Entity ApiNeeded="Y" AuditRequired="N" HasHistory="False"	Prefix="CROCS" TableName="CROCS_ITEM_ORG_DATA" XMLName="CrocsItemOrgData"	Description="Stores the Item Data by Site">
+			<Attributes>
+				<Attribute ColumnName="ITEM_ORG_DATA_KEY" DataType="Key" DefaultValue="' '" Description="The primary key" Nullable="False" XMLName="ItemOrgDataKey" />
+				<Attribute ColumnName="ITEM_KEY" DataType="Key" DefaultValue="' '" Description="The primary key of yfs_item table" Nullable="False" XMLName="ItemKey" />
+				<Attribute ColumnName="ITEM_ID" Type="CHAR" Size="40" Description="Item ID" DefaultValue="' '" Nullable="False" XMLName="ItemID" />
+				<Attribute ColumnName="ORGANIZATION_CODE" Type="CHAR" Size="24" Description="Crocs Site ID" DefaultValue="' '" Nullable="False" XMLName="OrganizationCode" />
+				<Attribute ColumnName="SIZE_CODE" Type="CHAR" Size="40" Description="Size Code For Site" DefaultValue="' '" Nullable="False" XMLName="SizeCode" />
+				<Attribute ColumnName="MAX_ORDER_QUANTITY" Description="Max Order Qty for Site" Nullable="true" VirtualDefaultValue="0" DataType="Number" XMLName="MaxOrderQuantity" />		
+				<Attribute ColumnName="RETURN_WINDOW" Type="CHAR" Size="24" Description="Return Window by Site" Nullable="True" XMLName="ReturnWindow" />
+				<!-- EOMS-6827 : Add LOCALE column : START -->
+				<Attribute ColumnName="LOCALE" DataType="VARCHAR2" DefaultValue="" Description="Locale" Nullable="true" Type="NVARCHAR" Size="40" XMLName="Locale"/>
+				<Attribute ColumnName="COLOR" DataType="VARCHAR2" DefaultValue="" Description="Color" Nullable="true" Type="NVARCHAR" Size="40" XMLName="Color" />
+				<Attribute ColumnName="PRODUCT_URL" DataType="VARCHAR2" DefaultValue="" Description="Product url which is sent in item feed" Nullable="true" Type="NVARCHAR" Size="255" XMLName="ProductUrl" />
+				<Attribute ColumnName="EXTENDED_DISPLAY_DESCRIPTION" DataType="VARCHAR2" DefaultValue="" Description="ExtendedDisplayDescription" Nullable="true" Type="NVARCHAR" Size="500" XMLName="ExtendedDisplayDescription" />
+				<!-- EOMS-6827 : Add LOCALE column : END -->
+				<Attribute ColumnName="CREATETS" DataType="TimeStamp" DefaultValue="sysdate" Description="Stores Time Stamp of row creation" Nullable="False" XMLName="Createts" />
+				<Attribute ColumnName="MODIFYTS" DataType="TimeStamp" DefaultValue="sysdate" Description="Stores Modified Time Stamp of the row" Nullable="False" XMLName="Modifyts" />
+				<Attribute ColumnName="CREATEUSERID" DataType="Createuserid" DefaultValue="' '" Description="Stores the Id of user who created the row" Nullable="False" XMLName="Createuserid" />
+				<Attribute ColumnName="MODIFYUSERID" DataType="Modifyuserid" DefaultValue="' '" Description="Stores the Id of user who modified the row" Nullable="False" XMLName="Modifyuserid" />
+				<Attribute ColumnName="CREATEPROGID" DataType="ProgramID" DefaultValue="' '" Description="Stores the name of program which created the row" Nullable="False" XMLName="Createprogid" />
+				<Attribute ColumnName="MODIFYPROGID" DataType="ProgramID" DefaultValue="' '" Description="Stores the name of program which modified the row" Nullable="False" XMLName="Modifyprogid" />
+				<Attribute ColumnName="LOCKID" DataType="Lockid" DefaultValue="0" Description="Stores the Lock Id for the table" Nullable="False" XMLName="Lockid" />
+			</Attributes>
+			<PrimaryKey Name="ITEM_ORG_PK">
+				<Attribute ColumnName="ITEM_ORG_DATA_KEY" />
+			</PrimaryKey>
+			<Parent ParentTableName="YFS_ITEM" XMLName="YFSItem">
+				<Attribute ColumnName="ITEM_KEY" ParentColumnName="ITEM_KEY" />
+			</Parent>
+			<Indices>
+				<Index Name="ITEM_ORG_I1" Unique="False">
+					<Column Name="ORGANIZATION_CODE" />
+					<Column Name="ITEM_ID" />
+				</Index>
+				<Index Name="ITEM_ORG_I2" Unique="False">
+					<Column Name="ITEM_ID" />
+				</Index>
+			</Indices>
+		</Entity>
+		<!-- EOMS-5152 : created new table to store item details : END -->
+		
+		<!--  EOMS-10918 : Adding ModifyTS for EDW Data Extraction : START -->
+		<Entity TableName="YFS_ORDER_INVOICE_DETAIL">
+			<Indices>
+				<Index Name="EXTN_ORDER_INVOICE_DETAIL_I1">
+				<Column Name="MODIFYTS"/>
+				</Index>
+			</Indices>
+		</Entity>
+
+		<Entity TableName="YFS_CONTAINER_DETAILS">
+			<Indices>
+				<Index Name="EXTN_CONTAINER_DETAILS_I1">
+				<Column Name="MODIFYTS"/>
+				</Index>
+			</Indices>
+		</Entity>
+		
+		<Entity TableName="YFS_SHIPMENT_LINE">
+			<Indices>
+				<Index Name="EXTN_SHIPMENT_LINE_I1">
+				<Column Name="MODIFYTS"/>
+				</Index>
+			</Indices>
+		</Entity>
+		
+		<Entity TableName="YFS_STATUS">
+			<Indices>
+				<Index Name="EXTN_STATUS_I1">
+				<Column Name="MODIFYTS"/>
+				</Index>
+			</Indices>
+		</Entity>
+		
+		<Entity TableName="YFS_ORDER_LINE_SCHEDULE">
+			<Indices>
+				<Index Name="EXTN_ORDER_LINE_SCHEDULE_I1">
+				<Column Name="MODIFYTS"/>
+				</Index>
+			</Indices>
+		</Entity>
+		
+		<Entity TableName="YFS_ORDER_RELEASE">
+			<Indices>
+				<Index Name="EXTN_ORDER_RELEASE_I1">
+				<Column Name="MODIFYTS"/>
+				</Index>
+			</Indices>
+		</Entity>
+		<!--  EOMS-10918 : Adding ModifyTS for EDW Data Extraction : END -->
+		
+		<!-- EOMS-8616:: Changes Start: Created new Hangoff Table to Store Forter Details -->
+		<Entity ApiNeeded="Y" AuditRequired="N" HasHistory="False" Prefix="CROCS" TableName="CROCS_FORTER_FIELDS" XMLName="CrocsForterFields" Description="Stores the Forter Fields">
+			<Attributes>
+				<!-- Primary Key & Foreign Key -->
+				<Attribute ColumnName="FORTER_FIELDS_KEY" DataType="Key" DefaultValue="' '" Description="The primary key of crocs_forter_fields" Nullable="false" XMLName="ForterFieldsKey"/>
+				<Attribute ColumnName="ORDER_HEADER_KEY" DataType="Key" DefaultValue="' '" Description="The primary key of yfs_order_header" Nullable="false" XMLName="OrderHeaderKey"/>
+				
+				<!-- Existing Fields which were ealier part of YFS_ORDER_HEADER_EXTENSION -->
+				<Attribute ColumnName="CUSTOMER_IP" DataType="VARCHAR2" Type="NVARCHAR" Size="200" Description="Customer IP address" DefaultValue="' '" Nullable="true" XMLName="CustomerIP"/>
+				<Attribute ColumnName="MERCHANT_DOMAIN" DataType="VARCHAR2" Type="NVARCHAR" Size="200" Description="Merchant Domain for which the Order is Created" DefaultValue="' '" Nullable="true" XMLName="MerchantDomain"/>
+				<Attribute ColumnName="FORTER_TOKEN_COOKIE_1" DataType="VARCHAR2" Type="NVARCHAR" Size="200" Description="Forter token cookie from request headers" DefaultValue="' '" Nullable="true" XMLName="ForterTokenCookie1"/>
+				<Attribute ColumnName="FORTER_TOKEN_COOKIE_2" DataType="VARCHAR2" Type="NVARCHAR" Size="200" Description="Forter token cookie from request headers" DefaultValue="' '" Nullable="true" XMLName="ForterTokenCookie2"/>
+				<Attribute ColumnName="USER_AGENT_1" DataType="VARCHAR2" Type="NVARCHAR" Size="200" Description="Customer's User agent" DefaultValue="' '" Nullable="true" XMLName="UserAgent1"/>
+				<Attribute ColumnName="USER_AGENT_2" DataType="VARCHAR2" Type="NVARCHAR" Size="200" Description="Customer's User agent" DefaultValue="' '" Nullable="true" XMLName="UserAgent2"/>
+				<Attribute ColumnName="USER_AGENT_3" DataType="VARCHAR2" Type="NVARCHAR" Size="200" Description="Customer's User agent" DefaultValue="' '" Nullable="true" XMLName="UserAgent3"/>
+				<Attribute ColumnName="USER_AGENT_4" DataType="VARCHAR2" Type="NVARCHAR" Size="200" Description="Customer's User agent" DefaultValue="' '" Nullable="true" XMLName="UserAgent4"/>
+				<Attribute ColumnName="USER_AGENT_5" DataType="VARCHAR2" Type="NVARCHAR" Size="200" Description="Customer's User agent" DefaultValue="' '" Nullable="true" XMLName="UserAgent5"/>
+				
+				<!-- New APP Related Fields -->
+				<Attribute ColumnName="FORTER_MOBILE_UID" DataType="VARCHAR2" Type="NVARCHAR" Size="200" Description="Forter mobile unique identifier" DefaultValue="' '" Nullable="true" XMLName="ForterMobileUID"/>
+				<Attribute ColumnName="MOBILE_APP_VERSION" DataType="VARCHAR2" Type="NVARCHAR" Size="200" Description="Mobile application version" DefaultValue="' '" Nullable="true" XMLName="MobileAppVersion"/>
+				<Attribute ColumnName="MOBILE_DEVICE_BRAND" DataType="VARCHAR2" Type="NVARCHAR" Size="200" Description="Mobile device brand" DefaultValue="' '" Nullable="true" XMLName="MobileDeviceBrand"/>
+				<Attribute ColumnName="MOBILE_DEVICE_MODEL" DataType="VARCHAR2" Type="NVARCHAR" Size="200" Description="Mobile device model" DefaultValue="' '" Nullable="true" XMLName="MobileDeviceModel"/>
+				<Attribute ColumnName="MOBILE_OS_TYPE" DataType="VARCHAR2" Type="NVARCHAR" Size="200" Description="Mobile operating system type" DefaultValue="' '" Nullable="true" XMLName="MobileOSType"/>
+				<Attribute ColumnName="MERCHANT_DEVICE_IDENTIFIER" DataType="VARCHAR2" Type="NVARCHAR" Size="200" Description="Merchant device identifier" DefaultValue="' '" Nullable="true" XMLName="MerchantDeviceIdentifier"/>
+				
+				<!-- Mandatory Required Fields for Hangoff Table -->
+				<Attribute ColumnName="CREATETS" DataType="TimeStamp" DefaultValue="sysdate" Description="Stores Time Stamp of row creation" Nullable="false" XMLName="Createts"/>
+				<Attribute ColumnName="MODIFYTS" DataType="TimeStamp" DefaultValue="sysdate" Description="Stores Modified Time Stamp of the row" Nullable="false" XMLName="Modifyts"/>
+				<Attribute ColumnName="CREATEUSERID" DataType="Createuserid" DefaultValue="' '" Description="Stores the Id of user who created the row" Nullable="false" XMLName="Createuserid"/>
+				<Attribute ColumnName="MODIFYUSERID" DataType="Modifyuserid" DefaultValue="' '" Description="Stores the Id of user who modified the row" Nullable="false" XMLName="Modifyuserid"/>
+				<Attribute ColumnName="CREATEPROGID" DataType="ProgramID" DefaultValue="' '" Description="Stores the name of program which created the row" Nullable="false" XMLName="Createprogid"/>
+				<Attribute ColumnName="MODIFYPROGID" DataType="ProgramID" DefaultValue="' '" Description="Stores the name of program which modified the row" Nullable="false" XMLName="Modifyprogid"/>
+				<Attribute ColumnName="LOCKID" DataType="Lockid" DefaultValue="0" Description="Stores the Lock Id for the table" Nullable="False" XMLName="Lockid"/>
+			</Attributes>
+			<PrimaryKey Name="FORTER_FIELDS_PK">
+				<Attribute ColumnName="FORTER_FIELDS_KEY"/>
+			</PrimaryKey>
+			<Parent ParentTableName="YFS_ORDER_HEADER" XMLName="YFSOrderHeader">
+				<Attribute ColumnName="ORDER_HEADER_KEY" ParentColumnName="ORDER_HEADER_KEY"/>
+			</Parent>
+			<Indices>
+				<Index Name="FORTER_FIELDS_I1" Unique="false">
+					<Column Name="ORDER_HEADER_KEY"/>
+				</Index>
+				<Index Name="FORTER_FIELDS_I2" Unique="false">
+					<Column Name="FORTER_FIELDS_KEY"/>
+				</Index>
+			</Indices>
+		</Entity>
+		<!-- EOMS-8616:: Changes End: Created new Hangoff Table to Store Forter Details -->
+	</Entities>
+</DBSchema>

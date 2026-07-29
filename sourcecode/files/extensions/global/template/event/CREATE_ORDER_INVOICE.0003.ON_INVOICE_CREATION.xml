@@ -1,0 +1,53 @@
+<OrderInvoice TotalTax="" TotalAmount="" Status="" ShippingDiscount="" ShippingCharge="" ShipmentKey="" ReturnReleaseKey="" Reference1="" OtherCharges="" OrderNo="" LineSubTotal="" OrderInvoiceKey="" InvoiceType="" InvoiceNo="" HeaderTax="" Currency="" EnterpriseCode="" AmountCollected="" DocumentType="" ShipNode="">
+	<Order OrderNo="" OrderType="" EnterpriseCode="" EnteredBy="" EntryType="" OrderPurpose="" OrderHeaderKey="" OrderDate="" DocumentType="" MaxOrderStatus="" CustomerEMailID="" MinOrderStatus="" SellerOrganizationCode="" SourcingClassification="" CustomerPONo="" CustCustPONo="" TotalAmount="">
+	<PriceInfo Currency="" EnterpriseCurrency="" ReportingConversionDate="" ReportingConversionRate="" TotalAmount=""/>
+		<Extn ExtnCustomerLocale="" ExtnFraudStatus="" ExtnCustId="" ExtnSiteAdjustmentId="" ExtnCostCenter=""/>
+		<PersonInfoBillTo AddressLine1="" AddressLine2="" Country="" EMailID="" FirstName="" LastName="" City="" State="" ZipCode="" />
+		<PersonInfoShipTo AddressLine1="" AddressLine2="" EMailID="" FirstName="" LastName="" Country="" City="" State="" ZipCode="" />
+	<OrderLines TotalNumberOfRecords="">
+			<OrderLine OrderedQty="" PrimeLineNo="" SubLineNo="" OrderLineKey="" ReturnReason="">
+				<DerivedFromOrder OrderNo="" DocumentType="" EnterpriseCode="" CustomerPONo="" CustCustPONo=""/>
+				<LinePriceInfo ActualPricingQty="" DiscountPercentage="" InvoicedPricingQty="" IsPriceLocked="" LineTotal="" ListPrice="" OrderedPricingQty="" PricingQtyConversionFactor="" PricingUOM="" RetailPrice="" SettledAmount="" SettledQuantity="" TaxableFlag="" UnitPrice=""/>
+				<Item CostCurrency="" CountryOfOrigin="" CustomerItem="" CustomerItemDesc="" ECCNNo="" HarmonizedCode="" ISBN="" ItemDesc="" ItemID="" ItemShortDesc="" ItemWeight="" ItemWeightUOM="" ManufacturerItem="" ManufacturerItemDesc="" ManufacturerName="" NMFCClass="" NMFCCode="" NMFCDescription="" ProductClass="" ProductLine="" ScheduleBCode="" SupplierItem="" SupplierItemDesc="" TaxProductCode="" UPCCode="" UnitCost="" UnitOfMeasure=""/>
+			</OrderLine>
+	</OrderLines>
+		<PaymentMethods>
+			<PaymentMethod FirstName=""
+	               FundsAvailable=""
+	               GetFundsAvailableUserExitInvoked=""
+	               IncompletePaymentType=""
+	               LastName=""
+	               MaxChargeLimit=""
+	               MiddleName=""
+	               PaymentKey=""
+	               PaymentReference1=""
+	               PaymentReference2=""
+	               PaymentReference3=""
+	               PaymentReference4=""
+	               PaymentReference5=""
+	               PaymentType=""
+	               PaymentTypeGroup=""
+	               UnlimitedCharges="">
+			</PaymentMethod>
+		</PaymentMethods>
+	</Order>
+	<TaxBreakupList>
+		<TaxBreakup Reference1="" Tax="" TaxableFlag="" TaxPercentage="" TaxName="" TaxBreakupKey="" Reference3="" Reference2="" RecordType="" LineKey="" InvoicedTax="" ChargeName="" ChargeCategory=""/>
+	</TaxBreakupList>
+	<LineDetails>
+		<LineDetail UnitPrice="" Tax="" LineTotal="" ExtendedPrice="" Charges="" TaxPercentage="" SubLineNo="" ShippedQty="" PrimeLineNo="">
+			<LineChargeList>
+				<LineCharge RecordType="" LineKey="" ChargeName="" ChargeCategory="" Reference="" LineChargesKey="" IsDiscount="" IsBillable="" InvoicedExtendedCharge="" InvoicedChargePerLine="" HeaderKey="" ChargePerUnit="" ChargePerLine="" ChargeAmount=""/>
+			</LineChargeList>
+			<OrderLine GiftFlag="" EarliestDeliveryDate="" OriginalOrderedQty="" OrderedQty="" DeliveryMethod="" CarrierServiceCode="" OrderLineKey="" MaxLineStatus="" MinLineStatus="">
+			
+								<ItemDetails ItemID="" UnitOfMeasure="">
+					<ClassificationCodes Model="" TaxProductCode=""/>
+				</ItemDetails>
+			</OrderLine>
+		</LineDetail>
+	</LineDetails>
+	<HeaderChargeList>
+		<HeaderCharge RecordType="" ChargeName="" ChargeCategory="" Reference="" IsDiscount="" IsBillable="" HeaderKey="" ChargeAmount="" InvoicedChargeAmount="" HeaderChargesKey=""/>
+	</HeaderChargeList>
+</OrderInvoice>

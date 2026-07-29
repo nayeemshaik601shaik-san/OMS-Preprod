@@ -1,0 +1,10 @@
+<OrderList>
+    <Order OrderNo="" DocumentType="" EnterpriseCode="" OrderHeaderKey="">
+        <Extn ExtnCustomerLocale=""/>
+        <OrderLines>
+            <OrderLine>
+                <DerivedFromOrder OrderNo=""/>
+            </OrderLine>
+        </OrderLines>
+    </Order>
+</OrderList>

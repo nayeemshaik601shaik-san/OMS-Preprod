@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed Materials - Property of IBM
+IBM Sterling Call Center and Store
+(C) Copyright IBM Corp. 2008, 2011 All Rights Reserved.
+US Government Users Restricted Rights - Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+-->
+
+<MonitorConsolidation AutoResolve="" Createprogid=""
+					  Createts="" Createuserid=""  Description=""
+					  Field10IsKey="" Field1IsKey="" Field2IsKey=""
+					  Field3IsKey="" Field4IsKey="" Field5IsKey=""
+					  Field6IsKey="" Field7IsKey="" Field8IsKey=""
+					  Field9IsKey="" FlowKey="" GroupByField1=""
+					  GroupByField10="" GroupByField2="" GroupByField3=""
+					  GroupByField4="" GroupByField5=""  GroupByField6=""
+					  GroupByField7="" GroupByField8="" GroupByField9=""
+					  InventoryOrganizationCode=""  Modifyprogid="" Modifyts=""
+					  Modifyuserid="" MonitorConsolidationId=""
+					  MonitorConsolidationKey="" MonitorTypeKey=""
+					  ProcessTypeKey="" RealertInterval="" RealertRequired="">
+	<Order AllocationRuleID="" AuthorizationExpirationDate="" BillToID=""
+		   BuyerOrganizationCode="" CarrierAccountNo="" CarrierServiceCode=""
+		   ChargeActualFreightFlag="" CustomerEMailID="" CustomerPONo=""
+		   DeliveryCode="" Division="" DocumentType="" DraftOrderFlag=""
+		   EnteredBy="" EnterpriseCode="" EntryType=""
+		   FreightTerms="" HoldFlag="" HoldReasonCode="" MaxOrderStatus=""
+		   MaxOrderStatusDesc="" MinOrderStatus="" MinOrderStatusDesc=""
+		   NotificationReference="" NotificationType=""
+		   NotifyAfterShipmentFlag="" OrderDate="" OrderHeaderKey=""
+		   OrderName="" OrderNo="" OrderType="" OriginalTax=""
+		   OriginalTotalAmount="" OtherCharges="" PaymentStatus=""
+		   PersonalizeCode="" PriceProgramKey="" PriorityCode=""
+		   PriorityNumber="" Purpose="" ReceivingNode="" ReqCancelDate="" ReqDeliveryDate=""
+		   ReqShipDate="" SCAC="" ScacAndService="" ScacAndServiceKey=""
+		   SearchCriteria1="" SearchCriteria2="" SellerOrganizationCode=""
+		   ShipCompleteFlag="" ShipToID="" Status="" TaxExemptFlag=""
+		   TaxExemptionCertificate="" TaxJurisdiction="" TaxPayerId=""
+		   TermsCode="" TotalAdjustmentAmount="" isHistory="">
+		<Extn/>
+		<CustomAttributes Decimal1="" Decimal2="" Decimal3=""
+						  Decimal4="" Decimal5="" Text1="" Text10="" Text11=""
+						  Text2="" Text3="" Text4="" Text5="" Text6=""/>
+		<OrderStatuses>
+			<OrderStatus
+					OrderHeaderKey="" OrderLineKey="" OrderLineScheduleKey=""
+					OrderReleaseKey="" OrderReleaseStatusKey="" PipelineKey=""
+					Status="" StatusDate="" StatusDescription="" StatusQty=""
+					StatusReason="" TotalQuantity="" ShipNode="" ReceivingNode="">
+				<Details ExpectedDeliveryDate="" ExpectedShipmentDate="" TagNumber=""  ShipByDate="" />
+				<MonitorRule CalendarException="" Age="" AgeType="" ComparisonDateSubType="" ComparisonDateType=""
+							 ComparisonStatus="" ConditionKey="" Createprogid="" Createts=""
+							 Createuserid="" DateSubTypeToMonitor="" DateTypeToMonitor=""
+							 FlowKey="" Modifyprogid="" Modifyts="" Modifyuserid=""
+							 MonitorConsolidationKey="" MonitorRuleKey="" MonitorType=""
+							 PipelineKey="" Priority="" ProcessTypeKey="" StatusToMonitor=""/>
+			</OrderStatus>
+		</OrderStatuses>
+		<OrderLines>
+			<OrderLine OrderLineKey="" OrderedQty="">
+				<OrderDates>
+					<OrderDate ActualDate="" DateTypeId="" ExpectedDate="" />
+				</OrderDates>
+				<OrderStatuses>
+					<OrderStatus Status="" StatusQty="" Modifyts=""/>
+				</OrderStatuses>
+				<Schedules>
+					<Schedule ExpectedShipmentDate="" />
+				</Schedules>
+				<OrderLineReservations>
+					<OrderLineReservation ItemID="" Node=""
+										  ProductClass="" Quantity=""></OrderLineReservation>
+				</OrderLineReservations>
+			</OrderLine>
+		</OrderLines>
+		<OrderHoldTypes>
+			<OrderHoldType HoldType="" LastHoldTypeDate="" Modifyuserid="" OrderAuditKey="" OrderHeaderKey="" OrderLineKey="" ReasonText="" ResolverUserId="" Status="" StatusDescription="" TransactionId="" TransactionName="">
+			</OrderHoldType>
+		</OrderHoldTypes>
+		<PaymentMethods>
+			<PaymentMethod AwaitingAuthInterfaceAmount="" AwaitingChargeInterfaceAmount="" BillToKey="" CashBackAmount="" ChargeSequence="" CheckNo="" CheckReference="" CreditCardExpDate="" CreditCardName="" CreditCardNo="" CreditCardType="" CustomerAccountNo="" CustomerPONo="" DebitCardNo="" DisplayCreditCardNo="" DisplayCustomerAccountNo="" DisplayDebitCardNo="" DisplayPaymentReference1="" DisplayPrimaryAccountNo="" DisplaySvcNo="" FirstName="" FundsAvailable="" GetFundsAvailableUserExitInvoked="" IncompletePaymentType="" LastName="" MaxChargeLimit="" MiddleName="" PaymentKey="" PaymentReference1="" PaymentReference2="" PaymentReference3="" PaymentReference4="" PaymentReference5="" PaymentReference6="" PaymentReference7="" PaymentReference8="" PaymentReference9="" PaymentTemplateType="" PaymentType="" PaymentTypeGroup="" PlannedRefundAmount="" PrimaryAccountNo="" ReasonCode="" RequestedAuthAmount="" RequestedChargeAmount="" RequestedRefundAmount="" SuspendAnyMoreCharges="" SuspendExpiredAuthReversal="" SvcNo="" TotalAltRefundedAmount="" TotalAuthorized="" TotalCharged="" TotalRefundedAmount="" UnlimitedCharges=""/>
+		</PaymentMethods>
+	</Order>
+</MonitorConsolidation>

@@ -1,0 +1,45 @@
+{
+  "routes": {
+    "order-search": {
+      "runAsCustomization": true
+    },
+    "order-details": {
+      "runAsCustomization": true
+    },
+    "order-search-result": {
+      "runAsCustomization": true
+    },
+    "manage-holds": {
+      "runAsCustomization": false
+    },
+    "order-line-details": {
+      "runAsCustomization": false
+    },
+    "order-modification-checkout": {
+      "runAsCustomization": false
+    },
+    "view-invoices": {
+      "runAsCustomization": false
+    },
+    "change-fulfillment-method": {
+      "runAsCustomization": true
+    },
+    "view-invoices-details": {
+      "runAsCustomization": false
+    },
+    "create-order": {
+      "runAsCustomization": true
+    },
+    "product-details": {
+      "runAsCustomization": false
+    },
+    "product-browsing": {
+      "runAsCustomization": false
+    }
+  },
+  "prodServerConfig": {
+    "hostName": "localhost",
+    "deployUrl": "/call-center-order",
+    "port": 6443
+  }
+}

@@ -1,0 +1,35 @@
+<OrderList>
+	<Order DocumentType="" EnterpriseCode="" EnteredBy="" OrderNo="" OrderHeaderKey="" ProcessPaymentOnReturnOrder="" Status="" EntryType="" CustomerFirstName="" CustomerLastName="" isHistory="" OtherCharges="" CustomerEMailID="" CustomerPhoneNo="">
+		<Extn/>
+		<HeaderCharges>
+			<HeaderCharge ChargeAmount="" ChargeCategory="" ChargeName="" Reference="">
+			<Extn/>
+			</HeaderCharge>
+		</HeaderCharges>
+		<HeaderTaxes>
+			<HeaderTax ChargeCategory="" ChargeName="=" TaxName="=" Tax="" TaxPercentage=""/>
+		</HeaderTaxes>
+		<PriceInfo Currency="" EnterpriseCurrency="" HeaderTax="" TotalAmount=""/>
+		<OrderLines>
+			<OrderLine ConditionVariable1="" PrimeLineNo="" DeliveryMethod="" SubLineNo="" OrderedQty="" ReturnReason="" FulfillmentType="" InvoicedQuantity="" InvoicedExtendedPrice="" OtherCharges="">
+				<Extn/>
+				<Item ItemID="" UnitOfMeasure="" CostCurrency="" ItemDesc="" ItemShortDesc=""/>
+				<DerivedFromOrder DocumentType="" EnterpriseCode="" OrderNo="" PrimeLineNo="" SubLineNo=""/>
+				<LineCharges>
+					<LineCharge ChargeCategory="" ChargeName="" ChargePerLine="" ChargeAmount=""/>
+					<Extn/>
+				</LineCharges>
+				<LineTaxes>
+					<LineTax TaxPercentage="" Tax="" TaxName=""/>
+				</LineTaxes>
+				<LinePriceInfo LineTotal="" IsPriceLocked="" UnitPrice="" ListPrice="" RetailPrice="" Tax="" TaxableFlag="" ActualPricingQty="" OrderedPricingQty=""/>
+				<OrderStatuses>
+					<OrderStatus StatusQty="" Status="">
+					</OrderStatus>
+				</OrderStatuses>
+			</OrderLine>
+		</OrderLines>
+		<PersonInfoShipTo AddressLine1="" City="" Country="" DayPhone="" EMailID="" FirstName="" LastName="" MobilePhone="" State="" ZipCode=""/>
+		<PersonInfoBillTo AddressLine1="" City="" Country="" DayPhone="" EMailID="" FirstName="" LastName="" MobilePhone="" State="" ZipCode=""/>
+	</Order>
+</OrderList>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+Licensed Materials - Property of IBM
+IBM Sterling Selling And Fulfillment Suite
+(C) Copyright IBM Corp. 2005, 2013 All Rights Reserved.
+US Government Users Restricted Rights - Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ -->
+<!--getReleaseList Output XML-->
+<!-- OrderReleaseList is a template driven element. But its attributes are not except the attribute TotalNumberOfRecords. TotalNumberOfRecords is the only template driven attribute for this element.-->
+<OrderReleaseList>
+   <OrderRelease CarrierServiceCode="" Currency="" EnterpriseCode=""
+    HoldFlag="" MaxOrderReleaseStatus=""
+    MaxOrderReleaseStatusDesc="" MinOrderReleaseStatus=""
+    MinOrderReleaseStatusDesc="" OrderDate=""
+    OrderHeaderKey="" OrderReleaseKey="" OrderType="" PriorityCode="" ReleaseNo=""
+    ReqDeliveryDate="" ReqShipDate="" ShipNode="" Status="" DocumentType="" isHistory="">
+        <Order DocumentType="" CarrierServiceCode="" EnterpriseCode="" OrderHeaderKey="" OrderNo="" CustomerEMailID="" PriorityNumber="" SellerOrganizationCode="" OrderType="">
+		<PersonInfoBillTo AddressID="" AddressLine1="" AddressLine2="" AddressLine3="" City="" Country="" EMailID="" FirstName="" LastName="" MiddleName="" MobilePhone="" PersonInfoKey="" State="" ZipCode="" DayPhone=""/>
+		<PaymentMethods>
+	<PaymentMethod PaymentKey="" PaymentType="" ChargeSequence="" CustomerAccountNo="" CreditCardType="" CreditCardName="" CreditCardNo="" CreditCardExpDate="" DisplayCreditCardNo="" PaymentReference1="" PaymentReference2="" PaymentReference3="" CheckReference="" MaxChargeLimit="" TotalAuthorized="" TotalCharged="" RequestedAuthAmount="" RequestedChargeAmount="" AwaitingChargeInterfaceAmount="" TotalRefundedAmount="" SuspendAnyMoreCharges="" UnlimitedCharges=""/>
+    </PaymentMethods>
+		</Order>
+		<PersonInfoShipTo AddressLine1="" AddressLine2="" AddressLine3="" City="" Country="" EMailID=""
+        FirstName="" LastName="" MiddleName="" MobilePhone="" DayPhone="" PersonInfoKey="" State="" ZipCode=""/>
+		<Shipnode ShipNode="" ThreePlNode="">
+		<ShipNodePersonInfo City="" Country="" State="" ZipCode=""/>
+        </Shipnode>
+        <OrderLine PrimeLineNo="" SubLineNo="" OrderedQty="" StatusQuantity="" Status="">
+	<LinePriceInfo LineTotal=""/>
+		<Item CostCurrency="" ItemDesc="" ItemID="" ProductClass="" UnitCost="" UnitOfMeasure=""/>
+		<ItemDetails>
+		<PrimaryInformation ItemType="" Description=""/>
+		<ClassificationCodes Model=""/>
+		<ItemAliasList>
+            <ItemAlias AliasName="" AliasValue=""/>
+            </ItemAliasList>
+			<AdditionalAttributeList>
+					<AdditionalAttribute Name="" Value="" AttributeGroupID=""/>
+				</AdditionalAttributeList>
+		</ItemDetails>
+			<OrderStatuses>
+				<OrderStatus StatusDescription="" StatusQty="" Status="">
+				</OrderStatus>
+			</OrderStatuses>
+	</OrderLine>
+        <PersonInfoMarkFor/>
+    </OrderRelease>
+</OrderReleaseList>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Order BuyerUserId="" BuyerOrganizationCode="" DocumentType="" EnterpriseCode="" OrderType=""
+        CustomerPONo="" EnteredBy="" CustCustPONo="" EntryType="" OrderHeaderKey="" OrderNo=""
+        SellerOrganizationCode="" DraftOrderFlag="" CustomerEMailID="" OrderDate="" OrderPurpose=""
+        ShipNode="" Status="" CustomerFirstName="" CustomerLastName="" CustomerPhoneNo="" MaxOrderStatus="" MaxOrderStatusDesc="" MinOrderStatus="" MinOrderStatusDesc="">
+        <Extn ExtnCustomerLocale="" ExtnFraudStatus="" ExtnCustId="" ExtnSiteAdjustmentId="" />
+        <PersonInfoShipTo AddressLine1="" AddressLine2="" City="" Country="" FirstName=""
+                LastName="" State="" ZipCode="" />
+        <PersonInfoBillTo AddressLine1="" AddressLine2="" City="" Country="" FirstName=""
+                LastName="" State="" ZipCode="" />
+        <PriceInfo Currency="" EnterpriseCurrency="" TotalAmount="" />
+        <OrderLines TotalNumberOfRecords="">
+                <OrderLine CarrierServiceCode="" OrderedQty="" PrimeLineNo="" SubLineNo="" OrderHeaderKey=""
+                        OrderLineKey="" ShipNode="" MinLineStatus="" MinShipByDate="" ReceivingNode="" MaxLineStatus="" OriginalOrderedQty="" ReturnReason="">
+                        <ItemDetails ItemID="">
+                                <ItemAliasList>
+                                        <ItemAlias AliasName="" AliasValue="" />
+                                </ItemAliasList>
+                                <Extn ExtnImageUrl="" ExtnProductUrl="" ExtnSAPMaterialGroup="">
+                                        <CrocsItemOrgDataList>
+                                                <CrocsItemOrgData SizeCode="" OrganizationCode="" Locale="" Color="" ProductUrl=""/>
+                                        </CrocsItemOrgDataList>
+                                </Extn>
+                                <ItemLocaleList>
+                                        <ItemLocale Country="" Language="">
+                                                <Extn ExtnProductUrl=""
+                                                        ExtnColorCode="" />
+                                        </ItemLocale>
+                                </ItemLocaleList>
+                                <PrimaryInformation ColorCode="" SizeCode="" ItemType="" />
+                        </ItemDetails>
+                        <Item ItemDesc="" ItemID="">
+                        </Item>
+                        <OrderStatuses>
+                                <OrderStatus Status="" StatusDescription="" StatusQty="" />
+                        </OrderStatuses>
+                        <LinePriceInfo UnitPrice="" ActualPricingQty=""/>
+                        <LineOverallTotals Discount="" UnitPrice="" />
+                        <LineCharges>
+                                <LineCharge>
+                                        <Extn ExtnPromotionText="" />
+                                </LineCharge>
+                        </LineCharges>
+                        <DerivedFromOrder OrderNo="" DocumentType="" EnterpriseCode="" OrderType=""
+                                EntryType="" EnteredBy="" CustomerPONo="" CustCustPONo="" >
+                                <Extn ExtnRoundingRate=""/>
+                        </DerivedFromOrder>
+                        <CustomAttributes Text1="" />
+                </OrderLine>
+        </OrderLines>
+        <PaymentMethods>
+                <PaymentMethod CreditCardExpDate="" CreditCardType="" DisplayCreditCardNo=""
+                        MaxChargeLimit="" PaymentType="" PaymentReference1="" PaymentReference2=""
+                        PaymentReference3="" PaymentReference4="" PaymentReference5="">
+                </PaymentMethod>
+        </PaymentMethods>
+        <OverallTotals GrandCharges="" GrandDiscount="" GrandTax="" GrandTotal="" LineSubTotal=""
+                HdrDiscount="">
+                <OverallChargeTotals>
+                        <OverallChargeTotal ChargeCategory="" ChargeName="" GrandCharges=""
+                                GrandDiscount="" />
+                </OverallChargeTotals>
+        </OverallTotals>
+</Order>

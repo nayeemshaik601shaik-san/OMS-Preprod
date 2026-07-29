@@ -1,0 +1,20 @@
+<ItemList CallingOrganizationCode="" Currency="" DemandType="" EntitlementDate="" ExcludeItemsInPriceList="" ExecuteQueries="" FulfillmentType="" InheritAttributesFromClassification="" LastItemKey="" LastRecordSet="" PriceProgramKey="" PriceProgramName="" PricingDate="" PurposeForDisplayClassification="" SellerOrganizationCode="" TotalItemList="" TotalNumberOfRecords="">
+	<Item CanUseAsServiceTool="" GlobalItemID="" HasVisibleAssociations="" InheritAttributesFromClassification="" IsItemSuperseded="" ItemGroupCode="" ItemID="" ItemKey="" MaxModifyTS="" OrganizationCode="" SubCatalogOrganizationCode="" UnitOfMeasure="">
+		<PrimaryInformation AgeVerificationCode="" AllowGiftWrap="" AssumeInfiniteInventory="" BundleFulfillmentMode="" CapacityPerOrderedQty="" CapacityQuantityStrategy="" ColorCode="" ComputedUnitCost="" ConfigurationKey="" ConfigurationModelName="" ConfiguredModelKey="" CostCurrency="" CountryOfOrigin="" CreditWOReceipt="" DefaultProductClass="" Description="" DisplayClassification="" DisplayItemDescription="" EffectiveEndDate="" EffectiveStartDate="" ExtendedDescription="" ExtendedDisplayDescription="" FixedCapacityQtyPerLine="" FixedPricingQtyPerLine="" HasDeliveryServiceAssociated="" HasProvidedServiceAssociated="" ImageID="" ImageLabel="" ImageLocation="" InvoiceBasedOnActuals="" InvolvesSegmentChange="" IsAirShippingAllowed="" IsConfigurable="" IsDeliveryAllowed="" IsEligibleForShippingDiscount="" IsForwardingAllowed="" IsFreezerRequired="" IsHazmat="" IsModelItem="" IsParcelShippingAllowed="" IsPickupAllowed="" IsPreConfigured="" IsProcurementAllowed="" IsReturnService="" IsReturnable="" IsShippingAllowed="" IsSoldSeparately="" IsStandaloneService="" IsSubOnOrderAllowed="" IsValid="" ItemType="" Keywords="" KitCode="" ManufacturerItem="" ManufacturerItemDesc="" ManufacturerName="" MasterCatalogID="" MaxOrderQuantity="" MaxReturnWindow="" MinOrderQuantity="" MinReturnWindow="" MinimumCapacityQuantity="" ModelItemUnitOfMeasure="" NumSecondarySerials="" OrderingQuantityStrategy="" PricingQuantityConvFactor="" PricingQuantityStrategy="" PricingUOM="" PricingUOMStrategy="" PrimaryEnterpriseCode="" PrimarySupplier="" ProductLine="" RequiresProdAssociation="" ReturnWindow="" RunQuantity="" SerializedFlag="" ServiceTypeID="" ShipmentConsolidationWindow="" ShortDescription="" SizeCode="" Status="" TaxableFlag="" UnitCost="" UnitHeight="" UnitHeightUOM="" UnitLength="" UnitLengthUOM="" UnitVolume="" UnitVolumeUOM="" UnitWeight="" UnitWeightUOM="" UnitWidth="" UnitWidthUOM=""/>
+		<PromotionList>
+			<Promotion LongDescription="" ShortDescription="" URL=""/>
+		</PromotionList>
+		<ComputedPrice AdditionalLinePriceTotal="" BundleTotal="" ListPrice="" RetailPrice="" UnitPrice="">
+			<QuantityRangePriceList>
+				<QuantityRangePrice BreakQtyHigh="" BreakQtyLow="" RegionKey="" UnitPrice="">
+					<Region RegionDescription="" RegionKey="" RegionLevelName="" RegionName=""/>
+				</QuantityRangePrice>
+			</QuantityRangePriceList>
+		</ComputedPrice>
+		<ClassificationCodes CommodityCode="" ECCNNo="" HarmonizedCode="" HazmatClass="" Model="" NAICSCode="" NMFCClass="" NMFCCode="" OperationalConfigurationComplete="" PickingType="" PostingClassification="" Schedule_B_Code="" StorageType="" TaxProductCode="" UNSPSC="" VelocityCode=""/>
+		<HazmatInformation CargoAir="" Exception="" HazardClass="" HazmatComplianceKey="" Label="" PackingGroup="" PassengerAir="" ProperShippingName="" QtyBulk="" QtyNonBulk="" SortOrder="" SpecialProvisions="" Symbols="" UNNumber="" Vessel="" VesselSP=""/>
+		<CategoryList>
+			<Category CategoryID="" CategoryKey="" CategoryPath="" OrganizationCode=""/>
+		</CategoryList>
+	</Item>
+</ItemList>

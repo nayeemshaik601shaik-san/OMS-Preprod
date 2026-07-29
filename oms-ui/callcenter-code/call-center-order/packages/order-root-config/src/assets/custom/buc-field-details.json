@@ -1,0 +1,70 @@
+{
+  "order-summary": {
+    "name": "order-summary",
+    "attributes": [
+      {
+        "id": "EnteredBy",
+        "name": "ORDER_SUMMARY.STATUS.LABEL_ENTERED_BY",
+        "type": "label",
+        "dataBinding": "EnteredBy",
+        "index": 10,
+        "insertAfter": "channel"
+      },
+      {
+        "id": "customerPONo",
+        "name": "ORDER_SUMMARY.STATUS.LABEL_CUSTOMERPONO",
+        "value": "",
+        "type": "label",
+        "dataBinding": "CustomerPONo",
+        "index": 12
+      },
+      {
+        "id": "reasonType",
+        "name": "ORDER_SUMMARY.STATUS.LABEL_REASONTYPE",
+        "value": "",
+        "type": "label",
+        "dataBinding": "Extn.ExtnReasonCode",
+        "index": 13
+      },
+      {
+        "id": "orderType",
+        "name": "ORDER_SUMMARY.STATUS.LABEL_ORDERTYPE",
+        "value": "",
+        "type": "label",
+        "dataBinding": "OrderType",
+        "index": 14
+      },
+      {
+        "id": "costCenterValue",
+        "name": "ORDER_SUMMARY.STATUS.LABEL_COST_CENTER",
+        "value": "",
+        "type": "label",
+        "dataBinding": "Extn.ExtnCostCenter",
+        "index": 15
+      }
+    ]
+  },
+  "order-shipments-ship": {
+    "name": "order-shipments-ship",
+    "attributes": [
+        {
+          "id": "orderReason",
+          "name": "ORDER_SUMMARY.STATUS.LABEL_REASONTYPE",
+          "value": "",
+          "type": "dropdown",
+          "attrTID": "FulfillmentDeliveryItemsComponent-orderReason",
+          "index":"2"
+        },
+        {
+          "id": "costCenter",
+          "name": "ORDER_SUMMARY.STATUS.LABEL_COST_CENTER",
+          "value": "",
+          "type": "dropdown",
+          "attrTID": "FulfillmentDeliveryItemsComponent-costCenter",
+          "index":"3"
+        }
+    ]
+  }
+}
+
+

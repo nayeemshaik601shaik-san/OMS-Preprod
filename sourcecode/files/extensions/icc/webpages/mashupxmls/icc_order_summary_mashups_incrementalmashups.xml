@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  5737-D18
+
+  (C) Copyright IBM Corp. 2019, 2023 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<mashups>
+<mashup description="Get Complete Order Summary with the ability to modify Price"
+    id="icc.order.summary.getCompleteOrderDetails" mashuptype="XAPI" transactional="true" skipDataProvider="false">
+    <classInformation name="com.ibm.icc.mashups.order.orderSummary.ICCGetOrderHoldResolutionList" />
+    <API Name="getCompleteOrderDetails">
+      <Input>
+        <Order OrderHeaderKey="" DisplayLocalizedFieldInLocale="xml:CurrentUser:/User/@Localecode" IgnorePendingChange=""
+          RetrieveDefaultCustomerPaymentMethod="" SelectMethod="NO_LOCK">
+          <Modifications>
+            <Modification ModificationType="" />
+          </Modifications>
+        </Order>
+      </Input>
+      <Template>
+        <Order OptimizationType="" EnterpriseCode="" EnterpriseName="" SellerOrganizationCode="" DocumentType="" Createts=""
+          OrderHeaderKey="" OrderName="" OrderNo="" HoldFlag="" DraftOrderFlag="" MaxOrderStatusDesc="" CustomerFirstName=""
+          CustomerLastName="" CustomerEMailID="" CustomerPhoneNo="" EntryType="" EnteredBy="" ExchangeType="" OrderPurpose="" OriginalTotalAmount="" BillToID=""
+          CustomerContactID="" ShipToID="" isHistory="" OrderDate="" MaxOrderStatus="" Status="" Modifyts="" Modifyuserid=""
+          MultipleStatusesExist="" OverallStatus="" DisplayStatus="" PaymentStatus="" PaymentStatusDescription="" TaxExemptFlag="" TaxExemptionCertificate="" CustomerPONo="" OrderType="" Division="">
+          <Extn ExtnReasonCode="" ExtnCostCenter=""/>
+          <Instructions></Instructions>
+          <OrderInvoiceList TotalNumberOfRecords="" />
+          <Notes>
+            <Note NotesKey="" Modifyts="" Createts=""  Modifyuserid="" TableKey="" ContactReference="" ContactTime="" ContactType="" ContactUser="" CustomerSatIndicator=""
+              NoteText="" Priority="" ReasonCode="" SequenceNo="" VisibleToAll="">
+              <User Username="" />
+            </Note>
+          </Notes>
+          <OrderDates>
+            <OrderDate DateTypeId="" ExpectedDate="" />
+          </OrderDates>
+          <PersonInfoBillTo></PersonInfoBillTo>
+          <PersonInfoShipTo></PersonInfoShipTo>
+          <PriceInfo Currency="" TotalAmount=""></PriceInfo>
+          <PaymentMethods>
+            <PaymentMethod CheckNo="" CheckReference="" CreditCardExpDate="" CreditCardName=""
+              CreditCardNo="" CreditCardType="" CustomerAccountNo="" CustomerPONo="" DebitCardNo=""
+              DisplayCreditCardNo="" DisplayCustomerAccountNo="" DisplayDebitCardNo="" DisplayPaymentReference1=""
+              DisplayPrimaryAccountNo="" DisplaySvcNo="" FirstName="" FundsAvailable=""
+              GetFundsAvailableUserExitInvoked="" IncompletePaymentType="" IsCustomer="" IsDefaultMethod="" LastName=""
+              MaxChargeLimit="" PaymentKey="" PaymentReference1="" PaymentReference2="" PaymentReference3=""
+              PaymentTemplateType="" PaymentType="" PaymentTypeDescription="" CreditCardTypeDesc=""
+              NoProcessingRequired="" ChargeUpToAvailable="" PaymentTypeGroup="" PrimaryAccountNo=""
+              RequestedAuthAmount="" RequestedChargeAmount="" RequestedRefundAmount="" SuspendAnyMoreCharges="" SvcNo=""
+              TotalAltRefundedAmount="" TotalAuthorized="" TotalCharged="" TotalRefundedAmount="" UnlimitedCharges="">
+            </PaymentMethod>
+          </PaymentMethods>
+          <OrderLines TotalNumberOfRecords="">
+            <OrderLine DeliveryMethod="" ItemGroupCode="" OrderLineKey="">
+              <ItemDetails>
+                <PrimaryInformation BundleFulfillmentMode="" ExtendedDisplayDescription="" ImageID=""
+                  ImageLocation="" />
+              </ItemDetails>
+              <Notes NumberOfNotes="">
+                <Note NotesKey="" TableKey="" AuditTransactionId="" ContactReference="" ContactTime="" ContactType="" ContactUser=""
+                  CustomerSatIndicator="" NoteText="" Priority="" ReasonCode="" SequenceNo="" Tranid="" Tranname=""
+                  VisibleToAll="" />
+              </Notes>
+              <LineTaxes>
+                <LineTax ChargeCategory="" ChargeName="" ChargeNameKey="" InvoicedTax="" Reference1="" Reference2="" 
+                  Reference3="" RemainingTax="" Tax="" TaxName="" TaxNameDescription="" TaxPercentage="" />
+              </LineTaxes>
+            </OrderLine>
+          </OrderLines>
+          <ReturnOrdersForExchange>
+            <ReturnOrderForExchange OrderHeaderKey="" OrderNo="" EnterpriseCode="">
+            </ReturnOrderForExchange>
+          </ReturnOrdersForExchange>
+          <OverallTotals AdditionalLinePriceTotal="" GrandAdjustmentsWithoutTotalShipping=""
+            GrandCharges="" GrandDiscount="" GrandShippingBaseCharge="" GrandShippingCharges="" GrandShippingDiscount=""
+            GrandShippingTotal="" GrandTax="" GrandTotal="" HdrShippingBaseCharge="" HdrShippingCharges=""
+            HdrShippingDiscount="" HdrShippingTotal="" HdrTax="" HdrTotal="" LineSubTotal="" ManualDiscountPercentage=""
+            PercentProfitMargin="">
+          </OverallTotals>
+          <HeaderTaxes>
+            <HeaderTax ChargeCategory="Required" ChargeName="" Reference1="" Reference2="" Reference3=""
+              Tax="" TaxName="Required" TaxPercentage="" TaxableFlag="" TaxNameDescription=""/>
+          </HeaderTaxes>
+          <Promotions>
+            <Promotion DenialReason="" Description="" PromotionAmount="" PromotionApplied="" PromotionKey=""
+              PromotionType="" PromotionId="">
+              <PricingRule>
+              </PricingRule>
+            </Promotion>
+          </Promotions>
+          <Awards>
+            <Award AwardAmount="" AwardApplied="" AwardId="" AwardKey="" AwardQuantity="" AwardType=""
+              ChargeCategory="" ChargeName="" DenialReason="" Description="" IsFreeGiftAward="" PromotionId=""
+              PromotionKey="" />
+          </Awards>
+          <ChargeTransactionDetails RemainingAmountToAuth="" FundsRequiredOnOrder="" TotalTransferredIn="">
+            <ChargeTransactionDetail BookAmount="" ChargeType="" CollectionDate=""
+              OpenAuthorizedAmount="" OrderHeaderKey="" PaymentKey="" Status="" TransactionDate=""
+              ChargeTransactionKey="" CreditAmount="" DebitAmount="">
+              <InvoiceCollectionDetails></InvoiceCollectionDetails>
+              <PaymentMethod />
+              <TransferFromOrder PendingTransferIn="" />
+            </ChargeTransactionDetail>
+          </ChargeTransactionDetails>
+          <RemainingFinancialTotals RemainingToAuthorize="" RemainingToCharge=""
+            RemainingToRefund="">
+          </RemainingFinancialTotals>
+          <Modifications>
+            <Modification ModificationAllowed="" ModificationType="" />
+          </Modifications>
+          <HeaderCharges>
+            <HeaderCharge>
+              <ChargeNameDetails Description="" />
+              <ChargeCategoryDetails Description="" />
+            </HeaderCharge>
+          </HeaderCharges>
+        </Order>
+      </Template>
+    </API>
+    <AdditionalDataProviders>
+      <AdditionalDataProvider class="com.ibm.icc.core.dataproviders.ICCDisplayStatusProvider">
+        <InterestedIn>
+          <Element path="/Order" />
+          <Attribute path="Order" name="Status" />
+        </InterestedIn>
+        <NewAttributes>
+          <Attribute name="DisplayStatus" />
+        </NewAttributes>
+      </AdditionalDataProvider>
+      <AdditionalDataProvider
+        class="com.ibm.icc.core.dataproviders.ICCPaymentStatusDescriptionProvider">
+        <InterestedIn>
+          <Element path="/Order" />
+          <Attribute path="Order" name="PaymentStatus" />
+        </InterestedIn>
+        <NewAttributes>
+          <Attribute name="PaymentStatusDescrition" />
+        </NewAttributes>
+      </AdditionalDataProvider>
+      <AdditionalDataProvider class="com.ibm.icc.core.dataproviders.ICCOrganizationDataProvider">
+        <InterestedIn>
+          <Element path="/Order" />
+          <Attribute path="Order" name="EnterpriseCode" />
+        </InterestedIn>
+        <NewAttributes>
+          <Attribute name="EnterpriseName" />
+        </NewAttributes>
+      </AdditionalDataProvider>
+         <AdditionalDataProvider class="com.ibm.icc.core.dataproviders.ICCExchangeTypeDataProvider">
+          <InterestedIn>
+            <Element path="/Order"/>
+          </InterestedIn>
+        </AdditionalDataProvider>
+         <AdditionalDataProvider class="com.ibm.icc.core.dataproviders.ICCUserNameDataProvider">
+          <InterestedIn>
+            <Element path="/Order/Notes/Note"/>
+          </InterestedIn>
+        </AdditionalDataProvider>
+      <AdditionalDataProvider
+        class="com.ibm.icc.core.dataproviders.ICCPaymentTypeDescriptionProvider">
+        <InterestedIn>
+          <Element path="/Order/PaymentMethods/PaymentMethod" />
+          <Attribute path="PaymentMethod" name="PaymentType" />
+        </InterestedIn>
+        <NewAttributes>
+          <Attribute name="PaymentTypeDescription" />
+        </NewAttributes>
+        <InterestedIn>
+          <Element path="/Order/PaymentMethods/PaymentMethod" />
+          <Attribute path="PaymentMethod" name="CreditCardType" />
+        </InterestedIn>
+        <NewAttributes>
+          <Attribute name="CreditCardTypeDesc" />
+        </NewAttributes>
+        <InterestedIn>
+          <Element path="/Order/PaymentMethods/PaymentMethod" />
+          <Attribute path="PaymentMethod" name="PaymentType" />
+        </InterestedIn>
+        <NewAttributes>
+          <Attribute name="ChargeUpToAvailable" />
+        </NewAttributes>
+      </AdditionalDataProvider>
+      <AdditionalDataProvider
+        class="com.ibm.icc.core.dataproviders.ICCPaymentTypeDescriptionProvider">
+        <InterestedIn>
+          <Element path="/Order/PaymentMethods/PaymentMethod" />
+          <Attribute path="PaymentMethod" name="PaymentType" />
+        </InterestedIn>
+        <NewAttributes>
+          <Attribute name="NoProcessingRequired" />
+        </NewAttributes>
+      </AdditionalDataProvider>
+      <AdditionalDataProvider class="com.ibm.icc.core.dataproviders.ICCTaxNameDescriptionDataProvider">
+        <InterestedIn>
+          <Element path="/Order/HeaderTaxes/HeaderTax" />
+          <Attribute path="HeaderTax" name="TaxName" />
+        </InterestedIn>
+        <NewAttributes>
+          <Attribute name="TaxNameDescription" />
+          <Attribute name="IsDiscount" />
+        </NewAttributes>
+      </AdditionalDataProvider>
+      <AdditionalDataProvider class="com.ibm.icc.core.dataproviders.ICCTaxNameDescriptionDataProvider">
+        <InterestedIn>
+          <Element path="/Order/OrderLines/OrderLine/LineTaxes/LineTax" />
+          <Attribute path="LineTax" name="TaxName" />
+        </InterestedIn>
+        <NewAttributes>
+          <Attribute name="TaxNameDescription" />
+          <Attribute name="IsDiscount" />
+        </NewAttributes>
+      </AdditionalDataProvider>
+    </AdditionalDataProviders>
+    <AlternateResourceIds>
+      <AlternateResourceId altResourceId="ICCSYS00001" />
+    </AlternateResourceIds>
+  </mashup>
+  </mashups>

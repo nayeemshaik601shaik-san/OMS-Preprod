@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Order OrderHeaderKey="" EntryType="">
+	<OrderLines>
+		<OrderLine OrderLineKey="" PrimeLineNo="" SubLineNo="" OriginalOrderedQty="" OrderedQty="" DerivedFromOrderHeaderKey="">
+			<Item/>
+			<LineCharges>
+				<LineCharge ChargeCategory="" ChargeName="" ChargePerLine="" ChargePerUnit="" ChargeAmount="" Reference=""/>
+			</LineCharges>
+			<LineTaxes>
+				<LineTax ChargeCategory="" ChargeName="" Reference1="" Tax="" TaxName="" TaxableFlag=""/>
+			</LineTaxes>
+			<LinePriceInfo/>
+			<ModificationTypes>
+				<ModificationType ImpactsPricing="" Level="" Name=""/>
+			</ModificationTypes>
+			<PersonInfoShipTo/>
+			<LineOverallTotals/>
+			<DerivedFromOrder DocumentType="" EnterpriseCode="" OrderNo="">
+			<HeaderCharges/>
+			<HeaderTaxes/>
+			</DerivedFromOrder>
+			<DerivedFromOrderLine PrimeLineNo="" SubLineNo="" OrderedQty="" ReturnableQty="">
+				<Item ItemID="" UnitOfMeasure=""/>
+				<LineCharges/>
+				<LineTaxes/>
+			</DerivedFromOrderLine>
+		</OrderLine>
+	</OrderLines>
+	<HeaderCharges/>
+	<HeaderTaxes Reset="">
+		<HeaderTax/>
+	</HeaderTaxes>
+	<OverallTotals/>
+	<PersonInfoShipTo/>
+	<PersonInfoBillTo/>
+</Order>

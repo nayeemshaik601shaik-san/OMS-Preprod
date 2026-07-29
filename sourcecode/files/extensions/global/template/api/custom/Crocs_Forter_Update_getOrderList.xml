@@ -1,0 +1,6 @@
+<OrderList>
+<Order  MaxOrderStatus="" MaxOrderStatusDesc="" MinOrderStatus="" MinOrderStatusDesc="" OrderHeaderKey=""  OrderNo="" EnterpriseCode="" >
+	<PriceInfo Currency="" TotalAmount=""/>
+	<Extn ExtnFraudStatus=""/>
+</Order>
+</OrderList>

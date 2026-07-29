@@ -1,0 +1,84 @@
+<Shipment ActualShipmentDate="" OrderHeaderKey="" OrderNo="" RequestedShipmentDate="" ManifestNo="" TrackingNo="" ExpectedShipmentDate="" ShipmentNo="" Createts="" ShipNode="" ReceivingNode="" EnterpriseCode="" BuyerOrganizationCode="" ShipmentKey="" SellerOrganizationCode="" ShipVia="" Status="" TotalQuantity="" ShipCountry="" SCAC="" CarrierServiceCode="" DocumentType="" ShipmentType="">
+    <Extn ExtnCommercialInvoiceNumber="" ExtnShipmentAirwayBill="" ExtnEmployeeName="" Extn1stLegCommercialInvNo="" Extn2ndLegCommercialInvNo="" ExtnXWPDFPath="" ExtnSuppressShipment="" ExtnShipCountry="" ExtnJDEPOOrderNo="" ExtnJDEOrderNo="" ExtnJDEOrderType="" ExtnJDEPOType="" ExtnStoreNo="" ExtnExternalOrderNo=""/>
+    <ShipmentHoldTypes>
+        <ShipmentHoldType HoldType="" Status=""/>
+    </ShipmentHoldTypes>
+    <ToAddress AddressLine1="" AddressLine2="" AddressLine3="" AddressLine4="" AddressLine5="" AddressLine6="" AlternateEmailID="" Beeper="" City="" Company="" Country="" DayFaxNo="" DayPhone="" Department="" EMailID="" ErrorTxt="" EveningFaxNo="" EveningPhone="" FirstName="" HttpUrl="" JobTitle="" LastName="" MiddleName="" MobilePhone="" OtherPhone="" PersonID="" PersonInfoKey="" PreferredShipAddress="" State="" Suffix="" Title="" UseCount="" VerificationStatus="" ZipCode=""/>
+    <FromAddress AddressLine1="" AddressLine2="" AddressLine3="" AddressLine4="" AddressLine5="" AddressLine6="" AlternateEmailID="" Beeper="" City="" Company="" Country="" DayFaxNo="" DayPhone="" Department="" EMailID="" ErrorTxt="" EveningFaxNo="" EveningPhone="" FirstName="" HttpUrl="" JobTitle="" LastName="" MiddleName="" MobilePhone="" OtherPhone="" PersonID="" PersonInfoKey="" PreferredShipAddress="" State="" Suffix="" Title="" UseCount="" VerificationStatus="" ZipCode=""/>
+    <ShipmentLines>
+        <ShipmentLine PrimeLineNo="" SubLineNo="" ShortageQty="" ItemID="" ItemDesc="" Quantity="" OrderedQty="" OrderNo="" ShipmentLineNo="" CustomerPoNo="" OrderHeaderKey="" ShipmentKey="" UOM="" OriginalQuantity="" ReleaseNo="" ProductClass="" UnitOfMeasure="">
+            <Order OrderNo="" OrderName="" OrderDate="" EnteredBy="" ReqDeliveryDate="" OrderType="" EntryType="" BillToID="" OrderHeaderKey="" EnterpriseCode="" SellerOrganizationCode="" CustomerEMailID="" OrderPurpose="" Status="" MaxOrderStatus="" MinOrderStatus="" DocumentType="">
+                <PriceInfo Currency=""/>
+                <Extn/>
+                <Notes>
+                    <Note NoteText="">
+                        <Extn ExtnNoteType=""/>
+                    </Note>
+                </Notes>
+                <OrderHoldTypes>
+                    <OrderHoldType HoldType=""/>
+                </OrderHoldTypes>
+                <PersonInfoShipTo AddressID="" AddressLine1="" AddressLine2="" AddressLine3="" AddressLine4="" AddressLine5="" AddressLine6="" AlternateEmailID="" Beeper="" City="" Company="" Country="" DayFaxNo="" DayPhone="" Department="" EMailID="" EveningFaxNo="" EveningPhone="" ExtnAddressOverride="" FirstName="" IsAddressVerified="" IsCommercialAddress="" JobTitle="" LastName="" MiddleName="" MobilePhone="" OtherPhone="" PersonID="" PersonInfoKey="" State="" Suffix="" TaxGeoCode="" Title="" ZipCode=""/>
+                <PersonInfoBillTo/>
+                <PaymentMethods>
+                    <PaymetnMethod PaymentType="" TotalCharged=""/>
+                </PaymentMethods>
+                <OverallTotals GrandCharges="" GrandDiscount="" GrandTax="" GrandTotal="" LineSubTotal=""/>
+                <Promotions>
+                    <Promotion/>
+                </Promotions>
+            </Order>
+            <OrderLine OrderHeaderKey="" OrderLineKey="" OrderedQty="" OriginalOrderedQty="" PackListType="" ShippedQuantity="" ShipNode="" ShipToID="" ReceivingNode="" ReservationID="" PrimeLineNo="" LineType="" Scac="" CarrierServiceCode="">
+                <Item ItemDesc="" ItemID="" ProductClass="" UnitOfMeasure="" ManufacturerItemDesc="" ItemShortDesc="">
+                    <Extn/>
+                </Item>
+                <LinePriceInfo LineTotal="" UnitPrice="" ExtendedPrice=""/>
+                <ItemDetails ItemID="">
+                    <PrimaryInformation ImageLocation="" ItemType="" ColorCode="" SizeCode=""/>
+                    <Extn ExtnL2Item="" ExtnImageUrl="" ExtnProductUrl=""/>
+                </ItemDetails>
+                <LineOverallTotals ExtendedPrice="" UnitPrice="" Discount="" LineTotal=""/>
+                <Extn ExtnJDEOrderNo="" ExtnJDEOrderLineNo="" ExtnJDEOrderType="" ExtnSourceInvType="" ExtnTransferType="" ExtnReservationID="" ExtnInterComm="" ExtnXWDONum="" ExtnCustomerItemID="" ExtnFinalSale="" ExtnReturnNotes="" ExtnProductType="" ExtnExpShipDate="" ExtnLOS="" ExtnLineSeqNo=""/>
+                <LineCharges>
+                    <LineCharge ChargeCategory="" ChargeName="" ChargePerUnit="">
+                        <Extn ExtnAdjustmentNote="" ExtnChargeNote="" ExtnChargeType="" ExtnEmpRegAddrID="" ExtnEmpRegBU="" ExtnEmpRegCategory="" ExtnPercent="" ExtnSOLineChargeAmount=""/>
+                    </LineCharge>
+                </LineCharges>
+                <PersonInfoShipTo AddressID="" AddressLine1="" AddressLine2="" AddressLine3="" AddressLine4="" AddressLine5="" AddressLine6="" AlternateEmailID="" Beeper="" City="" Company="" Country="" DayFaxNo="" DayPhone="" Department="" EMailID="" EveningFaxNo="" EveningPhone="" ExtnAddressOverride="" FirstName="" IsAddressVerified="" IsCommercialAddress="" JobTitle="" LastName="" MiddleName="" MobilePhone="" OtherPhone="" PersonID="" PersonInfoKey="" State="" Suffix="" TaxGeoCode="" Title="" ZipCode=""/>
+                <PersonInfoMarkFor AddressID="" AddressLine1="" AddressLine2="" AddressLine3="" AddressLine4="" AddressLine5="" AddressLine6="" AlternateEmailID="" Beeper="" City="" Company="" Country="" DayFaxNo="" DayPhone="" Department="" EMailID="" EveningFaxNo="" EveningPhone="" ExtnAddressOverride="" FirstName="" IsAddressVerified="" IsCommercialAddress="" JobTitle="" LastName="" MiddleName="" MobilePhone="" OtherPhone="" PersonID="" PersonInfoKey="" State="" Suffix="" TaxGeoCode="" Title="" ZipCode=""/>
+                <OrderLineOptions>
+                    <OrderLineOption/>
+                </OrderLineOptions>
+                <OrderStatuses>
+                    <OrderStatus Status="" StatusQty=""/>
+                </OrderStatuses>
+                <Schedules>
+                    <Schedule ExpectedDeliveryDate=""/>
+                </Schedules>
+            </OrderLine>
+            <OrderRelease OrderReleaseKey=""/>
+            <ShipmentTagSerials>
+                <ShipmentTagSerial BatchNo="" LotAttribute1="" LotAttribute2="" Quantity=""/>
+            </ShipmentTagSerials>
+            <Extn ExtnTransferUnitPrice="" ExtnTransferPrice="" ExtnTransferUnitPrice2="" ExtnTransferPrice2="" ExtnFirstLegCurrency="" ExtnSecondLegCurrency="" ExtnXWDONum="" ExtnWMSOrderNo="" ExtnSerialNo="">
+                <TCOSerialSkuList>
+                    <TCOSerialSku ExtnProductType="" ExtnSerialSkuKey="" ExtnOrderNo="" ExtnSerialNo="" ExtnChannelType=""/>
+                </TCOSerialSkuList>
+            </Extn>
+        </ShipmentLine>
+    </ShipmentLines>
+    <Containers>
+        <Container ContainerNo="" ContainerNetWeight="" ContainerLength="" ContainerWidth="" ContainerHeight="" CustomsValue="" ActualFreightCharge="" BasicFreightCharge="" TrackingNo="" SCAC="">
+            <ContainerDetails>
+                <ContainerDetail Quantity="">
+                    <ShipmentTagSerials>
+                        <ShipmentTagSerial Quantity="" SerialNo=""/>
+                    </ShipmentTagSerials>
+                    <ShipmentLine OrderNo="" ItemID="" PrimeLineNo="" SubLineNo="" ReleaseNo="" EnterpriseCode="" DocumentType="" UnitOfMeasure="" ProductClass=""/>
+                </ContainerDetail>
+            </ContainerDetails>
+            <Extn />
+        </Container>
+    </Containers>
+    <ShipNode InterfaceType=""/>
+</Shipment>

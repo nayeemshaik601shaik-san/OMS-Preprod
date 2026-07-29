@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<InvoiceDetail>
+    <InvoiceHeader AmountCollected="" Currency="" DateInvoiced="" DerivedFromOrderHeaderKey="" DocumentType="" EnterpriseCode="" HeaderCharges="" HeaderDiscount="" HeaderTax="" InvoiceCreationReason="" InvoiceNo="" InvoiceType="" LineSubTotal="" OrderInvoiceKey="" OrderNo="" Reference1="" TotalAmount="" TotalCharges="" TotalDiscount="" TotalHeaderCharges="" TotalTax="">
+        <Order DocumentType="" EnterpriseCode="" EntryType="" EnteredBy="" OrderDate="" OrderType="" OrderHeaderKey="" OrderNo="" SellerOrganizationCode="" Status="">
+            <PriceInfo Currency=""/>
+            <Extn ExtnRefundAmount="" />
+            <PersonInfoShipTo AddressLine1="" AddressLine2="" AddressLine3="" City="" Company="" Country="" DayPhone="" EMailID="" FirstName="" LastName="" MiddleName="" State="" ZipCode=""/>
+            <PersonInfoBillTo AddressLine1="" AddressLine2="" AddressLine3="" City="" Company="" Country="" DayPhone="" EMailID="" FirstName="" LastName="" MiddleName="" State="" ZipCode=""/>
+        </Order>
+        <LineDetails TotalLines="">
+            <LineDetail Charges="" ExtendedPrice="" ItemID="" LineTotal="" OrderInvoiceDetailKey="" OrderLineKey="" PrimeLineNo="" Quantity="" Tax="" UnitOfMeasure="" UnitPrice="">
+                <OrderLine CarrierServiceCode="" DeliveryMethod="" OrderLineKey="" OrderedQty="" PrimeLineNo="" ReturnReason="" Status="">
+                    <DerivedFromOrderLine PrimeLineNo="1" SubLineNo="1">
+                        <Order OrderNo=""/>
+                    </DerivedFromOrderLine>
+                    <Item ItemID="" ItemShortDesc="" UPCCode=""/>
+                    <LinePriceInfo DiscountPercentage="" DiscountReference="" DiscountType="" InvoicedPricingQty="" ListPrice="" OrderedPricingQty="" UnitPrice=""/>
+                </OrderLine>
+                <LineCharges>
+                    <LineCharge AmountFromAddnlLinePrices="" ChargeAmount="" ChargeCategory="" ChargeName="" ChargeNameKey="" ChargePerLine="" ChargePerUnit="" IsBillable="" IsDiscount="" IsManual="" IsShippingCharge="" OriginalChargePerLine="" OriginalChargePerUnit="" Reference="">
+                        <Extn/>
+                    </LineCharge>
+                    <LineCharge AmountFromAddnlLinePrices="" ChargeAmount="" ChargeCategory="" ChargeName="" ChargeNameKey="" ChargePerLine="" ChargePerUnit="" IsBillable="" IsDiscount="" IsManual="" IsShippingCharge="" OriginalChargePerLine="" OriginalChargePerUnit="" Reference="">
+                        <Extn/>
+                    </LineCharge>
+                </LineCharges>
+                <LineTaxes>
+                    <LineTax ChargeCategory="" ChargeName="" ChargeNameKey="" Reference_1="" Reference_2="" Reference_3="" Tax="" TaxName="" TaxPercentage=""/>
+                    <TaxSummary>
+                        <TaxSummaryDetail Tax="" TaxName=""/>
+                    </TaxSummary>
+                </LineTaxes>
+            </LineDetail>
+        </LineDetails>
+        <TotalSummary>
+            <ChargeSummary>
+                <ChargeSummaryDetail ChargeAmount="" ChargeCategory="" ChargeName="" ChargeNameKey="" IsBillable="" IsDiscount="" IsShippingCharge="" OriginalChargeAmount="" Reference="">
+                    <Extn/>
+                </ChargeSummaryDetail>
+                <ChargeSummaryDetail ChargeAmount="" ChargeCategory="" ChargeName="" ChargeNameKey="" IsBillable="" IsDiscount="" IsShippingCharge="" OriginalChargeAmount="" Reference="">
+                    <Extn/>
+                </ChargeSummaryDetail>
+                <ChargeSummaryDetail ChargeAmount="" ChargeCategory="" ChargeName="" ChargeNameKey="" IsBillable="" IsDiscount="" IsShippingCharge="" OriginalChargeAmount="" Reference="">
+                    <Extn/>
+                </ChargeSummaryDetail>
+                <ChargeSummaryDetail ChargeAmount="" ChargeCategory="" ChargeName="" ChargeNameKey="" IsBillable="" IsDiscount="" IsShippingCharge="" OriginalChargeAmount="" Reference="">
+                    <Extn/>
+                </ChargeSummaryDetail>
+            </ChargeSummary>
+            <TaxSummary>
+                <TaxSummaryDetail Tax="" TaxName=""/>
+            </TaxSummary>
+        </TotalSummary>
+        <HeaderCharges>
+            <HeaderCharge ChargeAmount="" ChargeCategory="" ChargeName="" ChargeNameKey="" IsBillable="" IsDiscount="" IsShippingCharge="" OriginalChargeAmount="" Reference="">
+                <Extn/>
+            </HeaderCharge>
+            <HeaderCharge ChargeAmount="" ChargeCategory="" ChargeName="" ChargeNameKey="" IsBillable="" IsDiscount="" IsShippingCharge="" OriginalChargeAmount="" Reference="">
+                <Extn/>
+            </HeaderCharge>
+        </HeaderCharges>
+        <HeaderTaxes>
+            <HeaderTax ChargeCategory="" ChargeName="" ChargeNameKey="" Reference_1="" Reference_2="" Reference_3="" Tax="" TaxName="" TaxPercentage=""/>
+            <HeaderTax ChargeCategory="" ChargeName="" ChargeNameKey="" Reference_1="" Reference_2="" Reference_3="" Tax="" TaxName="" TaxPercentage=""/>
+            <TaxSummary>
+                <TaxSummaryDetail Tax="" TaxName=""/>
+            </TaxSummary>
+        </HeaderTaxes>
+    </InvoiceHeader>
+</InvoiceDetail>

@@ -1,0 +1,132 @@
+<!--
+* IBM Confidential
+* OCO Source Materials
+* 5737-D18, 5725-D10
+*
+* (C) Copyright International Business Machines Corp. 2021, 2023
+*
+* The source code for this program is not published or otherwise divested
+* of its trade secrets, irrespective of what has been deposited with the
+* U.S. Copyright Office.
+-->
+
+<ng-template bucExtension [componentName]="componentId" [placement]="'top'" [id]="EXTENSION.TOP" [parent]="this">
+</ng-template>
+
+<div class="screen-loading" *ngIf="isLoader" [attr.tid]="componentId + '-screen-loading'">
+    <buc-loading [isActive]="isLoader" (loadTimeout)="isLoader = false"></buc-loading>
+</div>
+<div class="unavailableLinesNotification margin-bottom--1rem" [class.hidden]="isLoader" *ngIf="hasUnavailableLines">
+  <buc-notification [attr.tid]="componentId + '-unavailable-lines-notification'"
+    [notificationObj]="unavailableNotification"></buc-notification>
+</div>
+
+<section class="fulfillment-block" [class.hidden]="isLoader">
+    <div class="info-text cds--label" *ngIf = "fulfillmentGroups.length > 1">
+        {{orderFulfilledHeading}}
+    </div>
+    <ibm-accordion>
+        <ibm-accordion-item class="fulfillment-item-accordion" *ngFor="let ele of fulfillmentGroups" [title]="groupTitle" [expanded]="ele.expanded" (selected)="getFulfillmentDetails(ele);">
+          <ng-container *ngIf="ele.content && ele.expanded">
+		     <!-- EOMS-6178: Changes Start-->
+            <!-- Added extn attribute -->
+            <call-center-fulfillment-group-details extn
+                [groupElement] = "ele"
+                [showActionPanel] = "showActionPanel"
+                [resourceIdsForOrderDetailsActions] = "resourceIdsForOrderDetailsActions"
+                [fulfillmentOrderDetails] = "fulfillmentOrderDetails"
+                [orderDetails] = "orderDetails"
+                [instructionTypeList] = "instructionTypeList"
+                [isOrderLine] = "isOrderLine"
+                (parentPageRefresh) = "parentPageRefresh.emit($event)"
+                (navigateToChangeFulfillment) = "navigateToChangeFulfillment.emit($event)"
+                [isTransferOrder]="isTransferOrder"
+            >
+            </call-center-fulfillment-group-details>
+			<!-- EOMS-6178: Changes End-->
+          </ng-container>
+          <div class="fulfillment-lines" *ngIf="!isOrderLine">
+            <ibm-accordion-item [title]="linesTitle" [expanded]="ele.itemsExpanded" (selected) = "ele.itemsExpanded = !ele.itemsExpanded">
+              <ng-container *ngIf="ele.itemsExpanded">
+                <call-center-fulfillment-items-table
+                    [groupDetails] = "ele.value"
+                    [orderDetails]="orderDetails"
+                    [isLargeOrder]="isLargeOrder"
+                >
+                </call-center-fulfillment-items-table>
+              </ng-container>
+            </ibm-accordion-item>
+          </div>
+          <ng-container *ngIf="!isOrderLine && !ele.itemsExpanded">
+            <ng-container *ngTemplateOutlet="thumbnails"></ng-container>
+          </ng-container>
+
+        <ng-template #thumbnails>
+          <div class="itemImage-thumbnails">
+            <ng-container *ngFor="let orderLine of ele.value?.OrderLines?.OrderLine; let i=index">
+              <div class="image-container" *ngIf="i<=4">
+                  <cds-tooltip [description]="tooltipTemplate" trigger="hover" [align]="'right'" [autoAlign]="'true'"
+                    [templateContext]="orderLine.ItemDetails.PrimaryInformation.ShortDescription">
+                    <img
+                      [src]="orderLine.ItemDetails.PrimaryInformation.ImageLocation+'/'+orderLine.ItemDetails.PrimaryInformation.ImageID"
+                      onerror="this.src='/call-center-order/assets/call-center-order/images/default-image.svg'" />
+                  </cds-tooltip>
+                  <span *ngIf="orderLine?.OrderLineTranQuantity?.ShippedQuantity > 1" class="items-qty">{{orderLine?.OrderLineTranQuantity?.ShippedQuantity}}</span>
+              </div>
+            </ng-container>
+            <div class="more-items" *ngIf="ele.value?.OrderLines?.OrderLine.length>5">
+              <span>{{'FULFILLMENT.SHIPMENT_DETAILS.LABEL_MORE' | translate : { itemsCount: ele.value?.OrderLines?.OrderLine.length - 5 } }}</span>
+            </div>
+          </div>
+        </ng-template>
+          <!--Title Templates-->
+          <ng-template #linesTitle>
+            <p [attr.tid]="componentId + '-accordion-shipment-lines'" class="cds--accordion__title" *ngIf="ele.isShipment">
+              {{ 'FULFILLMENT.SHIPMENT_DETAILS.LABEL_VIEW_SHIPMENT_LINES' | translate }}
+            </p>
+            <p [attr.tid]="componentId + '-accordion-order-lines'" class="cds--accordion__title" *ngIf="!ele.isShipment">
+              {{ 'FULFILLMENT.SHIPMENT_DETAILS.LABEL_VIEW_ORDER_LINES' | translate }}
+            </p>
+          </ng-template>
+          <ng-template #groupTitle>
+            <div class="group-title-container"  [ngClass]="{'border-bottom': !ele.expanded}">
+            <p [attr.tid]="componentId + '-accordion-' + fulfillmentMethodType[ele.method]" class="cds--accordion__title">
+              <span>
+                <span class="fulfillment-heading">{{ ele.content }}</span>
+                <b>{{ele.address}}</b>
+                <span class="fulfillment-heading" *ngIf="!isOrderLine">{{ " (" + ele.productCountLabel + ")" }}</span>
+                <span *ngIf="ele.hasReshipLine">
+                  <buc-tag [attr.tid]="componentId + '-reship-line-tag'" [type]="'purple'">
+                    <span title="{{'ORDER_SUMMARY.SHARED.LABEL_RESHIP_LINE' | translate}}" class="basic">{{'FULFILLMENT.SHIPMENT_DETAILS.LABEL_INCLUDES_RESHIP_LINE' | translate}}</span>
+                  </buc-tag>
+                </span>
+              </span>
+              <span class="cds--label group-status">{{ 'FULFILLMENT.SHIPMENT_DETAILS.LABEL_STATUS' | translate }}
+
+                <ibm-tag class="cds--tag--sm" *ngIf="ele.isShipment" type="blue"> {{ (ele.method === 'PICK' && ele.value.Shipment?.Status?.Status >= '1400' ? 'FULFILLMENT.SHIPMENT_DETAILS.LABEL_PICKED_UP_BY_CUSTOMER' :
+                  ele.value.Shipment?.Status?.Description) | translate}}</ibm-tag>
+
+                  <ibm-tag class="cds--tag--sm" *ngIf="!ele.isShipment" type="blue">
+                    {{'FULFILLMENT.SHIPMENT_DETAILS.LABEL_SHIPMENT_YET_TO_CREATED' | translate }}
+                  </ibm-tag>
+              </span>
+            </p>
+          </div>
+            <ng-container *ngIf="!ele.expanded">
+              <ng-container *ngTemplateOutlet="thumbnails"></ng-container>
+            </ng-container>
+          </ng-template>
+        </ibm-accordion-item>
+    </ibm-accordion>
+    <div class="fulfillment-empty-block" *ngIf="emptyBlockMessage">
+        {{ emptyBlockMessage | translate}}
+    </div>
+</section>
+<ng-template #tooltipTemplate let-tooltip="$implicit">
+  <div class="fulfillment-group-tab-tooltip">
+    <span class="item-description-tooltip-template" [innerHTML]="tooltip"></span>
+  </div>
+</ng-template>
+
+<ng-template bucExtension [componentName]="componentId" [placement]="'bottom'" [id]="EXTENSION.BOTTOM" [parent]="this">
+</ng-template>

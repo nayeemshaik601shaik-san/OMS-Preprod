@@ -1,0 +1,9 @@
+<ItemList TotalItemList="">
+	<Item ItemID="" OrganizationCode="" UnitOfMeasure="" ItemKey="">
+		<Extn>
+			<CrocsItemOrgDataList>
+				<CrocsItemOrgData ItemOrgDataKey="" ItemID="" ItemKey="" OrganizationCode="" SizeCode="" MaxOrderQuantity="" ReturnWindow="" Locale=""/>
+			</CrocsItemOrgDataList>
+		</Extn>
+	</Item>
+</ItemList>
