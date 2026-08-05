@@ -11,14 +11,21 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Show Current Directory
-        run: pwd
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
 
-      - name: List Repository Files
-        run: ls -la
+      - name: Verify Environment
+        run: |
+          echo "Current Directory:"
+          pwd
 
-      - name: Show Repository Structure
-        run: find . -maxdepth 2
+          echo ""
+          echo "Repository Files:"
+          ls -la
 
-      - name: Show Java Version
-        run: java -version
+          echo ""
+          echo "Java Version:"
+          java -version
