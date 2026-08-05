@@ -8,14 +8,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Welcome
-        run: echo "Welcome to GitHub Actions"
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      - name: Show current directory
+      - name: Show Current Directory
         run: pwd
 
-      - name: List files
+      - name: List Repository Files
         run: ls -la
 
-      - name: Show operating system
-        run: uname -a
+      - name: Show Repository Structure
+        run: find . -maxdepth 2
+
+      - name: Show Java Version
+        run: java -version
