@@ -1,18 +1,21 @@
-name: My First Workflow
+name: OMS Preprod Pipeline
 
 on:
   workflow_dispatch:
 
 jobs:
-  hello:
+  learning:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Say Hello
-        run: echo "Hello Nayeem! Welcome to GitHub Actions."
+      - name: Welcome
+        run: echo "Welcome to GitHub Actions"
 
-      - name: Show Current Directory
+      - name: Show current directory
         run: pwd
 
-      - name: List Files
+      - name: List files
         run: ls -la
+
+      - name: Show operating system
+        run: uname -a
