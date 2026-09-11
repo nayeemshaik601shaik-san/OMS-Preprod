@@ -28,5 +28,4 @@ jobs:
 
         - name: Build Extension JAR
           run: |
-            cd /home/nayeem501/oms/devtoolkit_docker
-            ./sci_ant.sh -f ../devtoolkit/devtoolkit_extensions.xml importfromproject -Dprojectdir=${{ github.workspace }}/sourcecode
+            /home/nayeem501/oms/devtoolkit_docker/runtime/bin/sci_ant.sh -f /home/nayeem501/oms/devtoolkit_docker/runtime/devtoolkit/devtoolkit_extensions.xml importfromproject -Dprojectdir=${{ github.workspace }}/sourcecode
