@@ -1,9 +1,7 @@
 name: OMS Preprod Pipeline
-
-  on:
+on:
     workflow_dispatch:
-
-  jobs:
+jobs:
     build:
       runs-on: self-hosted
 
