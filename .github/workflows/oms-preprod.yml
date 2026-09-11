@@ -9,6 +9,12 @@ jobs:
         - name: Checkout Repository
           uses: actions/checkout@v5
 
+        - name: Setup Java
+          uses: actions/setup-java@v4
+          with:
+            distribution: temurin
+            java-version: '21'
+
         - name: Verify Environment
           run: |
             echo "Current Directory:"
