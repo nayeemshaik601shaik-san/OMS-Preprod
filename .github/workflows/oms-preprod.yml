@@ -1,31 +1,28 @@
 name: OMS Preprod Pipeline
 
-on:
-  workflow_dispatch:
+  on:
+    workflow_dispatch:
 
-jobs:
-  learning:
-    runs-on: ubuntu-latest
+  jobs:
+    build:
+      runs-on: self-hosted
 
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v5
+      steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v5
 
-      - name: Setup Java
-        uses: actions/setup-java@v5
-        with:
-          distribution: temurin
-          java-version: '21'
+        - name: Verify Environment
+          run: |
+            echo "Current Directory:"
+            pwd
+            echo ""
+            echo "Repository Files:"
+            ls -la
+            echo ""
+            echo "Java Version:"
+            java -version
 
-      - name: Verify Environment
-        run: |
-          echo "Current Directory:"
-          pwd
-
-          echo ""
-          echo "Repository Files:"
-          ls -la
-
-          echo ""
-          echo "Java Version:"
-          java -version
+        - name: Build Extension JAR
+          run: |
+            cd /home/nayeem501/oms/devtoolkit_docker
+            ./sci_ant.sh -f ../devtoolkit/devtoolkit_extensions.xml importfromproject -Dprojectdir=${{ github.workspace }}/sourcecode
