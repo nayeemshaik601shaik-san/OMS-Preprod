@@ -42,6 +42,7 @@ jobs:
         - name: Build Extension JAR
           working-directory: /home/nayeem123/oms/devtoolkit_docker/runtime/bin
           run: |
+            echo "Project Dir: $GITHUB_WORKSPACE/sourcecode"
             ./sci_ant.sh -f /home/nayeem123/oms/devtoolkit_docker/runtime/devtoolkit/devtoolkit_extensions.xml \
               importfromproject \
-              -Dprojectdir=${{ inputs.projectdir }}
+              -Dprojectdir="$GITHUB_WORKSPACE/sourcecode"
