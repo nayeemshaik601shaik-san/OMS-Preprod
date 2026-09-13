@@ -1,42 +1,12 @@
 name: OMS Preprod Pipeline
 on:
+    push:
+      branches:
+        - main
     workflow_dispatch:
 jobs:
     build:
-      runs-on: self-hosted
-
-      steps:
-        - name: Checkout Repository
-          uses: actions/checkout@v5
-
-        - name: Setup Java
-          uses: actions/setup-java@v4
-          with:
-            distribution: temurin
-            java-version: '21'
-
-        - name: Verify Environment
-          run: |
-            echo "Current Directory:"
-            pwd
-            echo ""
-            echo "Repository Files:"
-            ls -la
-            echo ""
-            echo "Java Version:"
-            java -version
-
-        - name: Start Docker if not running
-          working-directory: /home/nayeem501/oms/devtoolkit_docker/compose
-          run: |
-            if [ -z "$(docker ps -q)" ]; then
-              echo "No containers running. Starting OMS..."
-              ./om-compose.sh start
-            else
-              echo "Containers already running. Skipping start."
-            fi
-
-        - name: Build Extension JAR
-          working-directory: /home/nayeem501/oms/devtoolkit_docker/runtime/bin
-          run: |
-            ./sci_ant.sh -f /home/nayeem501/oms/devtoolkit_docker/runtime/devtoolkit/devtoolkit_extensions.xml importfromproject -Dprojectdir=${{ github.workspace}}/sourcecode
+      uses: nayeemshaik601shaik-san/OMS-Workflows/.github/workflows/oms-build.yml@main
+      with:
+        environment: preprod
+        projectdir: ${{ github.workspace }}/sourcecode
