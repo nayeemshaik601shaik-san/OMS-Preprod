@@ -28,10 +28,10 @@ jobs:
             pwd
             ls -la
             java -version
-
+            
         - name: Start Docker if not running
-          working-directory: /home/nayeem123/oms/devtoolkit_docker/compose
           run: |
+            cd $HOME/oms/devtoolkit_docker/compose
             if [ -z "$(docker ps -q)" ]; then
               echo "No containers running. Starting OMS..."
               ./om-compose.sh start
@@ -40,8 +40,8 @@ jobs:
             fi
 
         - name: Build Extension JAR
-          working-directory: /home/nayeem123/oms/devtoolkit_docker/runtime/bin
           run: |
-            ./sci_ant.sh -f /home/nayeem123/oms/devtoolkit_docker/runtime/devtoolkit/devtoolkit_extensions.xml \
+            cd $HOME/oms/devtoolkit_docker/runtime/bin
+            ./sci_ant.sh -f $HOME/oms/devtoolkit_docker/runtime/devtoolkit/devtoolkit_extensions.xml \
               importfromproject \
-              -Dprojectdir=${{ inputs.projectdir }}
+              -Dprojectdir="$GITHUB_WORKSPACE/sourcecode"
