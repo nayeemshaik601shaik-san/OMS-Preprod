@@ -6,7 +6,7 @@ on:
     workflow_dispatch:
 jobs:
     build:
-      uses: nayeemshaik601shaik-san/OMS-Workflows/.github/workflows/oms-build.yml@main
+      uses: ./.github/workflows/oms-build.yml
       with:
         environment: preprod
         projectdir: ${{ github.workspace }}/sourcecode
