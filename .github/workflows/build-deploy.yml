@@ -64,19 +64,19 @@ jobs:
             importfromproject \
             -Dprojectdir="$GITHUB_WORKSPACE/sourcecode"
 
-      - name: Verify extension.jar
+      - name: Verify extensions.jar
         run: |
-          if [ ! -f /home/nayeem123/oms/devtoolkit_docker/extension.jar ]; then
-            echo "ERROR: extension.jar not found after build"
+          if [ ! -f /home/nayeem123/oms/devtoolkit_docker/extensions.jar ]; then
+            echo "ERROR: extensions.jar not found after build"
             exit 1
           fi
-          echo "Size: $(du -h /home/nayeem123/oms/devtoolkit_docker/extension.jar | cut -f1)"
+          echo "Size: $(du -h /home/nayeem123/oms/devtoolkit_docker/extensions.jar | cut -f1)"
 
-      - name: Upload extension.jar
+      - name: Upload extensions.jar
         uses: actions/upload-artifact@v4
         with:
           name: ${{ steps.meta.outputs.artifact-name }}
-          path: /home/nayeem123/oms/devtoolkit_docker/extension.jar
+          path: /home/nayeem123/oms/devtoolkit_docker/extensions.jar
           if-no-files-found: error
           retention-days: 30
 
@@ -88,7 +88,7 @@ jobs:
 
     steps:
 
-      - name: Download extension.jar
+      - name: Download extensions.jar
         uses: actions/download-artifact@v4
         with:
           name: ${{ needs.build.outputs.artifact-name }}
@@ -99,7 +99,7 @@ jobs:
         run: |
           DATE=$(date +%d_%m_%Y)
           JAR_NAME="extensions_${DATE}_${{ github.run_number }}.jar"
-          cp ./artifacts/extension.jar ~/oms/devtoolkit_docker/${JAR_NAME}
+          cp ./artifacts/extensions.jar ~/oms/devtoolkit_docker/${JAR_NAME}
           echo "jar-name=${JAR_NAME}" >> $GITHUB_OUTPUT
           echo "JAR ready: ${JAR_NAME}"
 
