@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       branch:
-        description: 'Branch to build '
+        description: 'Branch to build (e.g. EOMS-1234-fix)'
         required: true
         type: string
       environment:
@@ -29,6 +29,7 @@ jobs:
       artifact-name: ${{ steps.meta.outputs.artifact-name }}
 
     steps:
+
       - name: Checkout branch
         uses: actions/checkout@v4
         with:
@@ -51,7 +52,6 @@ jobs:
           if [ "$RUNNING" -eq 0 ]; then
             echo "No containers running — starting..."
             sudo ./om-compose.sh start
-            echo "Waiting for containers to be ready..."
             for i in $(seq 1 24); do
               RUNNING=$(sudo docker ps -q | wc -l)
               if [ "$RUNNING" -gt 0 ]; then
@@ -69,6 +69,11 @@ jobs:
             echo "$RUNNING container(s) already running — skipping start"
           fi
           sudo docker ps
+
+      - name: Clean DTK tmp directory
+        run: |
+          sudo rm -rf /home/nayeem123/oms/devtoolkit_docker/runtime/tmp/extensions
+          echo "DTK tmp cleaned"
 
       - name: Run DTK build
         working-directory: /home/nayeem123/oms/devtoolkit_docker/runtime/bin
@@ -100,6 +105,7 @@ jobs:
     environment: ${{ inputs.environment }}
 
     steps:
+
       - name: Download extension.jar
         uses: actions/download-artifact@v4
         with:
@@ -113,7 +119,7 @@ jobs:
           JAR_NAME="extensions_${DATE}_${{ github.run_number }}.jar"
           cp ./artifacts/extension.jar ~/oms/devtoolkit_docker/${JAR_NAME}
           echo "jar-name=${JAR_NAME}" >> $GITHUB_OUTPUT
-          echo "JAR: ~/oms/devtoolkit_docker/${JAR_NAME}"
+          echo "JAR ready: ${JAR_NAME}"
 
       - name: Resolve IBM SST environment name
         id: envmap
@@ -127,21 +133,12 @@ jobs:
       - name: Generate IBM SST config
         env:
           IBM_SST_TOKEN: ${{ secrets.IBM_SST_TOKEN }}
+          SST_ENV: ${{ steps.envmap.outputs.sst-env }}
         run: |
-          python3 -c "
-import json, os
-config = {
-    'host': 'selfservice.oms.supply-chain.ibm.com',
-    'port': '443',
-    'apiUrl': 'selfserve/api/resources/',
-    'token': os.environ['IBM_SST_TOKEN'],
-    'tenantCode': 'crocs',
-    'environmentName': '${{ steps.envmap.outputs.sst-env }}'
-}
-with open('/home/nayeem123/oms/ssctlCLI/myconfig.json', 'w') as f:
-    json.dump(config, f, indent=2)
-print('Config written — environmentName: ${{ steps.envmap.outputs.sst-env }}')
-"
+          printf '{\n  "host": "selfservice.oms.supply-chain.ibm.com",\n  "port": "443",\n  "apiUrl": "selfserve/api/resources/",\n  "token": "%s",\n  "tenantCode": "crocs",\n  "environmentName": "%s"\n}\n' \
+            "$IBM_SST_TOKEN" "$SST_ENV" \
+            > /home/nayeem123/oms/ssctlCLI/myconfig.json
+          echo "Config written for: $SST_ENV"
 
       - name: Upload via IBM SST
         working-directory: /home/nayeem123/oms/ssctlCLI
