@@ -24,7 +24,7 @@ jobs:
 
   build:
     name: Build — ${{ inputs.branch }}
-    runs-on: [self-hosted, linux]
+    runs-on: self-hosted
     outputs:
       artifact-name: ${{ steps.meta.outputs.artifact-name }}
 
@@ -45,38 +45,21 @@ jobs:
           echo "Commit      : $(git rev-parse HEAD)"
           echo "Environment : ${{ inputs.environment }}"
 
-      - name: Build Extension JAR
+      - name: Start Docker if not running
+        working-directory: /home/nayeem123/oms/devtoolkit_docker/compose
         run: |
-          cd /home/nayeem123/oms/devtoolkit_docker/compose
-
-          echo "Stopping containers to release file locks..."
-          sudo ./om-compose.sh stop 2>/dev/null || sudo docker stop $(sudo docker ps -q) 2>/dev/null || true
-
-          echo "Cleaning tmp directory..."
-          sudo rm -rf /home/nayeem123/oms/devtoolkit_docker/runtime/tmp/extensions
-          echo "Cleaned."
-
-          echo "Restarting containers..."
-          sudo ./om-compose.sh start
-
-          echo "Waiting for containers to be ready..."
-          for i in $(seq 1 24); do
-            if [ -n "$(sudo docker ps -q)" ]; then
-              echo "Containers ready after $((i * 5)) seconds"
-              break
-            fi
-            echo "  attempt $i/24 — waiting 5s..."
-            sleep 5
-          done
-
-          if [ -z "$(sudo docker ps -q)" ]; then
-            echo "ERROR: Containers did not start"
-            exit 1
+          if [ -z "$(docker ps -q)" ]; then
+            echo "No containers running — starting OMS..."
+            ./om-compose.sh start
+          else
+            echo "Containers already running — skipping start"
           fi
 
-          echo "Running DTK build..."
-          cd /home/nayeem123/oms/devtoolkit_docker/runtime/bin
-          sudo ./sci_ant.sh \
+      - name: Build Extension JAR
+        working-directory: /home/nayeem123/oms/devtoolkit_docker/runtime/bin
+        run: |
+          echo "Project Dir: $GITHUB_WORKSPACE/sourcecode"
+          ./sci_ant.sh \
             -f /home/nayeem123/oms/devtoolkit_docker/runtime/devtoolkit/devtoolkit_extensions.xml \
             importfromproject \
             -Dprojectdir="$GITHUB_WORKSPACE/sourcecode"
@@ -100,7 +83,7 @@ jobs:
   deploy:
     name: Deploy → ${{ inputs.environment }}
     needs: build
-    runs-on: [self-hosted, linux]
+    runs-on: self-hosted
     environment: ${{ inputs.environment }}
 
     steps:
