@@ -48,41 +48,36 @@ jobs:
       - name: Check and start Docker containers
         working-directory: /home/nayeem123/oms/devtoolkit_docker/compose
         run: |
-          RUNNING=$(sudo docker ps -q | wc -l)
-          if [ "$RUNNING" -eq 0 ]; then
+          if [ -z "$(sudo docker ps -q)" ]; then
             echo "No containers running — starting..."
             sudo ./om-compose.sh start
             for i in $(seq 1 24); do
-              RUNNING=$(sudo docker ps -q | wc -l)
-              if [ "$RUNNING" -gt 0 ]; then
+              if [ -n "$(sudo docker ps -q)" ]; then
                 echo "Containers ready after $((i * 5)) seconds"
                 break
               fi
               echo "  attempt $i/24 — waiting 5s..."
               sleep 5
             done
-            if [ "$RUNNING" -eq 0 ]; then
+            if [ -z "$(sudo docker ps -q)" ]; then
               echo "ERROR: Containers did not start within 120 seconds"
               exit 1
             fi
           else
-            echo "$RUNNING container(s) already running — skipping start"
+            echo "Containers already running — skipping start"
           fi
           sudo docker ps
 
-      - name: Clean DTK tmp directory
-        run: |
-          sudo rm -rf /home/nayeem123/oms/devtoolkit_docker/runtime/tmp/extensions
-          echo "DTK tmp cleaned"
-
-      - name: Run DTK build
+      - name: Build Extension JAR
         working-directory: /home/nayeem123/oms/devtoolkit_docker/runtime/bin
         run: |
+          sudo rm -rf /home/nayeem123/oms/devtoolkit_docker/runtime/tmp/extensions
           sudo ./sci_ant.sh \
-            -f ../devtoolkit/devtoolkit_extensions.xml importfromproject \
-            -Dprojectdir=${{ github.workspace }}/sourcecode
+            -f /home/nayeem123/oms/devtoolkit_docker/runtime/devtoolkit/devtoolkit_extensions.xml \
+            importfromproject \
+            -Dprojectdir="$GITHUB_WORKSPACE/sourcecode"
 
-      - name: Verify extension.jar was generated
+      - name: Verify extension.jar
         run: |
           if [ ! -f /home/nayeem123/oms/devtoolkit_docker/extension.jar ]; then
             echo "ERROR: extension.jar not found after build"
