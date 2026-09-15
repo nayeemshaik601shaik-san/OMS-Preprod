@@ -1,0 +1,12 @@
+name: OMS Preprod Pipeline
+on:
+    push:
+      branches:
+        - main
+    workflow_dispatch:
+jobs:
+    build:
+      uses: ./.github/workflows/oms-build.yml
+      with:
+        environment: preprod
+        projectdir: ${{ github.workspace }}/sourcecode
