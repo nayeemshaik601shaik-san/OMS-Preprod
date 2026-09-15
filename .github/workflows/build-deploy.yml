@@ -1,0 +1,167 @@
+name: Build and Deploy — Sterling OMS Extension
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to build '
+        required: true
+        type: string
+      environment:
+        description: 'Target environment'
+        required: true
+        type: choice
+        options:
+          - QA
+          - Preprod
+          - Prod
+
+concurrency:
+  group: deploy-${{ inputs.environment }}
+  cancel-in-progress: false
+
+jobs:
+
+  build:
+    name: Build — ${{ inputs.branch }}
+    runs-on: [self-hosted, linux]
+    outputs:
+      artifact-name: ${{ steps.meta.outputs.artifact-name }}
+
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.branch }}
+
+      - name: Set build metadata
+        id: meta
+        run: |
+          SHORT_SHA=$(git rev-parse --short HEAD)
+          ARTIFACT_NAME="extension-${{ inputs.environment }}-${SHORT_SHA}-run${{ github.run_number }}"
+          echo "artifact-name=${ARTIFACT_NAME}" >> $GITHUB_OUTPUT
+          echo "Branch      : ${{ inputs.branch }}"
+          echo "Commit      : $(git rev-parse HEAD)"
+          echo "Environment : ${{ inputs.environment }}"
+
+      - name: Check and start Docker containers
+        working-directory: /home/nayeem123/oms/devtoolkit_docker/compose
+        run: |
+          RUNNING=$(sudo docker ps -q | wc -l)
+          if [ "$RUNNING" -eq 0 ]; then
+            echo "No containers running — starting..."
+            sudo ./om-compose.sh start
+            echo "Waiting for containers to be ready..."
+            for i in $(seq 1 24); do
+              RUNNING=$(sudo docker ps -q | wc -l)
+              if [ "$RUNNING" -gt 0 ]; then
+                echo "Containers ready after $((i * 5)) seconds"
+                break
+              fi
+              echo "  attempt $i/24 — waiting 5s..."
+              sleep 5
+            done
+            if [ "$RUNNING" -eq 0 ]; then
+              echo "ERROR: Containers did not start within 120 seconds"
+              exit 1
+            fi
+          else
+            echo "$RUNNING container(s) already running — skipping start"
+          fi
+          sudo docker ps
+
+      - name: Run DTK build
+        working-directory: /home/nayeem123/oms/devtoolkit_docker/runtime/bin
+        run: |
+          sudo ./sci_ant.sh \
+            -f ../devtoolkit/devtoolkit_extensions.xml importfromproject \
+            -Dprojectdir=${{ github.workspace }}/sourcecode
+
+      - name: Verify extension.jar was generated
+        run: |
+          if [ ! -f /home/nayeem123/oms/devtoolkit_docker/extension.jar ]; then
+            echo "ERROR: extension.jar not found after build"
+            exit 1
+          fi
+          echo "Size: $(du -h /home/nayeem123/oms/devtoolkit_docker/extension.jar | cut -f1)"
+
+      - name: Upload extension.jar
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.meta.outputs.artifact-name }}
+          path: /home/nayeem123/oms/devtoolkit_docker/extension.jar
+          if-no-files-found: error
+          retention-days: 30
+
+  deploy:
+    name: Deploy → ${{ inputs.environment }}
+    needs: build
+    runs-on: [self-hosted, linux]
+    environment: ${{ inputs.environment }}
+
+    steps:
+      - name: Download extension.jar
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ needs.build.outputs.artifact-name }}
+          path: ./artifacts
+
+      - name: Rename JAR with date stamp
+        id: jarname
+        run: |
+          DATE=$(date +%d_%m_%Y)
+          JAR_NAME="extensions_${DATE}_${{ github.run_number }}.jar"
+          cp ./artifacts/extension.jar ~/oms/devtoolkit_docker/${JAR_NAME}
+          echo "jar-name=${JAR_NAME}" >> $GITHUB_OUTPUT
+          echo "JAR: ~/oms/devtoolkit_docker/${JAR_NAME}"
+
+      - name: Resolve IBM SST environment name
+        id: envmap
+        run: |
+          case "${{ inputs.environment }}" in
+            QA)      echo "sst-env=qa-1"      >> $GITHUB_OUTPUT ;;
+            Preprod) echo "sst-env=preprod-1" >> $GITHUB_OUTPUT ;;
+            Prod)    echo "sst-env=prod-1"    >> $GITHUB_OUTPUT ;;
+          esac
+
+      - name: Generate IBM SST config
+        env:
+          IBM_SST_TOKEN: ${{ secrets.IBM_SST_TOKEN }}
+        run: |
+          python3 -c "
+import json, os
+config = {
+    'host': 'selfservice.oms.supply-chain.ibm.com',
+    'port': '443',
+    'apiUrl': 'selfserve/api/resources/',
+    'token': os.environ['IBM_SST_TOKEN'],
+    'tenantCode': 'crocs',
+    'environmentName': '${{ steps.envmap.outputs.sst-env }}'
+}
+with open('/home/nayeem123/oms/ssctlCLI/myconfig.json', 'w') as f:
+    json.dump(config, f, indent=2)
+print('Config written — environmentName: ${{ steps.envmap.outputs.sst-env }}')
+"
+
+      - name: Upload via IBM SST
+        working-directory: /home/nayeem123/oms/ssctlCLI
+        run: |
+          ./ssctl customization upload \
+            --file ~/oms/devtoolkit_docker/${{ steps.jarname.outputs.jar-name }} \
+            --config myconfig.json
+
+      - name: Clean up config file
+        if: always()
+        run: rm -f /home/nayeem123/oms/ssctlCLI/myconfig.json
+
+      - name: Job Summary
+        if: always()
+        run: |
+          echo "### Deploy Summary" >> $GITHUB_STEP_SUMMARY
+          echo "| | |" >> $GITHUB_STEP_SUMMARY
+          echo "|---|---|" >> $GITHUB_STEP_SUMMARY
+          echo "| Branch | \`${{ inputs.branch }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| Environment | ${{ inputs.environment }} (${{ steps.envmap.outputs.sst-env }}) |" >> $GITHUB_STEP_SUMMARY
+          echo "| JAR | ${{ steps.jarname.outputs.jar-name }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Run | #${{ github.run_number }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Status | ${{ job.status }} |" >> $GITHUB_STEP_SUMMARY
