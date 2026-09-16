@@ -117,21 +117,28 @@ jobs:
           IBM_SST_TOKEN: ${{ secrets.IBM_SST_TOKEN }}
           SST_ENV: ${{ steps.envmap.outputs.sst-env }}
         run: |
+          if [ -z "$IBM_SST_TOKEN" ]; then
+            echo "ERROR: IBM_SST_TOKEN secret is empty — check repo Settings → Secrets"
+            exit 1
+          fi
           printf '{\n  "host": "selfservice.oms.supply-chain.ibm.com",\n  "port": "443",\n  "apiUrl": "selfserve/api/resources/",\n  "token": "%s",\n  "tenantCode": "crocs",\n  "environmentName": "%s"\n}\n' \
             "$IBM_SST_TOKEN" "$SST_ENV" \
-            > /home/nayeem123/oms/ssctlCLI/myconfig.json
+            > "$GITHUB_WORKSPACE/myconfig.json"
           echo "Config written for: $SST_ENV"
+          echo "Token length: ${#IBM_SST_TOKEN}"
+          echo "--- Config preview (token masked) ---"
+          cat "$GITHUB_WORKSPACE/myconfig.json" | sed 's/"token": ".*"/"token": "***MASKED***"/'
 
       - name: Upload via IBM SST
         working-directory: /home/nayeem123/oms/ssctlCLI
         run: |
           ./ssctl customization upload \
             --file ~/oms/devtoolkit_docker/${{ steps.jarname.outputs.jar-name }} \
-            --config myconfig.json
+            --config "$GITHUB_WORKSPACE/myconfig.json"
 
       - name: Clean up config file
         if: always()
-        run: rm -f /home/nayeem123/oms/ssctlCLI/myconfig.json
+        run: rm -f "$GITHUB_WORKSPACE/myconfig.json"
 
       - name: Job Summary
         if: always()
