@@ -46,7 +46,7 @@ jobs:
             --name om-db2server \
             -p 50000:50000 \
             -e DUMMY_PATH_PROP=1 \
-            -e LICENSE="" \
+            -e LICENSE="accept" \
             -e DB2INST1_PASSWORD=diet4coke \
             -e DB_DATA=OMDB \
             -e DB_BACKUP_RESTORE=false \
