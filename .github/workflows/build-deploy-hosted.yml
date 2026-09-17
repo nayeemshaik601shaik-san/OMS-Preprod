@@ -36,7 +36,7 @@ jobs:
 
       - name: Login to GitHub Container Registry
         run: |
-          echo "${{ secrets.GITHUB_TOKEN }}" | \
+          echo "${{ secrets.GHCR_TOKEN }}" | \
             docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Set DB2 init script permissions
