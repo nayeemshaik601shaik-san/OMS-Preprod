@@ -1,0 +1,8 @@
+{
+  "host": "selfservice.oms.supply-chain.ibm.com",
+  "port": "443",
+  "apiUrl": "selfserve/api/resources/",
+  "token": "",
+  "tenantCode": "crocs",
+  "environmentName": "qa-1"
+}
