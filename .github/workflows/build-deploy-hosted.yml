@@ -141,6 +141,8 @@ jobs:
     environment: ${{ inputs.environment }}
 
     steps:
+      - uses: actions/checkout@v4
+
       - name: Download extensions.jar
         uses: actions/download-artifact@v4
         with:
@@ -174,7 +176,8 @@ jobs:
 
       - name: Upload via IBM SST
         run: |
-          ./ssctl customization upload \
+          chmod +x "$GITHUB_WORKSPACE/.github/ssctlCLI/ssctl"
+          "$GITHUB_WORKSPACE/.github/ssctlCLI/ssctl" customization upload \
             --file ./${{ steps.jarname.outputs.jar-name }} \
             --config "$GITHUB_WORKSPACE/myconfig.json"
 
