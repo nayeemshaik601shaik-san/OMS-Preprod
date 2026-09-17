@@ -110,6 +110,7 @@ jobs:
           docker run --name dtk-build \
             --network host \
             -e LICENSE=accept \
+            --user root \
             --entrypoint bash \
             -v "$GITHUB_WORKSPACE/sourcecode:/workspace/sourcecode" \
             ghcr.io/nayeemshaik601shaik-san/om-dtk-builder:26.3.7.2 \
