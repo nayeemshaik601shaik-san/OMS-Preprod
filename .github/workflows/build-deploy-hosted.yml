@@ -112,11 +112,7 @@ jobs:
             -e LICENSE=accept \
             -v "$GITHUB_WORKSPACE/sourcecode:/workspace/sourcecode" \
             ghcr.io/nayeemshaik601shaik-san/om-dtk-builder:26.3.7.2 \
-            bash -c "rm -rf /home/nayeem123/oms/devtoolkit_docker/runtime/tmp && \
-              /home/nayeem123/oms/devtoolkit_docker/runtime/bin/sci_ant.sh \
-                -f /home/nayeem123/oms/devtoolkit_docker/runtime/devtoolkit/devtoolkit_extensions.xml \
-                importfromproject \
-                -Dprojectdir=/workspace/sourcecode"
+            bash -c 'rm -rf /home/nayeem123/oms/devtoolkit_docker/runtime/tmp && /home/nayeem123/oms/devtoolkit_docker/runtime/bin/sci_ant.sh -f /home/nayeem123/oms/devtoolkit_docker/runtime/devtoolkit/devtoolkit_extensions.xml importfromproject -Dprojectdir=/workspace/sourcecode'
 
       - name: Extract extensions.jar
         if: always()
