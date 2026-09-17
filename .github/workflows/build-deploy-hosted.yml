@@ -67,6 +67,11 @@ jobs:
             icr.io/cpopen/ibm-oms/db2:12.1.3.0 \
             /bin/bash /tmp/oms/init_db2_instance.sh
 
+      - name: Check DB2 container started
+        run: |
+          sleep 5
+          docker ps | grep om-db2server || (docker logs om-db2server && exit 1)
+
       - name: Wait for DB2 to be ready
         run: |
           echo "Waiting for DB2 to be ready..."
@@ -77,6 +82,11 @@ jobs:
             fi
             echo "Attempt $i/60 — waiting 10s..."
             sleep 10
+            if [ $((i % 3)) -eq 0 ]; then
+              echo "--- DB2 logs ---"
+              docker logs --tail 20 om-db2server 2>&1 || true
+              echo "----------------"
+            fi
             if [ $i -eq 60 ]; then
               echo "ERROR: DB2 did not become ready in 10 minutes"
               docker logs om-db2server
