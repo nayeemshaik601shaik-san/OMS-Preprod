@@ -39,6 +39,11 @@ jobs:
           echo "${{ secrets.GITHUB_TOKEN }}" | \
             docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
+      - name: Set DB2 init script permissions
+        run: |
+          chmod +x "$GITHUB_WORKSPACE/.github/db2-init/init_db2_instance.sh"
+          chmod +x "$GITHUB_WORKSPACE/.github/db2-init/create_database.sh"
+
       - name: Start DB2
         run: |
           mkdir -p /tmp/db2-shared
@@ -46,7 +51,7 @@ jobs:
             --name om-db2server \
             -p 50000:50000 \
             -e DUMMY_PATH_PROP=1 \
-            -e LICENSE="accept" \
+            -e LICENSE=accept \
             -e DB2INST1_PASSWORD=diet4coke \
             -e DB_DATA=OMDB \
             -e DB_BACKUP_RESTORE=false \
