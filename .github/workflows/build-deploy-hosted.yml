@@ -109,6 +109,7 @@ jobs:
         run: |
           docker run --name dtk-build \
             --network host \
+            -e LICENSE=accept \
             -v "$GITHUB_WORKSPACE/sourcecode:/workspace/sourcecode" \
             ghcr.io/nayeemshaik601shaik-san/om-dtk-builder:26.3.7.2 \
             /home/nayeem123/oms/devtoolkit_docker/runtime/bin/sci_ant.sh \
