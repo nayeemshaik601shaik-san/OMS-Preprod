@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<DataTypes>
-	<DataType Name="ExtnBrand" Size="12" Type="VARCHAR2">
-      	<UIType Size="20" UITableSize="15" DisplayInUI="true" DisplayGroup="Crocs Information" />
-	</DataType>	
-</DataTypes>

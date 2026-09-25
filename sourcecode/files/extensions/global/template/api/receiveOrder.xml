@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Receipt DocumentType="" EnterpriseCode="" NumOfCartons="" NumOfPallets="" ReceiptDate="" ReceiptHeaderKey="" ReceiptNo="">
-	<Shipment EnterpriseCode="" OrderHeaderKey="" OrderNo=""/>
-	<ReceiptLines>
-		<ReceiptLine ItemID="" OrderHeaderKey="" OrderLineKey="" OrderNo="" PrimeLineNo="" Quantity="" ReceiptHeaderKey="" ReceiptLineKey="" ReceiptLineNo="" SubLineNo="" UnitOfMeasure=""/>
-	</ReceiptLines>
-</Receipt>

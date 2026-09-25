@@ -1,6 +1,0 @@
-PaymentReference1 = Storing other Payment Methods Name
-PaymentReference2 = Merchant Account
-PaymentReference3 = Givex Pin Encoded Value
-PaymentReference4 = This field contains value as ADYEN or BRAINTREE_PAYPAL or ADYEN_GIFTCARD etc.
-PaymentReference5 = This field contains the original PSPReference or the authorization PSPReference.
-PaymentReference6 = This field contains the transaction id for captured brain tree paypal.
